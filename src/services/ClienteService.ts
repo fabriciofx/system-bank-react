@@ -1,5 +1,5 @@
 import api from './api';
-import type { Cliente } from '../models/cliente';
+import type { Cliente } from '../models/Cliente';
 
 // Função para buscar todos os clientes
 export const getClientes = async (): Promise<Cliente[]> => {

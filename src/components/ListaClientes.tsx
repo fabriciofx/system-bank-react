@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { getClientes, deleteCliente } from '../services/ClienteService';
-import type { Cliente } from '../models/cliente';
+import type { Cliente } from '../models/Cliente';
 
 type Props = {
   onEdit: (cliente: Cliente) => void;

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import ListaClientes from '../components/ListaClientes';
 import FormCliente from '../components/FormCliente';
-import type { Cliente } from '../models/cliente';
+import type { Cliente } from '../models/Cliente';
 
 const Clientes = () => {
   const [clienteEdit, setClienteEdit] = useState<Cliente>();
