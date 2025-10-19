@@ -1,11 +1,19 @@
 import { useState, useEffect } from 'react';
 import { createCliente, updateCliente } from '../services/ClienteService';
+import type { Cliente } from '../models/Cliente';
 
-const FormCliente = ({ clienteAtual, onSave }) => {
-  const [cliente, setCliente] = useState({
+type FormClienteProps = {
+  clienteAtual?: Cliente;
+  onSave: () => void;
+};
+
+const FormCliente: React.FC<FormClienteProps> = ({ clienteAtual, onSave }) => {
+  const [cliente, setCliente] = useState<Cliente>({
+    id: 0,
     nome: '',
     cpf: '',
     email: '',
+    senha: '',
     observacoes: '',
     ativo: true
   });
@@ -16,13 +24,17 @@ const FormCliente = ({ clienteAtual, onSave }) => {
     }
   }, [clienteAtual]);
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
+  function handleChange(
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ): void {
+    const { name, value } = event.target;
     setCliente({ ...cliente, [name]: value });
-  };
+  }
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  async function handleSubmit(
+    event: React.FormEvent<HTMLFormElement>
+  ): Promise<void> {
+    event.preventDefault();
     try {
       if (cliente.id) {
         await updateCliente(cliente.id, cliente);
@@ -33,7 +45,7 @@ const FormCliente = ({ clienteAtual, onSave }) => {
     } catch (error) {
       console.error('Erro ao salvar cliente:', error);
     }
-  };
+  }
 
   return (
     <form onSubmit={handleSubmit}>

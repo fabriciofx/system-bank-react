@@ -3,16 +3,16 @@ import ListaClientes from '../components/ListaClientes';
 import FormCliente from '../components/FormCliente';
 import type { Cliente } from '../models/Cliente';
 
-const Clientes = () => {
+function Clientes() {
   const [clienteEdit, setClienteEdit] = useState<Cliente>();
 
-  const handleEdit = (cliente: Cliente) => {
+  function handleEdit(cliente: Cliente): void {
     setClienteEdit(cliente);
-  };
+  }
 
-  const handleSave = () => {
-    setClienteEdit();
-  };
+  function handleSave(): void {
+    setClienteEdit(clienteEdit);
+  }
 
   return (
     <div>
@@ -20,6 +20,6 @@ const Clientes = () => {
       <FormCliente clienteAtual={clienteEdit} onSave={handleSave} />
     </div>
   );
-};
+}
 
 export default Clientes;
