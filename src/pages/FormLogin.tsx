@@ -28,7 +28,10 @@ export default function FormLogin() {
     event: React.FormEvent<HTMLFormElement>
   ): Promise<void> {
     event.preventDefault();
-    await login(credentials, navigate);
+    const response = await login(credentials);
+    if (response) {
+      navigate('/clientes');
+    }
   }
 
   return (
