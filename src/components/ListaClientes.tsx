@@ -1,6 +1,18 @@
 import { useEffect, useState, type JSX } from 'react';
 import { getClientes, deleteCliente } from '../services/ClienteService';
 import type { Cliente } from '../models/Cliente';
+import {
+  IconButton,
+  Paper,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow
+} from '@mui/material';
+import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
 
 type ListaClientesProps = {
   onEdit: (cliente: Cliente) => void;
@@ -32,32 +44,44 @@ function ListaClientes({ onEdit }: ListaClientesProps): JSX.Element {
 
   return (
     <div>
-      <h2>Clientes</h2>
-      <table>
-        <thead>
-          <tr>
-            <th>Nome</th>
-            <th>CPF</th>
-            <th>Email</th>
-            <th>Ações</th>
-          </tr>
-        </thead>
-        <tbody>
-          {clientes.map((cliente: Cliente) => (
-            <tr key={cliente.id}>
-              <td>{cliente.nome}</td>
-              <td>{cliente.cpf}</td>
-              <td>{cliente.email}</td>
-              <td>
-                <button onClick={() => onEdit(cliente)}>Editar</button>
-                <button onClick={() => handleDelete(cliente.id)}>
-                  Excluir
-                </button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+      <h1>Listagem de clientes</h1>
+      <TableContainer component={Paper}>
+        <Table>
+          <TableHead>
+            <TableRow>
+              <TableCell>Nome</TableCell>
+              <TableCell>CPF</TableCell>
+              <TableCell>Email</TableCell>
+              <TableCell>Ativo</TableCell>
+              <TableCell>Ações</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {clientes.map((cliente: Cliente) => (
+              <TableRow key={cliente.id}>
+                <TableCell>{cliente.nome}</TableCell>
+                <TableCell>{cliente.cpf}</TableCell>
+                <TableCell>{cliente.email}</TableCell>
+                <TableCell>{cliente.ativo ? 'Sim' : 'Não'}</TableCell>
+                <TableCell>
+                  <IconButton
+                    onClick={() => onEdit(cliente)}
+                    aria-label="Editar"
+                  >
+                    <EditIcon />
+                  </IconButton>
+                  <IconButton
+                    onClick={() => handleDelete(cliente.id)}
+                    aria-label="Excluir"
+                  >
+                    <DeleteIcon />
+                  </IconButton>
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
     </div>
   );
 }

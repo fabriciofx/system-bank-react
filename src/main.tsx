@@ -10,6 +10,27 @@ const theme = createTheme({
     primary: {
       main: '#1976d2'
     }
+  },
+  components: {
+    MuiTableCell: {
+      styleOverrides: {
+        head: {
+          fontWeight: 'bold'
+        }
+      }
+    },
+    MuiTableRow: {
+      styleOverrides: {
+        root: {
+          '&:nth-of-type(odd)': {
+            backgroundColor: '#f9f9f9'
+          },
+          '&:hover': {
+            backgroundColor: '#e3f2fd'
+          }
+        }
+      }
+    }
   }
 });
 
