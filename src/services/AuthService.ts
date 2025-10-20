@@ -2,6 +2,9 @@ import { type NavigateFunction } from 'react-router-dom';
 import api from './api';
 import type { Credentials } from '../models/Credentials';
 import type { AuthTokens } from '../models/Auth';
+import { MemoryStorage } from '../core/storage';
+
+export const STORAGE = new MemoryStorage();
 
 export async function login(
   credentials: Credentials,
@@ -10,8 +13,8 @@ export async function login(
   try {
     const response = await api.post<AuthTokens>('/token/', credentials);
     if (response.data.access) {
-      localStorage.setItem('access_token', response.data.access);
-      localStorage.setItem('refresh_token', response.data.refresh);
+      STORAGE.store('access_token', response.data.access);
+      STORAGE.store('refresh_token', response.data.refresh);
       await navigate('/cliente');
     }
   } catch (error) {
@@ -21,7 +24,7 @@ export async function login(
 }
 
 export async function logout(navigate: NavigateFunction): Promise<void> {
-  localStorage.removeItem('access_token');
-  localStorage.removeItem('refresh_token');
+  STORAGE.remove('access_token');
+  STORAGE.remove('refresh_token');
   await navigate('/auth');
 }
