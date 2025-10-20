@@ -1,4 +1,3 @@
-import { type NavigateFunction } from 'react-router-dom';
 import api from './api';
 import type { Credentials } from '../models/Credentials';
 import type { AuthTokens } from '../models/Auth';
