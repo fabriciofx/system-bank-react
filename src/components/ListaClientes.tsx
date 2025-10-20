@@ -1,35 +1,34 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, type JSX } from 'react';
 import { getClientes, deleteCliente } from '../services/ClienteService';
 import type { Cliente } from '../models/Cliente';
 
-type Props = {
+type ListaClientesProps = {
   onEdit: (cliente: Cliente) => void;
 };
 
-const ListaClientes = ({ onEdit }: Props) => {
+function ListaClientes({ onEdit }: ListaClientesProps): JSX.Element {
   const [clientes, setClientes] = useState<Cliente[]>([]);
 
   useEffect(() => {
-    const fetchClientes = async () => {
+    async function fetchClientes() {
       try {
         const data = await getClientes();
         setClientes(data);
       } catch (error) {
-        console.error('Erro ao carregar clientes:', error);
+        console.error('Erro ao carregar clientes: ', error);
       }
-    };
-
+    }
     fetchClientes();
   }, []);
 
-  const handleDelete = async (id: number) => {
+  async function handleDelete(id: number) {
     try {
       await deleteCliente(id);
       setClientes(clientes.filter((cliente: Cliente) => cliente.id !== id));
     } catch (error) {
       console.error('Erro ao deletar cliente:', error);
     }
-  };
+  }
 
   return (
     <div>
@@ -61,6 +60,6 @@ const ListaClientes = ({ onEdit }: Props) => {
       </table>
     </div>
   );
-};
+}
 
 export default ListaClientes;
