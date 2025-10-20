@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, { type AxiosRequestConfig } from 'axios';
 
 const api = axios.create({
   baseURL: 'https://aula-angular.bcorp.tec.br/api',
@@ -7,17 +7,20 @@ const api = axios.create({
   }
 });
 
-api.interceptors.request.use(
-  (config) => {
-    if (!config.url?.endsWith('/token/')) {
+api.interceptors.response.use(
+  (response) => response,
+  async (error) => {
+    const request = error.config as AxiosRequestConfig & { _retry?: boolean };
+    if (error.response?.status === 401 && !request._retry) {
+      request._retry = true;
       const accessToken = localStorage.getItem('access_token');
-      if (accessToken && config.headers) {
-        config.headers.Authorization = `Bearer ${accessToken}`;
+      if (accessToken && request.headers) {
+        request.headers['Authorization'] = `Bearer ${accessToken}`;
+        return api(request);
       }
     }
-    return config;
-  },
-  (error) => Promise.reject(error)
+    return Promise.reject(error);
+  }
 );
 
 export default api;
