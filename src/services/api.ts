@@ -29,7 +29,7 @@ api.interceptors.response.use(
         config.headers!.Authorization = `Bearer ${refreshResponse.data.access}`;
         return api(config);
       } catch (refreshError) {
-        console.error('Error in refresh access token: ', refreshError);
+        console.error('Error to refresh access token: ', refreshError);
       }
     }
     return Promise.reject(error);
