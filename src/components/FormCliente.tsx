@@ -8,6 +8,7 @@ import {
   Switch,
   TextField
 } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 
 const FormBox = styled('form')(({ theme }) => ({
   display: 'flex',
@@ -23,6 +24,7 @@ type FormClienteProps = {
 };
 
 const FormCliente: React.FC<FormClienteProps> = ({ clienteAtual, onSave }) => {
+  const navigate = useNavigate();
   const [cliente, setCliente] = useState<Cliente>({
     id: 0,
     nome: '',
@@ -57,6 +59,7 @@ const FormCliente: React.FC<FormClienteProps> = ({ clienteAtual, onSave }) => {
         await createCliente(cliente);
       }
       onSave();
+      await navigate('/clientes');
     } catch (error) {
       console.error('Erro ao salvar cliente:', error);
     }
