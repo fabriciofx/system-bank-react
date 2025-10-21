@@ -1,4 +1,4 @@
-import { DefaultPlatform, type Platform } from './platform';
+import { DefaultPlatform, type Platform } from './Platform';
 
 export interface Storage {
   store(key: string, value: string): void;
