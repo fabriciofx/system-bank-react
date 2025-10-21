@@ -3,7 +3,7 @@ import ListaClientes from '../components/ListaClientes';
 import type { Cliente } from '../models/Cliente';
 
 function Clientes() {
-  const [clienteEdit, setClienteEdit] = useState<Cliente>();
+  const setClienteEdit = useState<Cliente>()[1];
 
   function handleEdit(cliente: Cliente): void {
     setClienteEdit(cliente);

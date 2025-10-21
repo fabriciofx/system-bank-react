@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import ListaClientes from '../components/ListaClientes';
 import FormCliente from '../components/FormCliente';
 import type { Cliente } from '../models/Cliente';
 
