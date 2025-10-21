@@ -1,9 +1,9 @@
 import api from './api';
 import type { Credentials } from '../models/Credentials';
 import type { AuthTokens } from '../models/Auth';
-import { MemoryStorage } from '../core/storage';
+import { BrowserStorage } from '../core/Storage';
 
-export const STORAGE = new MemoryStorage();
+export const STORAGE = new BrowserStorage();
 
 export async function login(credentials: Credentials): Promise<boolean> {
   try {

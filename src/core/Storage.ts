@@ -1,4 +1,4 @@
-import type { Platform } from './platform';
+import { DefaultPlatform, type Platform } from './platform';
 
 export interface Storage {
   store(key: string, value: string): void;
@@ -9,7 +9,7 @@ export interface Storage {
 export class BrowserStorage implements Storage {
   private readonly platform: Platform;
 
-  constructor(platform: Platform) {
+  constructor(platform: Platform = new DefaultPlatform()) {
     this.platform = platform;
   }
 
