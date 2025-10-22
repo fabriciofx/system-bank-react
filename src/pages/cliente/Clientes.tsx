@@ -13,23 +13,19 @@ function Clientes() {
   }
 
   return (
-    <>
+    <div>
       <Navbar />
       <h1>Listagem de clientes</h1>
-      <div>
-        <Button
-          variant="contained"
-          color="primary"
-          component={Link}
-          to="/clientes/novo"
-        >
-          Novo cliente
-        </Button>
-      </div>
-      <div>
-        <ListaClientes onEdit={handleEdit} />
-      </div>
-    </>
+      <Button
+        variant="contained"
+        color="primary"
+        component={Link}
+        to="/clientes/novo"
+      >
+        Novo cliente
+      </Button>
+      <ListaClientes onEdit={handleEdit} />
+    </div>
   );
 }
 
