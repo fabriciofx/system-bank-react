@@ -2,7 +2,6 @@ import { useEffect, useState, type JSX } from 'react';
 import { deleteCliente, pagesClientes } from '../../services/ClienteService';
 import type { Cliente } from '../../models/Cliente';
 import {
-  Button,
   IconButton,
   Paper,
   Table,
@@ -15,7 +14,6 @@ import {
 } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
-import { Link } from 'react-router-dom';
 import type { PageResult } from '../../core/PageResult';
 
 type ListaClientesProps = {
@@ -70,15 +68,6 @@ function ListaClientes({ onEdit }: ListaClientesProps): JSX.Element {
 
   return (
     <div>
-      <h1>Listagem de clientes</h1>
-      <Button
-        variant="contained"
-        color="primary"
-        component={Link}
-        to="/clientes/novo"
-      >
-        Novo cliente
-      </Button>
       <TableContainer component={Paper}>
         <Table>
           <TableHead>
