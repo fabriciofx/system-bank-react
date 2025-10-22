@@ -12,6 +12,11 @@ const theme = createTheme({
     }
   },
   components: {
+    MuiTable: {
+      defaultProps: {
+        size: 'small'
+      }
+    },
     MuiTableCell: {
       styleOverrides: {
         head: {
