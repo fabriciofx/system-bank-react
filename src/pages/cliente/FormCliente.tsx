@@ -1,23 +1,10 @@
 import { useState, useEffect } from 'react';
 import { createCliente, updateCliente } from '../../services/ClienteService';
 import type { Cliente } from '../../models/Cliente';
-import {
-  Button,
-  FormControlLabel,
-  styled,
-  Switch,
-  TextField
-} from '@mui/material';
+import { Button, FormControlLabel, Switch, TextField } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { ErrorMessage, SuccessMessage } from '../../components/message/Message';
-
-const FormBox = styled('form')(({ theme }) => ({
-  display: 'flex',
-  flexDirection: 'column',
-  gap: theme.spacing(2),
-  width: 400,
-  padding: theme.spacing(2)
-}));
+import './FormCliente.css';
 
 type FormClienteProps = {
   clienteAtual?: Cliente;
@@ -78,56 +65,58 @@ const FormCliente: React.FC<FormClienteProps> = ({ clienteAtual, onSave }) => {
   }
 
   return (
-    <FormBox onSubmit={handleSubmit}>
-      <TextField
-        label="Nome"
-        name="nome"
-        required
-        value={cliente.nome}
-        onChange={handleChange}
-        variant="filled"
-      />
-      <TextField
-        label="CPF"
-        name="cpf"
-        required
-        value={cliente.cpf}
-        onChange={handleChange}
-        variant="filled"
-      />
-      <TextField
-        label="E-mail"
-        type="email"
-        name="email"
-        required
-        value={cliente.email}
-        onChange={handleChange}
-        variant="filled"
-      />
-      <TextField
-        label="Observações"
-        name="observacoes"
-        multiline
-        minRows={3}
-        maxRows={6}
-        required
-        value={cliente.observacoes}
-        onChange={handleChange}
-        variant="filled"
-      />
-      <FormControlLabel
-        control={
-          <Switch
-            name="ativo"
-            checked={cliente.ativo}
-            required
-            onChange={() => setCliente({ ...cliente, ativo: !cliente.ativo })}
-          />
-        }
-        label={cliente.ativo ? 'Ativo' : 'Inativo'}
-      />
-      <Button type="submit">Salvar</Button>
-    </FormBox>
+    <div className="container">
+      <form onSubmit={handleSubmit}>
+        <TextField
+          label="Nome"
+          name="nome"
+          required
+          value={cliente.nome}
+          onChange={handleChange}
+          variant="filled"
+        />
+        <TextField
+          label="CPF"
+          name="cpf"
+          required
+          value={cliente.cpf}
+          onChange={handleChange}
+          variant="filled"
+        />
+        <TextField
+          label="E-mail"
+          type="email"
+          name="email"
+          required
+          value={cliente.email}
+          onChange={handleChange}
+          variant="filled"
+        />
+        <TextField
+          label="Observações"
+          name="observacoes"
+          multiline
+          minRows={3}
+          maxRows={6}
+          required
+          value={cliente.observacoes}
+          onChange={handleChange}
+          variant="filled"
+        />
+        <FormControlLabel
+          control={
+            <Switch
+              name="ativo"
+              checked={cliente.ativo}
+              required
+              onChange={() => setCliente({ ...cliente, ativo: !cliente.ativo })}
+            />
+          }
+          label={cliente.ativo ? 'Ativo' : 'Inativo'}
+        />
+        <Button type="submit">Salvar</Button>
+      </form>
+    </div>
   );
 };
 
