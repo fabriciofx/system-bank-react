@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import ListaClientes from '../components/ListaClientes';
-import type { Cliente } from '../models/Cliente';
+import ListaClientes from './ListaClientes';
+import type { Cliente } from '../../models/Cliente';
 
 function Clientes() {
   const setClienteEdit = useState<Cliente>()[1];

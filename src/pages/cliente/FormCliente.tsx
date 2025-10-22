@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
-import { createCliente, updateCliente } from '../services/ClienteService';
-import type { Cliente } from '../models/Cliente';
+import { createCliente, updateCliente } from '../../services/ClienteService';
+import type { Cliente } from '../../models/Cliente';
 import {
   Button,
   FormControlLabel,
@@ -9,7 +9,7 @@ import {
   TextField
 } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import { ErrorMessage, SuccessMessage } from './Message';
+import { ErrorMessage, SuccessMessage } from '../../components/message/Message';
 
 const FormBox = styled('form')(({ theme }) => ({
   display: 'flex',
