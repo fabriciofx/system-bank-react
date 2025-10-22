@@ -3,13 +3,12 @@ import { useNavigate } from 'react-router-dom';
 import { Button, styled, TextField } from '@mui/material';
 import type { Credentials } from '../models/Credentials';
 import { login } from '../services/AuthService';
+import './FormLogin.css';
 
 const FormBox = styled('form')(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
-  gap: theme.spacing(2),
-  width: 400,
-  padding: theme.spacing(2)
+  gap: theme.spacing(2)
 }));
 
 export default function FormLogin() {
@@ -35,27 +34,49 @@ export default function FormLogin() {
   }
 
   return (
-    <FormBox onSubmit={handleSubmit}>
-      <TextField
-        label="E-mail ou Nome de Usuário"
-        id="username"
-        name="username"
-        variant="filled"
-        value={credentials.username}
-        onChange={handleChange}
-        required
-      />
-      <TextField
-        type="password"
-        label="password"
-        id="password"
-        name="password"
-        variant="filled"
-        value={credentials.password}
-        onChange={handleChange}
-        required
-      />
-      <Button type="submit">Enviar</Button>
-    </FormBox>
+    <div>
+      <div style={{ marginBottom: '52px' }}>
+        <h1>Login</h1>
+        <p className="subtitle">
+          Faça login na área administrativa do sistema. Solicite um acesso à
+          equipe técnica.
+        </p>
+      </div>
+      <div>
+        <FormBox onSubmit={handleSubmit}>
+          <div className="form-login" style={{ marginBottom: '40px' }}>
+            <label htmlFor="username">E-mail ou Nome de Usuário</label>
+            <TextField
+              id="username"
+              name="username"
+              value={credentials.username}
+              onChange={handleChange}
+              variant="outlined"
+              required
+            />
+          </div>
+          <div className="form-login">
+            <label htmlFor="password">Senha</label>
+            <TextField
+              type="password"
+              id="password"
+              name="password"
+              value={credentials.password}
+              onChange={handleChange}
+              variant="outlined"
+              required
+            />
+          </div>
+          <p className="reset_password">Esqueci minha senha</p>
+          <Button
+            type="submit"
+            variant="contained"
+            sx={{ alignSelf: 'flex-start' }}
+          >
+            Entrar
+          </Button>
+        </FormBox>
+      </div>
+    </div>
   );
 }
