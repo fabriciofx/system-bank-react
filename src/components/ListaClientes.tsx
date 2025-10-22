@@ -49,6 +49,7 @@ function ListaClientes({ onEdit }: ListaClientesProps): JSX.Element {
         <Table>
           <TableHead>
             <TableRow>
+              <TableCell>No.</TableCell>
               <TableCell>Nome</TableCell>
               <TableCell>CPF</TableCell>
               <TableCell>Email</TableCell>
@@ -59,6 +60,7 @@ function ListaClientes({ onEdit }: ListaClientesProps): JSX.Element {
           <TableBody>
             {clientes.map((cliente: Cliente) => (
               <TableRow key={cliente.id}>
+                <TableCell>{cliente.id}</TableCell>
                 <TableCell>{cliente.nome}</TableCell>
                 <TableCell>{cliente.cpf}</TableCell>
                 <TableCell>{cliente.email}</TableCell>
