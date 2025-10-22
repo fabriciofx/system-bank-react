@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import FormCliente from './FormCliente';
-import type { Cliente } from '../../models/Cliente';
+import FormCliente from '../components/FormCliente';
+import type { Cliente } from '../models/Cliente';
 
 function NovoCliente() {
   const [clienteEdit, setClienteEdit] = useState<Cliente>();
