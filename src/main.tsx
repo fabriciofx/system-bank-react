@@ -42,6 +42,11 @@ const theme = createTheme({
           }
         }
       }
+    },
+    MuiTextField: {
+      defaultProps: {
+        variant: 'filled'
+      }
     }
   }
 });
