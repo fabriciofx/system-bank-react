@@ -1,0 +1,38 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+}
+
+.form {
+    background-color: #F0F2F5;
+    width: 50%;
+    height: 100%;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-left: 160px;
+    margin-right: 160px;
+    margin-top: 80px;
+    img {
+        width: 5vw;
+        height: auto;
+    }
+}
+
+.login-form {
+    margin-left: 160px;
+    margin-right: 160px;
+    margin-top: 120px;
+}
+
+.title {
+    font-size: 5vw;
+    font-weight: bold;
+}
