@@ -1,5 +1,5 @@
 import { useEffect, useState, type JSX } from 'react';
-import { getClientes, deleteCliente } from '../../services/ClienteService';
+import { deleteCliente, pagesClientes } from '../../services/ClienteService';
 import type { Cliente } from '../../models/Cliente';
 import {
   Button,
@@ -10,38 +10,62 @@ import {
   TableCell,
   TableContainer,
   TableHead,
-  TableRow
+  TableRow,
+  TablePagination
 } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import { Link } from 'react-router-dom';
+import type { PageResult } from '../../core/PageResult';
 
 type ListaClientesProps = {
   onEdit: (cliente: Cliente) => void;
 };
 
 function ListaClientes({ onEdit }: ListaClientesProps): JSX.Element {
-  const [clientes, setClientes] = useState<Cliente[]>([]);
+  const [page, setPage] = useState(1);
+  const [rowsPerPage, setRowsPerPage] = useState(5);
+  const [pageResult, setPageResult] = useState<PageResult<Cliente>>({
+    items: [],
+    page: 1,
+    pageSize: 5,
+    total: 5
+  });
 
   useEffect(() => {
     async function fetchClientes() {
       try {
-        const data = await getClientes();
-        setClientes(data);
+        const result = await pagesClientes(page, rowsPerPage);
+        setPageResult(result);
       } catch (error) {
         console.error('Erro ao carregar clientes: ', error);
       }
     }
     fetchClientes();
-  }, []);
+  }, [page, rowsPerPage]);
 
   async function handleDelete(id: number) {
     try {
       await deleteCliente(id);
-      setClientes(clientes.filter((cliente: Cliente) => cliente.id !== id));
+      const result: PageResult<Cliente> = {
+        items: pageResult.items.filter((cliente: Cliente) => cliente.id !== id),
+        page: pageResult.page,
+        pageSize: pageResult.pageSize,
+        total: pageResult.total - 1
+      };
+      setPageResult(result);
     } catch (error) {
       console.error('Erro ao deletar cliente:', error);
     }
+  }
+
+  function handleChangePage(_event: unknown, newPage: number) {
+    setPage(newPage);
+  }
+
+  function handleChangeRowsPerPage(event: React.ChangeEvent<HTMLInputElement>) {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
   }
 
   return (
@@ -68,7 +92,7 @@ function ListaClientes({ onEdit }: ListaClientesProps): JSX.Element {
             </TableRow>
           </TableHead>
           <TableBody>
-            {clientes.map((cliente: Cliente) => (
+            {pageResult.items.map((cliente: Cliente) => (
               <TableRow key={cliente.id}>
                 <TableCell>{cliente.id}</TableCell>
                 <TableCell>{cliente.nome}</TableCell>
@@ -93,6 +117,15 @@ function ListaClientes({ onEdit }: ListaClientesProps): JSX.Element {
             ))}
           </TableBody>
         </Table>
+        <TablePagination
+          component="div"
+          count={pageResult.total}
+          page={page}
+          onPageChange={handleChangePage}
+          rowsPerPage={rowsPerPage}
+          onRowsPerPageChange={handleChangeRowsPerPage}
+          rowsPerPageOptions={[5, 10, 25]}
+        />
       </TableContainer>
     </div>
   );

@@ -1,8 +1,9 @@
 import api from './api';
+import type { PageResult } from '../core/PageResult';
 import type { Cliente } from '../models/Cliente';
 
 // Função para buscar todos os clientes
-export async function getClientes(): Promise<Cliente[]> {
+export async function listClientes(): Promise<Cliente[]> {
   try {
     const response = await api.get<Cliente[]>('/clientes/');
     return response.data;
@@ -10,6 +11,23 @@ export async function getClientes(): Promise<Cliente[]> {
     console.error('Erro ao buscar clientes:', error);
     throw error;
   }
+}
+
+// Função para buscar clientes paginado
+export async function pagesClientes(
+  num: number,
+  size: number
+): Promise<PageResult<Cliente>> {
+  const url = `/clientes/?page=${num}&pageSize=${size}`;
+  const clientes = await api.get<Cliente[]>(url);
+  const all = await listClientes();
+  const result: PageResult<Cliente> = {
+    items: clientes.data,
+    page: num,
+    pageSize: size,
+    total: all.length
+  };
+  return result;
 }
 
 // Função para criar um cliente
