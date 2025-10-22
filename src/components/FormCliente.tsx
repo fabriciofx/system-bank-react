@@ -9,6 +9,7 @@ import {
   TextField
 } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+import { ErrorMessage, SuccessMessage } from './Message';
 
 const FormBox = styled('form')(({ theme }) => ({
   display: 'flex',
@@ -55,13 +56,24 @@ const FormCliente: React.FC<FormClienteProps> = ({ clienteAtual, onSave }) => {
     try {
       if (cliente.id) {
         await updateCliente(cliente.id, cliente);
+        new SuccessMessage(
+          'Sucesso!',
+          'Cliente atualizado com sucesso!'
+        ).show();
       } else {
         await createCliente(cliente);
+        new SuccessMessage(
+          'Sucesso!',
+          'Cliente cadastrado com sucesso!'
+        ).show();
       }
       onSave();
       await navigate('/clientes');
     } catch (error) {
-      console.error('Erro ao salvar cliente:', error);
+      new ErrorMessage(
+        'Oops...',
+        `Erro ao cadastrar/atualizar o cliente: ${error}`
+      ).show();
     }
   }
 
