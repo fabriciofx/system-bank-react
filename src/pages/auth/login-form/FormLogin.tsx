@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button, styled, TextField } from '@mui/material';
-import type { Credentials } from '../models/Credentials';
-import { login } from '../services/AuthService';
+import type { Credentials } from '../../../models/Credentials';
+import { login } from '../../../services/AuthService';
 import './FormLogin.css';
 
 const FormBox = styled('form')(({ theme }) => ({

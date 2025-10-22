@@ -1,6 +1,6 @@
 import { useEffect, useState, type JSX } from 'react';
-import { getClientes, deleteCliente } from '../services/ClienteService';
-import type { Cliente } from '../models/Cliente';
+import { getClientes, deleteCliente } from '../../services/ClienteService';
+import type { Cliente } from '../../models/Cliente';
 import {
   Button,
   IconButton,
