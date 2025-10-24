@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@mui/material';
 import Navbar from '../../components/navbar/Navbar';
-import ListaContas from './ListaContas';
+import ListaContas from '../../components/conta/ListaContas';
 import type { ContaCliente } from '../../models/ContaCliente';
 
 function Contas() {

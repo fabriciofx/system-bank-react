@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import FormConta from './FormConta';
+import FormConta from '../../components/conta/FormConta';
 import type { Conta } from '../../models/Conta';
 import Navbar from '../../components/navbar/Navbar';
 import './NovaConta.css';

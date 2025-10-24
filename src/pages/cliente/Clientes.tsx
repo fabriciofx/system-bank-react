@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import ListaClientes from '../cliente/ListaClientes';
+import ListaClientes from '../../components/cliente/ListaClientes';
 import type { Cliente } from '../../models/Cliente';
 import { Link } from 'react-router-dom';
 import { Button } from '@mui/material';
