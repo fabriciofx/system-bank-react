@@ -25,7 +25,7 @@ export default function Navbar() {
     { text: 'Dashboard', path: '/dashboard' },
     { text: 'Clientes', path: '/clientes' },
     { text: 'Contas', path: '/contas' },
-    { text: 'Sair', path: '/' }
+    { text: 'Sair', path: '/auth' }
   ];
 
   return (
