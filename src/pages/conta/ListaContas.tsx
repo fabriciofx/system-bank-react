@@ -74,12 +74,23 @@ function ListaContas({ onEdit }: ListaContasProps): JSX.Element {
     setPage(1);
   }
 
-  if (loading) {
-    return <Spinner />;
-  }
-
   return (
-    <div>
+    <div style={{ position: 'relative' }}>
+      {loading && (
+        <div
+          style={{
+            position: 'absolute',
+            inset: 0,
+            background: 'rgba(255,255,255,0.6)',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            zIndex: 10
+          }}
+        >
+          <Spinner />
+        </div>
+      )}
       <TableContainer component={Paper}>
         <Table>
           <TableHead>
