@@ -20,7 +20,7 @@ function Contas() {
         variant="contained"
         color="primary"
         component={Link}
-        to="/contas/novo"
+        to="/contas/nova"
       >
         Nova conta
       </Button>
