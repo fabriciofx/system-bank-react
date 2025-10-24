@@ -1,0 +1,13 @@
+.box-novo-cliente {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: left;
+}
+
+.box-com-titulo {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}

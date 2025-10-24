@@ -2,6 +2,7 @@ import { useState } from 'react';
 import FormCliente from './FormCliente';
 import type { Cliente } from '../../models/Cliente';
 import Navbar from '../../components/navbar/Navbar';
+import './NovoCliente.css';
 
 function NovoCliente() {
   const [clienteEdit, setClienteEdit] = useState<Cliente>();
@@ -13,8 +14,12 @@ function NovoCliente() {
   return (
     <div>
       <Navbar />
-      <h1>Novo cliente</h1>
-      <FormCliente clienteAtual={clienteEdit} onSave={handleSave} />
+      <div className="box-com-titulo">
+        <div className="box-novo-cliente">
+          <h1>Novo cliente</h1>
+          <FormCliente clienteAtual={clienteEdit} onSave={handleSave} />
+        </div>
+      </div>
     </div>
   );
 }
