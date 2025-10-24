@@ -16,6 +16,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import type { PageResult } from '../../core/PageResult';
 import type { ContaCliente } from '../../models/ContaCliente';
 import { pagesContasClientes } from '../../services/ContaClienteService';
+import { Spinner } from '../../components/spinner/Spinner';
 
 type ListaContasProps = {
   onEdit: (contaCliente: ContaCliente) => void;
@@ -30,14 +31,18 @@ function ListaContas({ onEdit }: ListaContasProps): JSX.Element {
     pageSize: 5,
     total: 5
   });
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function fetchContas() {
       try {
+        setLoading(true);
         const result = await pagesContasClientes(page, rowsPerPage);
         setPageResult(result);
       } catch (error) {
         console.error('Erro ao carregar as contas: ', error);
+      } finally {
+        setLoading(false);
       }
     }
     fetchContas();
@@ -67,6 +72,10 @@ function ListaContas({ onEdit }: ListaContasProps): JSX.Element {
   function handleChangeRowsPerPage(event: React.ChangeEvent<HTMLInputElement>) {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(1);
+  }
+
+  if (loading) {
+    return <Spinner />;
   }
 
   return (
