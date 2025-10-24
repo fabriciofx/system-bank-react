@@ -15,6 +15,7 @@ import {
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import type { PageResult } from '../../core/PageResult';
+import { Spinner } from '../../components/spinner/Spinner';
 
 type ListaClientesProps = {
   onEdit: (cliente: Cliente) => void;
@@ -29,6 +30,7 @@ function ListaClientes({ onEdit }: ListaClientesProps): JSX.Element {
     pageSize: 5,
     total: 5
   });
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function fetchClientes() {
@@ -37,6 +39,8 @@ function ListaClientes({ onEdit }: ListaClientesProps): JSX.Element {
         setPageResult(result);
       } catch (error) {
         console.error('Erro ao carregar clientes: ', error);
+      } finally {
+        setLoading(false);
       }
     }
     fetchClientes();
@@ -64,6 +68,10 @@ function ListaClientes({ onEdit }: ListaClientesProps): JSX.Element {
   function handleChangeRowsPerPage(event: React.ChangeEvent<HTMLInputElement>) {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
+  }
+
+  if (loading) {
+    return <Spinner />;
   }
 
   return (
