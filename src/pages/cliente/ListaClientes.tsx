@@ -70,12 +70,9 @@ function ListaClientes({ onEdit }: ListaClientesProps): JSX.Element {
     setPage(1);
   }
 
-  if (loading) {
-    return <Spinner />;
-  }
-
   return (
     <div>
+      {loading && <Spinner />}
       <TableContainer component={Paper}>
         <Table>
           <TableHead>
