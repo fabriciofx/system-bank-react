@@ -3,13 +3,13 @@ import { Link } from 'react-router-dom';
 import { Button } from '@mui/material';
 import Navbar from '../../components/navbar/Navbar';
 import ListaContas from './ListaContas';
-import type { Conta } from '../../models/Conta';
+import type { ContaCliente } from '../../models/ContaCliente';
 
 function Contas() {
-  const setContaEdit = useState<Conta>()[1];
+  const setContaEdit = useState<ContaCliente>()[1];
 
-  function handleEdit(conta: Conta): void {
-    setContaEdit(conta);
+  function handleEdit(contaCliente: ContaCliente): void {
+    setContaEdit(contaCliente);
   }
 
   return (

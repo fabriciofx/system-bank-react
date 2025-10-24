@@ -1,6 +1,5 @@
 import { useEffect, useState, type JSX } from 'react';
-import { deleteConta, pagesContas } from '../../services/ContaService';
-import type { Conta } from '../../models/Conta';
+import { deleteConta } from '../../services/ContaService';
 import {
   IconButton,
   Paper,
@@ -15,15 +14,17 @@ import {
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import type { PageResult } from '../../core/PageResult';
+import type { ContaCliente } from '../../models/ContaCliente';
+import { pagesContasClientes } from '../../services/ContaClienteService';
 
 type ListaContasProps = {
-  onEdit: (conta: Conta) => void;
+  onEdit: (contaCliente: ContaCliente) => void;
 };
 
 function ListaContas({ onEdit }: ListaContasProps): JSX.Element {
   const [page, setPage] = useState(1);
   const [rowsPerPage, setRowsPerPage] = useState(5);
-  const [pageResult, setPageResult] = useState<PageResult<Conta>>({
+  const [pageResult, setPageResult] = useState<PageResult<ContaCliente>>({
     items: [],
     page: 1,
     pageSize: 5,
@@ -33,7 +34,7 @@ function ListaContas({ onEdit }: ListaContasProps): JSX.Element {
   useEffect(() => {
     async function fetchContas() {
       try {
-        const result = await pagesContas(page, rowsPerPage);
+        const result = await pagesContasClientes(page, rowsPerPage);
         setPageResult(result);
       } catch (error) {
         console.error('Erro ao carregar as contas: ', error);
@@ -45,8 +46,10 @@ function ListaContas({ onEdit }: ListaContasProps): JSX.Element {
   async function handleDelete(id: number) {
     try {
       await deleteConta(id);
-      const result: PageResult<Conta> = {
-        items: pageResult.items.filter((conta: Conta) => conta.id !== id),
+      const result: PageResult<ContaCliente> = {
+        items: pageResult.items.filter(
+          (conta: ContaCliente) => conta.id !== id
+        ),
         page: pageResult.page,
         pageSize: pageResult.pageSize,
         total: pageResult.total - 1
@@ -81,19 +84,22 @@ function ListaContas({ onEdit }: ListaContasProps): JSX.Element {
             </TableRow>
           </TableHead>
           <TableBody>
-            {pageResult.items.map((conta: Conta) => (
-              <TableRow key={conta.id}>
-                <TableCell>{conta.id}</TableCell>
-                <TableCell>{conta.cliente}</TableCell>
-                <TableCell>{conta.numero}</TableCell>
-                <TableCell>{conta.agencia}</TableCell>
-                <TableCell>{conta.saldo}</TableCell>
+            {pageResult.items.map((contaCliente: ContaCliente) => (
+              <TableRow key={contaCliente.id}>
+                <TableCell>{contaCliente.id}</TableCell>
+                <TableCell>{contaCliente.cliente.nome}</TableCell>
+                <TableCell>{contaCliente.numero}</TableCell>
+                <TableCell>{contaCliente.agencia}</TableCell>
+                <TableCell>{contaCliente.saldo}</TableCell>
                 <TableCell>
-                  <IconButton onClick={() => onEdit(conta)} aria-label="Editar">
+                  <IconButton
+                    onClick={() => onEdit(contaCliente)}
+                    aria-label="Editar"
+                  >
                     <EditIcon />
                   </IconButton>
                   <IconButton
-                    onClick={() => handleDelete(conta.id!)}
+                    onClick={() => handleDelete(contaCliente.id!)}
                     aria-label="Excluir"
                   >
                     <DeleteIcon />
