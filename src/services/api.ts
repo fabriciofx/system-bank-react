@@ -24,7 +24,9 @@ api.interceptors.response.use(
       config._retry = true;
       try {
         const refreshToken = STORAGE.value('refresh_token')[0] ?? '';
-        const refreshResponse = await api.post('/token/refresh/', refreshToken);
+        const refreshResponse = await api.post('/token/refresh/', {
+          refresh: refreshToken
+        });
         STORAGE.store('access_token', refreshResponse.data.access);
         config.headers!.Authorization = `Bearer ${refreshResponse.data.access}`;
         return api(config);
