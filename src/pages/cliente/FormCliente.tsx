@@ -65,8 +65,8 @@ const FormCliente: React.FC<FormClienteProps> = ({ clienteAtual, onSave }) => {
   }
 
   return (
-    <div className="container">
-      <form onSubmit={handleSubmit}>
+    <div>
+      <form className="form-cliente" onSubmit={handleSubmit}>
         <TextField
           label="Nome"
           name="nome"
