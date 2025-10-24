@@ -35,6 +35,7 @@ function ListaClientes({ onEdit }: ListaClientesProps): JSX.Element {
   useEffect(() => {
     async function fetchClientes() {
       try {
+        setLoading(true);
         const result = await pagesClientes(page, rowsPerPage);
         setPageResult(result);
       } catch (error) {
