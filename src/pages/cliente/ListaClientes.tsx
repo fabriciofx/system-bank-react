@@ -67,7 +67,7 @@ function ListaClientes({ onEdit }: ListaClientesProps): JSX.Element {
 
   function handleChangeRowsPerPage(event: React.ChangeEvent<HTMLInputElement>) {
     setRowsPerPage(parseInt(event.target.value, 10));
-    setPage(0);
+    setPage(1);
   }
 
   if (loading) {
