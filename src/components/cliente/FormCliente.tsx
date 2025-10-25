@@ -114,7 +114,9 @@ const FormCliente: React.FC<FormClienteProps> = ({ clienteAtual, onSave }) => {
           }
           label={cliente.ativo ? 'Ativo' : 'Inativo'}
         />
-        <Button type="submit">Salvar</Button>
+        <Button type="submit" variant="contained">
+          Cadastrar
+        </Button>
       </form>
     </div>
   );
