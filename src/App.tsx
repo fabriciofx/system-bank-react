@@ -6,7 +6,7 @@ import {
 } from 'react-router-dom';
 import Clientes from './pages/cliente/Clientes';
 import NovoCliente from './pages/cliente/NovoCliente';
-import LoginTemplate from './pages/auth/login-template/LoginTemplate';
+import LoginTemplate from './pages/login-template/LoginTemplate';
 import Contas from './pages/conta/Contas';
 import NovaConta from './pages/conta/NovaConta';
 

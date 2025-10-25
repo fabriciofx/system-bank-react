@@ -1,4 +1,4 @@
-import FormLogin from '../login-form/FormLogin';
+import FormLogin from '../../components/login-form/FormLogin';
 import './LoginTemplate.css';
 
 function LoginTemplate() {
