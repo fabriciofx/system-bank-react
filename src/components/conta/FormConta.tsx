@@ -1,9 +1,11 @@
 import { useState, useEffect } from 'react';
-import { createConta, updateConta } from '../../services/ContaService';
-import type { Conta } from '../../models/Conta';
 import { Button, TextField } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+import { createConta, updateConta } from '../../services/ContaService';
+import type { Conta } from '../../models/Conta';
 import { ErrorMessage, SuccessMessage } from '../../components/message/Message';
+import InfiniteSelect, { type Option } from '../infinite-select/InfiniteSelect';
+import { pagesClientes } from '../../services/ClienteService';
 import './FormConta.css';
 
 type FormContaProps = {
@@ -56,16 +58,24 @@ const FormConta: React.FC<FormContaProps> = ({ contaAtual, onSave }) => {
     }
   }
 
+  async function clientes(page: number): Promise<Option[]> {
+    const clientes = await pagesClientes(page, 5);
+    const opts = clientes.items.map((cliente) => ({
+      label: `${cliente.nome} (${cliente.cpf})`,
+      value: String(cliente.id)
+    }));
+    return opts;
+  }
+
   return (
     <div>
       <form className="form-conta" onSubmit={handleSubmit}>
-        <TextField
+        <InfiniteSelect
           label="Cliente"
-          name="cliente"
           required
+          options={clientes}
           value={conta.cliente}
-          onChange={handleChange}
-          variant="filled"
+          onChange={(val) => setConta({ ...conta, cliente: Number(val) })}
         />
         <TextField
           label="Número"
