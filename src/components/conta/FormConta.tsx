@@ -101,7 +101,9 @@ const FormConta: React.FC<FormContaProps> = ({ contaAtual, onSave }) => {
           onChange={handleChange}
           variant="filled"
         />
-        <Button type="submit">Criar</Button>
+        <Button type="submit" variant="contained">
+          Criar
+        </Button>
       </form>
     </div>
   );
