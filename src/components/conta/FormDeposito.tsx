@@ -48,8 +48,7 @@ const FormDeposito: React.FC = () => {
         value: String(client.id)
       }));
       return opts;
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    } catch (error) {
+    } catch {
       return [];
     }
   }
