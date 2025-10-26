@@ -84,7 +84,9 @@ const InfiniteSelect: React.FC<InfiniteSelectProps> = ({
             {opt.label}
           </MenuItem>
         ))}
-        {loading && <MenuItem disabled>Carregando...</MenuItem>}
+        {(loading && <MenuItem disabled>Carregando...</MenuItem>) || (
+          <MenuItem disabled>— Nenhum item a mais —</MenuItem>
+        )}
       </Select>
     </FormControl>
   );
