@@ -8,7 +8,17 @@
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "test": "vitest",
+    "prepare": "husky"
+  },
+  "lint-staged": {
+    "*.{ts,tsx,js,html,css}": [
+      "npm run lint"
+    ],
+    "*.test.{ts,tsx,js}": [
+      "npm run test"
+    ]
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",
