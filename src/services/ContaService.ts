@@ -2,6 +2,7 @@ import type { PageResult } from '../core/PageResult';
 import type { Conta } from '../models/Conta';
 import type { Deposito } from '../models/Deposito';
 import type { Saque } from '../models/Saque';
+import type { Transferencia } from '../models/Transferencia';
 import api from './api';
 
 // Função para buscar todas as contas
@@ -88,6 +89,19 @@ export async function depositoConta(deposito: Deposito) {
     await api.post<Deposito>(`/contas/${deposito.conta}/deposito/`, deposito);
   } catch (error) {
     console.error('Erro ao depositar na conta:', error);
+    throw error;
+  }
+}
+
+// Função para transferir um valor de uma conta para outra conta
+export async function transferenciaEntreContas(transferencia: Transferencia) {
+  try {
+    await api.post<Transferencia>(
+      `/contas/${transferencia.conta_origem}/transferencia/`,
+      transferencia
+    );
+  } catch (error) {
+    console.error('Erro ao transferir de uma conta para outra:', error);
     throw error;
   }
 }

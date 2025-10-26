@@ -10,6 +10,7 @@ import Contas from './pages/conta/Contas';
 import Deposito from './pages/conta/Deposito';
 import NovaConta from './pages/conta/NovaConta';
 import Saque from './pages/conta/Saque';
+import Transferencia from './pages/conta/Transferencia';
 import LoginTemplate from './pages/login-template/LoginTemplate';
 
 function App() {
@@ -24,6 +25,7 @@ function App() {
         <Route path="/contas/nova" element={<NovaConta />} />
         <Route path="/contas/saque" element={<Saque />} />
         <Route path="/contas/deposito" element={<Deposito />} />
+        <Route path="/contas/transferencia" element={<Transferencia />} />
       </Routes>
     </Router>
   );
