@@ -34,6 +34,14 @@ function Contas() {
         >
           Saque
         </Button>
+        <Button
+          variant="contained"
+          color="primary"
+          component={Link}
+          to="/contas/deposito"
+        >
+          Depósito
+        </Button>
       </div>
       <ListaContas onEdit={handleEdit} />
     </div>

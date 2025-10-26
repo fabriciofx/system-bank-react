@@ -2,6 +2,7 @@ import api from './api';
 import type { PageResult } from '../core/PageResult';
 import type { Conta } from '../models/Conta';
 import type { Saque } from '../models/Saque';
+import type { Deposito } from '../models/Deposito';
 
 // Função para buscar todas as contas
 export async function listContas(): Promise<Conta[]> {
@@ -77,6 +78,16 @@ export async function saqueConta(saque: Saque) {
     await api.post<Saque>(`/contas/${saque.conta}/saque/`, saque);
   } catch (error) {
     console.error('Erro ao sacar da conta:', error);
+    throw error;
+  }
+}
+
+// Função para depositar um valor de uma conta
+export async function depositoConta(deposito: Deposito) {
+  try {
+    await api.post<Deposito>(`/contas/${deposito.conta}/deposito/`, deposito);
+  } catch (error) {
+    console.error('Erro ao depositar na conta:', error);
     throw error;
   }
 }
