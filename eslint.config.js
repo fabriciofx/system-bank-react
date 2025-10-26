@@ -25,7 +25,17 @@ export default defineConfig([
       semi: ['error', 'always'],
       curly: ['error', 'all'],
       quotes: ['error', 'single', { avoidEscape: true }],
-      'max-len': ['error', { code: 80 }]
+      'max-len': ['error', { code: 80 }],
+      '@typescript-eslint/no-unused-vars': [
+        'error',
+        {
+          vars: 'all',
+          args: 'all',
+          argsIgnorePattern: '^_',
+          varsIgnorePattern: '^_',
+          caughtErrors: 'all'
+        }
+      ]
     }
   }
 ]);
