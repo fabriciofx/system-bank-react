@@ -1,6 +1,7 @@
 import api from './api';
 import type { PageResult } from '../core/PageResult';
 import type { Conta } from '../models/Conta';
+import type { Saque } from '../models/Saque';
 
 // Função para buscar todas as contas
 export async function listContas(): Promise<Conta[]> {
@@ -65,6 +66,17 @@ export async function deleteConta(id: number) {
     await api.delete<Conta>(`/contas/${id}`);
   } catch (error) {
     console.error('Erro ao deletar a conta:', error);
+    throw error;
+  }
+}
+
+// Função para sacar um valor de uma conta
+export async function saqueConta(saque: Saque) {
+  try {
+    console.log('saque: ', saque);
+    await api.post<Saque>(`/contas/${saque.conta}/saque/`, saque);
+  } catch (error) {
+    console.error('Erro ao sacar da conta:', error);
     throw error;
   }
 }

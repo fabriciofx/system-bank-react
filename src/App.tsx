@@ -9,6 +9,7 @@ import NovoCliente from './pages/cliente/NovoCliente';
 import LoginTemplate from './pages/login-template/LoginTemplate';
 import Contas from './pages/conta/Contas';
 import NovaConta from './pages/conta/NovaConta';
+import Saque from './pages/conta/Saque';
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
         <Route path="/clientes/novo" element={<NovoCliente />} />
         <Route path="/contas" element={<Contas />} />
         <Route path="/contas/nova" element={<NovaConta />} />
+        <Route path="/contas/saque" element={<Saque />} />
       </Routes>
     </Router>
   );
