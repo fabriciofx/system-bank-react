@@ -18,9 +18,13 @@ export async function pagesContas(
   num: number,
   size: number
 ): Promise<PageResult<Conta>> {
+  const all = await listContas();
+  const max = Math.ceil(all.length / size);
+  if (num > max) {
+    throw new Error(`Página maior que o limite permitido (${max})`);
+  }
   const url = `/contas/?page=${num}&pageSize=${size}`;
   const contas = await api.get<Conta[]>(url);
-  const all = await listContas();
   const result: PageResult<Conta> = {
     items: contas.data,
     page: num,
