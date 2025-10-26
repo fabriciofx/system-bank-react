@@ -4,6 +4,7 @@ import type { Cliente } from '../../models/Cliente';
 import { Link } from 'react-router-dom';
 import { Button } from '@mui/material';
 import Navbar from '../../components/navbar/Navbar';
+import './Clientes.css';
 
 function Clientes() {
   const setClienteEdit = useState<Cliente>()[1];
@@ -16,14 +17,16 @@ function Clientes() {
     <div>
       <Navbar />
       <h1>Listagem de clientes</h1>
-      <Button
-        variant="contained"
-        color="primary"
-        component={Link}
-        to="/clientes/novo"
-      >
-        Novo cliente
-      </Button>
+      <div className="buttons-clientes">
+        <Button
+          variant="contained"
+          color="primary"
+          component={Link}
+          to="/clientes/novo"
+        >
+          Novo cliente
+        </Button>
+      </div>
       <ListaClientes onEdit={handleEdit} />
     </div>
   );
