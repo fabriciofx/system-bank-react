@@ -21,7 +21,7 @@ type ListaClientesProps = {
   onEdit: (cliente: Cliente) => void;
 };
 
-function ListaClientes({ onEdit }: ListaClientesProps): JSX.Element {
+const ListaClientes: React.FC<ListaClientesProps> = ({ onEdit }) => {
   const [page, setPage] = useState(1);
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [pageResult, setPageResult] = useState<PageResult<Cliente>>({
@@ -124,6 +124,6 @@ function ListaClientes({ onEdit }: ListaClientesProps): JSX.Element {
       </TableContainer>
     </div>
   );
-}
+};
 
 export default ListaClientes;

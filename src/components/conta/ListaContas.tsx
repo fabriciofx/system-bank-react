@@ -22,7 +22,7 @@ type ListaContasProps = {
   onEdit: (contaCliente: ContaCliente) => void;
 };
 
-function ListaContas({ onEdit }: ListaContasProps): JSX.Element {
+const ListaContas: React.FC<ListaContasProps> = ({ onEdit }) => {
   const [page, setPage] = useState(1);
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [pageResult, setPageResult] = useState<PageResult<ContaCliente>>({
@@ -127,6 +127,6 @@ function ListaContas({ onEdit }: ListaContasProps): JSX.Element {
       </TableContainer>
     </div>
   );
-}
+};
 
 export default ListaContas;

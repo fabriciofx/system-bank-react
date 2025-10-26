@@ -14,7 +14,7 @@ import {
 import MenuIcon from '@mui/icons-material/Menu';
 import { Link } from 'react-router-dom';
 
-export default function Navbar() {
+const Navbar: React.FC = () => {
   const [drawerOpen, setDrawerOpen] = useState(false);
 
   const toggleDrawer = (open: boolean) => () => {
@@ -67,4 +67,6 @@ export default function Navbar() {
       </Drawer>
     </div>
   );
-}
+};
+
+export default Navbar;
