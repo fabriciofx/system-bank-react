@@ -1,4 +1,4 @@
-import { useEffect, useState, type JSX } from 'react';
+import { useEffect, useState } from 'react';
 import { deleteConta } from '../../services/ContaService';
 import {
   IconButton,

@@ -1,4 +1,4 @@
-import { useEffect, useState, type JSX } from 'react';
+import { useEffect, useState } from 'react';
 import { deleteCliente, pagesClientes } from '../../services/ClienteService';
 import type { Cliente } from '../../models/Cliente';
 import {
