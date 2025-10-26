@@ -8,11 +8,7 @@ import { listContas, saqueConta } from '../../services/ContaService';
 import type { Saque } from '../../models/Saque';
 import './FormSaque.css';
 
-type FormContaProps = {
-  onSave: () => void;
-};
-
-const FormSaque: React.FC<FormContaProps> = ({ onSave }) => {
+const FormSaque: React.FC = () => {
   const navigate = useNavigate();
   const [cliente, setCliente] = useState<string>('');
   const [saque, setSaque] = useState<Saque>({ conta: 0, valor: 0 });
@@ -35,7 +31,6 @@ const FormSaque: React.FC<FormContaProps> = ({ onSave }) => {
     try {
       await saqueConta(saque);
       new SuccessMessage('Sucesso!', 'Saque realizado com sucesso!').show();
-      onSave();
       await navigate('/contas');
     } catch (error) {
       new ErrorMessage('Oops...', `Erro ao sacar da conta: ${error}`).show();
