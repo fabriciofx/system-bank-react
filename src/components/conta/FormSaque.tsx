@@ -1,11 +1,11 @@
-import { useState } from 'react';
 import { Button, TextField } from '@mui/material';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ErrorMessage, SuccessMessage } from '../../components/message/Message';
-import InfiniteSelect, { type Option } from '../infinite-select/InfiniteSelect';
+import type { Saque } from '../../models/Saque';
 import { pagesClientes } from '../../services/ClienteService';
 import { listContas, saqueConta } from '../../services/ContaService';
-import type { Saque } from '../../models/Saque';
+import InfiniteSelect, { type Option } from '../infinite-select/InfiniteSelect';
 import './FormSaque.css';
 
 const FormSaque: React.FC = () => {
@@ -53,7 +53,7 @@ const FormSaque: React.FC = () => {
   async function contas(): Promise<Option[]> {
     const contas = await listContas();
     const opts = contas
-      .filter((conta) => conta.cliente == Number(cliente))
+      .filter((conta) => conta.cliente === Number(cliente))
       .map((conta) => ({
         label: `${conta.numero} (${conta.agencia})`,
         value: String(conta.id)

@@ -1,9 +1,9 @@
-import { useState } from 'react';
-import ListaClientes from '../../components/cliente/ListaClientes';
-import type { Cliente } from '../../models/Cliente';
-import { Link } from 'react-router-dom';
 import { Button } from '@mui/material';
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
+import ListaClientes from '../../components/cliente/ListaClientes';
 import Navbar from '../../components/navbar/Navbar';
+import type { Cliente } from '../../models/Cliente';
 import './Clientes.css';
 
 function Clientes() {

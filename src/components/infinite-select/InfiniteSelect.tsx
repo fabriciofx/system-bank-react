@@ -1,4 +1,3 @@
-import { useCallback, useEffect, useState } from 'react';
 import {
   FormControl,
   InputLabel,
@@ -6,6 +5,7 @@ import {
   Select,
   type SelectChangeEvent
 } from '@mui/material';
+import { useCallback, useEffect, useState } from 'react';
 
 export type Option = {
   label: string;

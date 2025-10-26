@@ -1,5 +1,5 @@
-import Navbar from '../../components/navbar/Navbar';
 import FormSaque from '../../components/conta/FormSaque';
+import Navbar from '../../components/navbar/Navbar';
 import './Saque.css';
 
 function Saque() {

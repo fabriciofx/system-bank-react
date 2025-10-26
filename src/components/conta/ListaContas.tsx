@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react';
-import { deleteConta } from '../../services/ContaService';
+import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
 import {
   IconButton,
   Paper,
@@ -8,15 +8,15 @@ import {
   TableCell,
   TableContainer,
   TableHead,
-  TableRow,
-  TablePagination
+  TablePagination,
+  TableRow
 } from '@mui/material';
-import DeleteIcon from '@mui/icons-material/Delete';
-import EditIcon from '@mui/icons-material/Edit';
+import { useEffect, useState } from 'react';
+import { Spinner } from '../../components/spinner/Spinner';
 import type { PageResult } from '../../core/PageResult';
 import type { ContaCliente } from '../../models/ContaCliente';
 import { pagesContasClientes } from '../../services/ContaClienteService';
-import { Spinner } from '../../components/spinner/Spinner';
+import { deleteConta } from '../../services/ContaService';
 
 type ListaContasProps = {
   onEdit: (contaCliente: ContaCliente) => void;
@@ -105,7 +105,7 @@ const ListaContas: React.FC<ListaContasProps> = ({ onEdit }) => {
                     <EditIcon />
                   </IconButton>
                   <IconButton
-                    onClick={() => handleDelete(contaCliente.id!)}
+                    onClick={() => handleDelete(contaCliente.id)}
                     aria-label="Excluir"
                   >
                     <DeleteIcon />

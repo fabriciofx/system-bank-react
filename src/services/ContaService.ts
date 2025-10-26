@@ -1,8 +1,8 @@
-import api from './api';
 import type { PageResult } from '../core/PageResult';
 import type { Conta } from '../models/Conta';
-import type { Saque } from '../models/Saque';
 import type { Deposito } from '../models/Deposito';
+import type { Saque } from '../models/Saque';
+import api from './api';
 
 // Função para buscar todas as contas
 export async function listContas(): Promise<Conta[]> {

@@ -1,16 +1,16 @@
 import {
-  BrowserRouter as Router,
+  Navigate,
   Route,
-  Routes,
-  Navigate
+  BrowserRouter as Router,
+  Routes
 } from 'react-router-dom';
 import Clientes from './pages/cliente/Clientes';
 import NovoCliente from './pages/cliente/NovoCliente';
-import LoginTemplate from './pages/login-template/LoginTemplate';
 import Contas from './pages/conta/Contas';
+import Deposito from './pages/conta/Deposito';
 import NovaConta from './pages/conta/NovaConta';
 import Saque from './pages/conta/Saque';
-import Deposito from './pages/conta/Deposito';
+import LoginTemplate from './pages/login-template/LoginTemplate';
 
 function App() {
   return (

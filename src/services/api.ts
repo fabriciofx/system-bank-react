@@ -28,7 +28,9 @@ api.interceptors.response.use(
           refresh: refreshToken
         });
         STORAGE.store('access_token', refreshResponse.data.access);
-        config.headers!.Authorization = `Bearer ${refreshResponse.data.access}`;
+        if (config.headers) {
+          config.headers.Authorization = `Bearer ${refreshResponse.data.access}`;
+        }
         return api(config);
       } catch (refreshError) {
         console.error('Error to refresh access token: ', refreshError);

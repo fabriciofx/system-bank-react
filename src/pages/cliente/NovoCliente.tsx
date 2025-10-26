@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import FormCliente from '../../components/cliente/FormCliente';
-import type { Cliente } from '../../models/Cliente';
 import Navbar from '../../components/navbar/Navbar';
+import type { Cliente } from '../../models/Cliente';
 import './NovoCliente.css';
 
 function NovoCliente() {

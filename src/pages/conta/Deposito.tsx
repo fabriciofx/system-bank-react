@@ -1,5 +1,5 @@
-import Navbar from '../../components/navbar/Navbar';
 import FormDeposito from '../../components/conta/FormDeposito';
+import Navbar from '../../components/navbar/Navbar';
 import './Deposito.css';
 
 function Deposito() {

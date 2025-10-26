@@ -1,7 +1,7 @@
-import api from './api';
-import type { Credentials } from '../models/Credentials';
-import type { AuthTokens } from '../models/Auth';
 import { BrowserStorage } from '../core/Storage';
+import type { AuthTokens } from '../models/Auth';
+import type { Credentials } from '../models/Credentials';
+import api from './api';
 
 export const STORAGE = new BrowserStorage();
 

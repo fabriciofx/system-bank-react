@@ -1,6 +1,6 @@
-import api from './api';
 import type { PageResult } from '../core/PageResult';
 import type { Cliente } from '../models/Cliente';
+import api from './api';
 
 // Função para buscar todos os clientes
 export async function listClientes(): Promise<Cliente[]> {

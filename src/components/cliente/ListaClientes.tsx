@@ -1,6 +1,5 @@
-import { useEffect, useState } from 'react';
-import { deleteCliente, pagesClientes } from '../../services/ClienteService';
-import type { Cliente } from '../../models/Cliente';
+import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
 import {
   IconButton,
   Paper,
@@ -9,13 +8,14 @@ import {
   TableCell,
   TableContainer,
   TableHead,
-  TableRow,
-  TablePagination
+  TablePagination,
+  TableRow
 } from '@mui/material';
-import DeleteIcon from '@mui/icons-material/Delete';
-import EditIcon from '@mui/icons-material/Edit';
-import type { PageResult } from '../../core/PageResult';
+import { useEffect, useState } from 'react';
 import { Spinner } from '../../components/spinner/Spinner';
+import type { PageResult } from '../../core/PageResult';
+import type { Cliente } from '../../models/Cliente';
+import { deleteCliente, pagesClientes } from '../../services/ClienteService';
 
 type ListaClientesProps = {
   onEdit: (cliente: Cliente) => void;

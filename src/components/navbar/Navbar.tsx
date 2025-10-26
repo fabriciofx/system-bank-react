@@ -1,17 +1,17 @@
-import { useState } from 'react';
+import MenuIcon from '@mui/icons-material/Menu';
 import {
   AppBar,
-  Toolbar,
-  Typography,
-  IconButton,
+  Box,
   Drawer,
+  IconButton,
   List,
   ListItem,
   ListItemButton,
   ListItemText,
-  Box
+  Toolbar,
+  Typography
 } from '@mui/material';
-import MenuIcon from '@mui/icons-material/Menu';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 const Navbar: React.FC = () => {

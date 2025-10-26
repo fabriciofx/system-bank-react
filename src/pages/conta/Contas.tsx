@@ -1,8 +1,8 @@
+import { Button } from '@mui/material';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Button } from '@mui/material';
-import Navbar from '../../components/navbar/Navbar';
 import ListaContas from '../../components/conta/ListaContas';
+import Navbar from '../../components/navbar/Navbar';
 import type { ContaCliente } from '../../models/ContaCliente';
 import './Contas.css';
 

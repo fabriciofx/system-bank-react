@@ -1,5 +1,5 @@
-import { type PageResult } from '../core/PageResult';
-import { type ContaCliente } from '../models/ContaCliente';
+import type { PageResult } from '../core/PageResult';
+import type { ContaCliente } from '../models/ContaCliente';
 import { listClientes } from './ClienteService';
 import { listContas, pagesContas } from './ContaService';
 
@@ -14,8 +14,8 @@ export async function pagesContasClientes(
   const map = new Map(clientes.map((cliente) => [cliente.id, cliente]));
   const contasClientes = contas.items.map((conta) => {
     const contaCliente: ContaCliente = {
-      id: conta.id!,
-      cliente: map.get(conta.cliente)!,
+      id: conta.id,
+      cliente: map.get(conta.cliente) ?? clientes[0],
       numero: conta.numero,
       agencia: conta.agencia,
       saldo: conta.saldo
