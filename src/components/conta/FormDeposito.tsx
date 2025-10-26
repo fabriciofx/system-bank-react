@@ -8,11 +8,7 @@ import { listContas, depositoConta } from '../../services/ContaService';
 import type { Deposito } from '../../models/Deposito';
 import './FormDeposito.css';
 
-type FormDepositoProps = {
-  onSave: () => void;
-};
-
-const FormDeposito: React.FC<FormDepositoProps> = ({ onSave }) => {
+const FormDeposito: React.FC = () => {
   const navigate = useNavigate();
   const [cliente, setCliente] = useState<string>('');
   const [deposito, setDeposito] = useState<Deposito>({ conta: 0, valor: 0 });
@@ -35,7 +31,6 @@ const FormDeposito: React.FC<FormDepositoProps> = ({ onSave }) => {
     try {
       await depositoConta(deposito);
       new SuccessMessage('Sucesso!', 'Depósito realizado com sucesso!').show();
-      onSave();
       await navigate('/contas');
     } catch (error) {
       new ErrorMessage(
