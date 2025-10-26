@@ -25,7 +25,7 @@ const InfiniteSelect: React.FC<InfiniteSelectProps> = ({
   options,
   required
 }) => {
-  const [opts, setOpts] = useState<Option[]>([]);
+  const [opts, setOpts] = useState<Option[]>([{ label: '', value: '' }]);
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
 
