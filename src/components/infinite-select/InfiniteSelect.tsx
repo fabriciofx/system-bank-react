@@ -33,7 +33,13 @@ const InfiniteSelect: React.FC<InfiniteSelectProps> = ({
     async (nextPage: number) => {
       setLoading(true);
       const newOpts = await options(nextPage);
-      setOpts((prev) => [...prev, ...newOpts]);
+      setOpts((prev) => {
+        const merged = [...prev, ...newOpts];
+        const unique = Array.from(
+          new Map(merged.map((opt) => [opt.value, opt])).values()
+        );
+        return unique;
+      });
       setLoading(false);
     },
     [options]
