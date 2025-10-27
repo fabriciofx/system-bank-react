@@ -12,6 +12,7 @@ import NovaConta from './pages/conta/NovaConta';
 import Saque from './pages/conta/Saque';
 import Transferencia from './pages/conta/Transferencia';
 import LoginTemplate from './pages/login-template/LoginTemplate';
+import Logout from './pages/logout/Logout';
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Navigate to="/auth" replace />} />
         <Route path="/auth" element={<LoginTemplate />} />
+        <Route path="/logout" element={<Logout />} />
         <Route path="/clientes" element={<Clientes />} />
         <Route path="/clientes/novo" element={<NovoCliente />} />
         <Route path="/contas" element={<Contas />} />
