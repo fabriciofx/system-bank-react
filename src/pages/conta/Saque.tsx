@@ -2,7 +2,7 @@ import FormSaque from '../../components/conta/FormSaque';
 import Navbar from '../../components/navbar/Navbar';
 import './Saque.css';
 
-function Saque() {
+const Saque: React.FC = () => {
   return (
     <div>
       <Navbar />
@@ -14,6 +14,6 @@ function Saque() {
       </div>
     </div>
   );
-}
+};
 
 export default Saque;

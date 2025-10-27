@@ -2,7 +2,7 @@ import FormTransferencia from '../../components/conta/FormTransferencia';
 import Navbar from '../../components/navbar/Navbar';
 import './Transferencia.css';
 
-function Transferencia() {
+const Transferencia: React.FC = () => {
   return (
     <div>
       <Navbar />
@@ -14,6 +14,6 @@ function Transferencia() {
       </div>
     </div>
   );
-}
+};
 
 export default Transferencia;

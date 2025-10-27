@@ -4,7 +4,7 @@ import Navbar from '../../components/navbar/Navbar';
 import type { Cliente } from '../../models/Cliente';
 import './NovoCliente.css';
 
-function NovoCliente() {
+const NovoCliente: React.FC = () => {
   const [clienteEdit, setClienteEdit] = useState<Cliente>();
 
   function handleSave(): void {
@@ -22,6 +22,6 @@ function NovoCliente() {
       </div>
     </div>
   );
-}
+};
 
 export default NovoCliente;

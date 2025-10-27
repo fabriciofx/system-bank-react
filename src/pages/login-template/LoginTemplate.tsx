@@ -1,7 +1,7 @@
 import FormLogin from '../../components/login-form/FormLogin';
 import './LoginTemplate.css';
 
-function LoginTemplate() {
+const LoginTemplate: React.FC = () => {
   return (
     <div className="container">
       <div className="form">
@@ -15,6 +15,6 @@ function LoginTemplate() {
       </div>
     </div>
   );
-}
+};
 
 export default LoginTemplate;

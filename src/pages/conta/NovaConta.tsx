@@ -4,7 +4,7 @@ import Navbar from '../../components/navbar/Navbar';
 import type { Conta } from '../../models/Conta';
 import './NovaConta.css';
 
-function NovaConta() {
+const NovaConta: React.FC = () => {
   const [contaEdit, setContaEdit] = useState<Conta>();
 
   function handleSave(): void {
@@ -22,6 +22,6 @@ function NovaConta() {
       </div>
     </div>
   );
-}
+};
 
 export default NovaConta;

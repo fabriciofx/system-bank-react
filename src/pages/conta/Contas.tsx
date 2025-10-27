@@ -6,7 +6,7 @@ import Navbar from '../../components/navbar/Navbar';
 import type { ContaCliente } from '../../models/ContaCliente';
 import './Contas.css';
 
-function Contas() {
+const Contas: React.FC = () => {
   const setContaEdit = useState<ContaCliente>()[1];
 
   function handleEdit(contaCliente: ContaCliente): void {
@@ -54,6 +54,6 @@ function Contas() {
       <ListaContas onEdit={handleEdit} />
     </div>
   );
-}
+};
 
 export default Contas;

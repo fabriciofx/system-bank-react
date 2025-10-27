@@ -2,7 +2,7 @@ import FormDeposito from '../../components/conta/FormDeposito';
 import Navbar from '../../components/navbar/Navbar';
 import './Deposito.css';
 
-function Deposito() {
+const Deposito: React.FC = () => {
   return (
     <div>
       <Navbar />
@@ -14,6 +14,6 @@ function Deposito() {
       </div>
     </div>
   );
-}
+};
 
 export default Deposito;

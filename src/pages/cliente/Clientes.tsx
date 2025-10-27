@@ -6,7 +6,7 @@ import Navbar from '../../components/navbar/Navbar';
 import type { Cliente } from '../../models/Cliente';
 import './Clientes.css';
 
-function Clientes() {
+const Clientes: React.FC = () => {
   const setClienteEdit = useState<Cliente>()[1];
 
   function handleEdit(cliente: Cliente): void {
@@ -30,6 +30,6 @@ function Clientes() {
       <ListaClientes onEdit={handleEdit} />
     </div>
   );
-}
+};
 
 export default Clientes;
