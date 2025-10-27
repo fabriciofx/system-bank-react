@@ -102,7 +102,7 @@ const FormTransferencia: React.FC = () => {
           key={`destino-${cliente}`}
         />
         <TextField
-          label="valor"
+          label="Valor"
           name="valor"
           variant="filled"
           required
