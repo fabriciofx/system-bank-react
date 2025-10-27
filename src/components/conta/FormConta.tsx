@@ -74,7 +74,7 @@ const FormConta: React.FC<FormContaProps> = ({ contaAtual, onSave }) => {
           label="Cliente"
           required
           options={clientes}
-          value={conta.cliente}
+          value={String(conta.cliente)}
           onChange={(val) => setConta({ ...conta, cliente: Number(val) })}
         />
         <TextField

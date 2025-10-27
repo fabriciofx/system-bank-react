@@ -17,13 +17,15 @@ type InfiniteSelectProps = {
   onChange: (value: string) => void;
   options: (page: number) => Promise<Option[]>;
   required?: boolean;
+  value?: string;
 };
 
 const InfiniteSelect: React.FC<InfiniteSelectProps> = ({
   label,
   onChange,
   options,
-  required
+  required,
+  value
 }) => {
   const [opts, setOpts] = useState<Option[]>([{ label: '', value: '' }]);
   const [page, setPage] = useState(1);
@@ -71,6 +73,7 @@ const InfiniteSelect: React.FC<InfiniteSelectProps> = ({
       <Select
         labelId="infinite-select-label"
         required={required}
+        value={value}
         onChange={handleChange}
         MenuProps={{
           PaperProps: {
