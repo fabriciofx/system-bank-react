@@ -66,7 +66,7 @@ const InfiniteSelect: React.FC<InfiniteSelectProps> = ({
   };
 
   return (
-    <FormControl fullWidth variant="filled">
+    <FormControl fullWidth variant="filled" required={required}>
       <InputLabel id="infinite-select-label">{label}</InputLabel>
       <Select
         labelId="infinite-select-label"
