@@ -80,7 +80,7 @@ const FormConta: React.FC = () => {
           label="Cliente"
           required
           options={clientes}
-          value={String(conta.cliente)}
+          value={conta.cliente ? String(conta.cliente) : ''}
           onChange={(val) => setConta({ ...conta, cliente: Number(val) })}
         />
         <TextField
