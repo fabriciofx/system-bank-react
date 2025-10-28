@@ -20,8 +20,8 @@ export async function pagesClientes(
 ): Promise<PageResult<Cliente>> {
   const all = await listClientes();
   const max = Math.ceil(all.length / size);
-  if (num > max) {
-    throw new Error(`Página maior que o limite permitido (${max})`);
+  if (num < 1 || num > max) {
+    throw new Error(`Página fora do limite permitido (min: 1, max: ${max})`);
   }
   const url = `/clientes/?page=${num}&pageSize=${size}`;
   const clientes = await api.get<Cliente[]>(url);
