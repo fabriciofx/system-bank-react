@@ -1,8 +1,8 @@
 import FormConta from '../../components/conta/FormConta';
 import Navbar from '../../components/navbar/Navbar';
-import './NovaConta.css';
+import './EditConta.css';
 
-const NovaConta: React.FC = () => {
+const EditConta: React.FC = () => {
   return (
     <div>
       <Navbar />
@@ -16,4 +16,4 @@ const NovaConta: React.FC = () => {
   );
 };
 
-export default NovaConta;
+export default EditConta;
