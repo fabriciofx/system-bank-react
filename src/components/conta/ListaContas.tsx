@@ -23,7 +23,7 @@ type ListaContasProps = {
 };
 
 const ListaContas: React.FC<ListaContasProps> = ({ onEdit }) => {
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [pageResult, setPageResult] = useState<PageResult<ContaCliente>>({
     items: [],
@@ -37,7 +37,7 @@ const ListaContas: React.FC<ListaContasProps> = ({ onEdit }) => {
     async function fetchContas() {
       try {
         setLoading(true);
-        const result = await pagesContasClientes(page, rowsPerPage);
+        const result = await pagesContasClientes(page + 1, rowsPerPage);
         setPageResult(result);
       } catch (error) {
         console.error('Erro ao carregar as contas: ', error);
@@ -66,12 +66,14 @@ const ListaContas: React.FC<ListaContasProps> = ({ onEdit }) => {
   }
 
   function handleChangePage(_event: unknown, newPage: number) {
-    setPage(newPage);
+    const max = Math.ceil(pageResult.total / pageResult.pageSize);
+    const num = Math.max(0, Math.min(newPage, max));
+    setPage(num);
   }
 
   function handleChangeRowsPerPage(event: React.ChangeEvent<HTMLInputElement>) {
     setRowsPerPage(parseInt(event.target.value, 10));
-    setPage(1);
+    setPage(0);
   }
 
   return (
