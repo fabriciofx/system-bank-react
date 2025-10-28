@@ -1,18 +1,10 @@
 import { Button } from '@mui/material';
-import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import ListaClientes from '../../components/cliente/ListaClientes';
 import Navbar from '../../components/navbar/Navbar';
-import type { Cliente } from '../../models/Cliente';
 import './Clientes.css';
 
 const Clientes: React.FC = () => {
-  const setClienteEdit = useState<Cliente>()[1];
-
-  function handleEdit(cliente: Cliente): void {
-    setClienteEdit(cliente);
-  }
-
   return (
     <div>
       <Navbar />
@@ -27,7 +19,7 @@ const Clientes: React.FC = () => {
           Novo cliente
         </Button>
       </div>
-      <ListaClientes onEdit={handleEdit} />
+      <ListaClientes />
     </div>
   );
 };

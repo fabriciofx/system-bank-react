@@ -2,13 +2,13 @@ import FormCliente from '../../components/cliente/FormCliente';
 import Navbar from '../../components/navbar/Navbar';
 import './NovoCliente.css';
 
-const NovoCliente: React.FC = () => {
+const EditCliente: React.FC = () => {
   return (
     <div>
       <Navbar />
       <div className="box-com-titulo">
-        <div className="box-novo-cliente">
-          <h1>Novo cliente</h1>
+        <div className="box-edit-cliente">
+          <h1>Alterando dados do cliente</h1>
           <FormCliente />
         </div>
       </div>
@@ -16,4 +16,4 @@ const NovoCliente: React.FC = () => {
   );
 };
 
-export default NovoCliente;
+export default EditCliente;

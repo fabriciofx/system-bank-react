@@ -12,16 +12,14 @@ import {
   TableRow
 } from '@mui/material';
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Spinner } from '../../components/spinner/Spinner';
 import type { PageResult } from '../../core/PageResult';
 import type { Cliente } from '../../models/Cliente';
 import { deleteCliente, pagesClientes } from '../../services/ClienteService';
 
-type ListaClientesProps = {
-  onEdit: (cliente: Cliente) => void;
-};
-
-const ListaClientes: React.FC<ListaClientesProps> = ({ onEdit }) => {
+const ListaClientes: React.FC = () => {
+  const navigate = useNavigate();
   const [page, setPage] = useState(1);
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [pageResult, setPageResult] = useState<PageResult<Cliente>>({
@@ -46,6 +44,10 @@ const ListaClientes: React.FC<ListaClientesProps> = ({ onEdit }) => {
     }
     fetchClientes();
   }, [page, rowsPerPage]);
+
+  function handleEdit(cliente: Cliente): void {
+    navigate(`/clientes/${cliente.id}`);
+  }
 
   async function handleDelete(id: number) {
     try {
@@ -96,7 +98,7 @@ const ListaClientes: React.FC<ListaClientesProps> = ({ onEdit }) => {
                 <TableCell>{cliente.ativo ? 'Sim' : 'Não'}</TableCell>
                 <TableCell>
                   <IconButton
-                    onClick={() => onEdit(cliente)}
+                    onClick={() => handleEdit(cliente)}
                     aria-label="Editar"
                   >
                     <EditIcon />

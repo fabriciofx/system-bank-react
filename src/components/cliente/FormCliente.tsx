@@ -1,18 +1,18 @@
 import { Button, FormControlLabel, Switch, TextField } from '@mui/material';
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { ErrorMessage, SuccessMessage } from '../../components/message/Message';
 import type { Cliente } from '../../models/Cliente';
-import { createCliente, updateCliente } from '../../services/ClienteService';
+import {
+  clienteById,
+  createCliente,
+  updateCliente
+} from '../../services/ClienteService';
 import './FormCliente.css';
 
-type FormClienteProps = {
-  clienteAtual?: Cliente;
-  onSave: () => void;
-};
-
-const FormCliente: React.FC<FormClienteProps> = ({ clienteAtual, onSave }) => {
+const FormCliente: React.FC = () => {
   const navigate = useNavigate();
+  const { id } = useParams();
   const [cliente, setCliente] = useState<Cliente>({
     id: 0,
     nome: '',
@@ -24,10 +24,13 @@ const FormCliente: React.FC<FormClienteProps> = ({ clienteAtual, onSave }) => {
   });
 
   useEffect(() => {
-    if (clienteAtual) {
-      setCliente(clienteAtual);
+    if (id) {
+      (async () => {
+        const clienteEdit = await clienteById(Number(id));
+        setCliente(clienteEdit);
+      })();
     }
-  }, [clienteAtual]);
+  }, [id]);
 
   function handleChange(
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -54,7 +57,6 @@ const FormCliente: React.FC<FormClienteProps> = ({ clienteAtual, onSave }) => {
           'Cliente cadastrado com sucesso!'
         ).show();
       }
-      onSave();
       await navigate('/clientes');
     } catch (error) {
       new ErrorMessage(

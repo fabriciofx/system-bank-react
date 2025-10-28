@@ -5,6 +5,7 @@ import {
   Routes
 } from 'react-router-dom';
 import Clientes from './pages/cliente/Clientes';
+import EditCliente from './pages/cliente/EditCliente';
 import NovoCliente from './pages/cliente/NovoCliente';
 import Contas from './pages/conta/Contas';
 import Deposito from './pages/conta/Deposito';
@@ -23,6 +24,7 @@ function App() {
         <Route path="/logout" element={<Logout />} />
         <Route path="/clientes" element={<Clientes />} />
         <Route path="/clientes/novo" element={<NovoCliente />} />
+        <Route path="/clientes/:id" element={<EditCliente />} />
         <Route path="/contas" element={<Contas />} />
         <Route path="/contas/nova" element={<NovaConta />} />
         <Route path="/contas/saque" element={<Saque />} />

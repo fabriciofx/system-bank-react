@@ -71,3 +71,15 @@ export async function deleteCliente(id: number) {
     throw error;
   }
 }
+
+// Função para buscar um cliente pelo id
+export async function clienteById(id: number) {
+  try {
+    const clientes = await listClientes();
+    const result = clientes.filter((cliente) => cliente.id === id);
+    return result[0];
+  } catch (error) {
+    console.error('Erro ao buscar cliente pelo id: ', error);
+    throw error;
+  }
+}
