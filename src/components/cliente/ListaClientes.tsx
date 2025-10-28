@@ -17,6 +17,7 @@ import { Spinner } from '../../components/spinner/Spinner';
 import type { PageResult } from '../../core/PageResult';
 import type { Cliente } from '../../models/Cliente';
 import { deleteCliente, pagesClientes } from '../../services/ClienteService';
+import { SuccessMessage } from '../message/Message';
 
 const ListaClientes: React.FC = () => {
   const navigate = useNavigate();
@@ -51,6 +52,7 @@ const ListaClientes: React.FC = () => {
 
   async function handleDelete(id: number) {
     try {
+      setLoading(true);
       await deleteCliente(id);
       const result: PageResult<Cliente> = {
         items: pageResult.items.filter((cliente: Cliente) => cliente.id !== id),
@@ -59,6 +61,11 @@ const ListaClientes: React.FC = () => {
         total: pageResult.total - 1
       };
       setPageResult(result);
+      setLoading(false);
+      await new SuccessMessage(
+        'Sucesso!',
+        'Cliente apagado com sucesso!'
+      ).show();
     } catch (error) {
       console.error('Erro ao deletar cliente:', error);
     }
