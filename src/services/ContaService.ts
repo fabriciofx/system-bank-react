@@ -105,3 +105,14 @@ export async function transferenciaEntreContas(transferencia: Transferencia) {
     throw error;
   }
 }
+
+export async function contaById(id: number) {
+  try {
+    const contas = await listContas();
+    const result = contas.filter((conta) => conta.id === id);
+    return result[0];
+  } catch (error) {
+    console.error('Erro ao buscar conta pelo id: ', error);
+    throw error;
+  }
+}

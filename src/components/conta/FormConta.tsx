@@ -1,20 +1,20 @@
 import { Button, TextField } from '@mui/material';
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { ErrorMessage, SuccessMessage } from '../../components/message/Message';
 import type { Conta } from '../../models/Conta';
 import { pagesClientes } from '../../services/ClienteService';
-import { createConta, updateConta } from '../../services/ContaService';
+import {
+  contaById,
+  createConta,
+  updateConta
+} from '../../services/ContaService';
 import InfiniteSelect, { type Option } from '../infinite-select/InfiniteSelect';
 import './FormConta.css';
 
-type FormContaProps = {
-  contaAtual?: Conta;
-  onSave: () => void;
-};
-
-const FormConta: React.FC<FormContaProps> = ({ contaAtual, onSave }) => {
+const FormConta: React.FC = () => {
   const navigate = useNavigate();
+  const { id } = useParams();
   const [conta, setConta] = useState<Conta>({
     id: 0,
     cliente: 0,
@@ -24,10 +24,13 @@ const FormConta: React.FC<FormContaProps> = ({ contaAtual, onSave }) => {
   });
 
   useEffect(() => {
-    if (contaAtual) {
-      setConta(contaAtual);
+    if (id) {
+      (async () => {
+        const contaEdit = await contaById(Number(id));
+        setConta(contaEdit);
+      })();
     }
-  }, [contaAtual]);
+  }, [id]);
 
   function handleChange(
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -48,7 +51,6 @@ const FormConta: React.FC<FormContaProps> = ({ contaAtual, onSave }) => {
         await createConta(conta);
         new SuccessMessage('Sucesso!', 'Conta cadastrada com sucesso!').show();
       }
-      onSave();
       await navigate('/contas');
     } catch (error) {
       new ErrorMessage(

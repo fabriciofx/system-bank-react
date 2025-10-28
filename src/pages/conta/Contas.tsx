@@ -1,18 +1,10 @@
 import { Button } from '@mui/material';
-import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import ListaContas from '../../components/conta/ListaContas';
 import Navbar from '../../components/navbar/Navbar';
-import type { ContaCliente } from '../../models/ContaCliente';
 import './Contas.css';
 
 const Contas: React.FC = () => {
-  const setContaEdit = useState<ContaCliente>()[1];
-
-  function handleEdit(contaCliente: ContaCliente): void {
-    setContaEdit(contaCliente);
-  }
-
   return (
     <div>
       <Navbar />
@@ -51,7 +43,7 @@ const Contas: React.FC = () => {
           Transferência
         </Button>
       </div>
-      <ListaContas onEdit={handleEdit} />
+      <ListaContas />
     </div>
   );
 };

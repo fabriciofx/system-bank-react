@@ -7,8 +7,8 @@ const NovaConta: React.FC = () => {
     <div>
       <Navbar />
       <div className="box-com-titulo">
-        <div className="box-nova-conta">
-          <h1>Nova conta</h1>
+        <div className="box-edit-conta">
+          <h1>Alterando dados da conta</h1>
           <FormConta />
         </div>
       </div>

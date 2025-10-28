@@ -12,17 +12,15 @@ import {
   TableRow
 } from '@mui/material';
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Spinner } from '../../components/spinner/Spinner';
 import type { PageResult } from '../../core/PageResult';
 import type { ContaCliente } from '../../models/ContaCliente';
 import { pagesContasClientes } from '../../services/ContaClienteService';
 import { deleteConta } from '../../services/ContaService';
 
-type ListaContasProps = {
-  onEdit: (contaCliente: ContaCliente) => void;
-};
-
-const ListaContas: React.FC<ListaContasProps> = ({ onEdit }) => {
+const ListaContas: React.FC = () => {
+  const navigate = useNavigate();
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [pageResult, setPageResult] = useState<PageResult<ContaCliente>>({
@@ -47,6 +45,10 @@ const ListaContas: React.FC<ListaContasProps> = ({ onEdit }) => {
     }
     fetchContas();
   }, [page, rowsPerPage]);
+
+  function handleEdit(contaCliente: ContaCliente): void {
+    navigate(`/contas/${contaCliente.id}`);
+  }
 
   async function handleDelete(id: number) {
     try {
@@ -101,7 +103,7 @@ const ListaContas: React.FC<ListaContasProps> = ({ onEdit }) => {
                 <TableCell>{contaCliente.saldo}</TableCell>
                 <TableCell>
                   <IconButton
-                    onClick={() => onEdit(contaCliente)}
+                    onClick={() => handleEdit(contaCliente)}
                     aria-label="Editar"
                   >
                     <EditIcon />
