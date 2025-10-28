@@ -61,12 +61,16 @@ const FormConta: React.FC = () => {
   }
 
   async function clientes(page: number): Promise<Option[]> {
-    const clientes = await pagesClientes(page, 5);
-    const opts = clientes.items.map((cliente) => ({
-      label: `${cliente.nome} (${cliente.cpf})`,
-      value: String(cliente.id)
-    }));
-    return opts;
+    try {
+      const result = await pagesClientes(page, 5);
+      const opts = result.items.map((client) => ({
+        label: `${client.nome} (${client.cpf})`,
+        value: String(client.id)
+      }));
+      return opts;
+    } catch {
+      return [];
+    }
   }
 
   return (
