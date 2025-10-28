@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { ErrorMessage, SuccessMessage } from '../../components/message/Message';
 import type { Conta } from '../../models/Conta';
-import { pagesClientes } from '../../services/ClienteService';
+import { clienteById, pagesClientes } from '../../services/ClienteService';
 import {
   contaById,
   createConta,
@@ -73,13 +73,26 @@ const FormConta: React.FC = () => {
     }
   }
 
+  async function optionByClienteId(_page: number): Promise<Option[]> {
+    try {
+      const cliente = await clienteById(conta.cliente);
+      const opts = {
+        label: `${cliente.nome} (${cliente.cpf})`,
+        value: String(cliente.id)
+      };
+      return [opts];
+    } catch {
+      return [];
+    }
+  }
+
   return (
     <div>
       <form className="form-conta" onSubmit={handleSubmit}>
         <InfiniteSelect
           label="Cliente"
           required
-          options={clientes}
+          options={conta.cliente ? optionByClienteId : clientes}
           value={conta.cliente ? String(conta.cliente) : ''}
           onChange={(val) => setConta({ ...conta, cliente: Number(val) })}
         />
