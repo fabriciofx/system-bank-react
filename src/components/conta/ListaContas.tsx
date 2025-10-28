@@ -18,6 +18,7 @@ import type { PageResult } from '../../core/PageResult';
 import type { ContaCliente } from '../../models/ContaCliente';
 import { pagesContasClientes } from '../../services/ContaClienteService';
 import { deleteConta } from '../../services/ContaService';
+import { SuccessMessage } from '../message/Message';
 
 const ListaContas: React.FC = () => {
   const navigate = useNavigate();
@@ -52,6 +53,7 @@ const ListaContas: React.FC = () => {
 
   async function handleDelete(id: number) {
     try {
+      setLoading(true);
       await deleteConta(id);
       const result: PageResult<ContaCliente> = {
         items: pageResult.items.filter(
@@ -62,6 +64,8 @@ const ListaContas: React.FC = () => {
         total: pageResult.total - 1
       };
       setPageResult(result);
+      setLoading(false);
+      await new SuccessMessage('Sucesso!', 'Conta apagada com sucesso!').show();
     } catch (error) {
       console.error('Erro ao deletar a conta:', error);
     }
