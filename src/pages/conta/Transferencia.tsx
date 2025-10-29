@@ -1,13 +1,13 @@
 import FormTransferencia from '../../components/conta/FormTransferencia';
 import Navbar from '../../components/navbar/Navbar';
-import './Transferencia.css';
+import './BoxConta.css';
 
 const Transferencia: React.FC = () => {
   return (
     <div>
       <Navbar />
       <div className="box-com-titulo">
-        <div className="box-transferencia">
+        <div className="box-conta">
           <h1>Transferência</h1>
           <FormTransferencia />
         </div>
