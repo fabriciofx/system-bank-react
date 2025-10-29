@@ -9,7 +9,7 @@ const EditCliente: React.FC = () => {
       <div className="box-com-titulo">
         <div className="box-edit-cliente">
           <h1>Alterando dados do cliente</h1>
-          <FormCliente />
+          <FormCliente submitText="Atualizar" />
         </div>
       </div>
     </div>

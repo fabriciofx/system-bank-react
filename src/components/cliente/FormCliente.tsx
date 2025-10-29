@@ -10,7 +10,11 @@ import {
 } from '../../services/ClienteService';
 import './FormCliente.css';
 
-const FormCliente: React.FC = () => {
+type FormClienteProps = {
+  submitText: string;
+};
+
+const FormCliente: React.FC<FormClienteProps> = ({ submitText }) => {
   const navigate = useNavigate();
   const { id } = useParams();
   const [cliente, setCliente] = useState<Cliente>({
@@ -117,7 +121,7 @@ const FormCliente: React.FC = () => {
           label={cliente.ativo ? 'Ativo' : 'Inativo'}
         />
         <Button type="submit" variant="contained">
-          Cadastrar
+          {submitText}
         </Button>
       </form>
     </div>

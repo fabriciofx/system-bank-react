@@ -9,7 +9,7 @@ const NovoCliente: React.FC = () => {
       <div className="box-com-titulo">
         <div className="box-novo-cliente">
           <h1>Novo cliente</h1>
-          <FormCliente />
+          <FormCliente submitText="Cadastrar" />
         </div>
       </div>
     </div>
