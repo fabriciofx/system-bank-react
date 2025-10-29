@@ -9,7 +9,7 @@ import {
   transferenciaEntreContas
 } from '../../services/ContaService';
 import InfiniteSelect, { type Option } from '../infinite-select/InfiniteSelect';
-import './FormTransferencia.css';
+import './FormConta.css';
 
 const FormTransferencia: React.FC = () => {
   const navigate = useNavigate();
@@ -76,7 +76,7 @@ const FormTransferencia: React.FC = () => {
 
   return (
     <div>
-      <form className="form-transferencia" onSubmit={handleSubmit}>
+      <form className="form-conta" onSubmit={handleSubmit}>
         <InfiniteSelect
           label="Cliente"
           required

@@ -6,7 +6,7 @@ import type { Deposito } from '../../models/Deposito';
 import { pagesClientes } from '../../services/ClienteService';
 import { depositoConta, listContas } from '../../services/ContaService';
 import InfiniteSelect, { type Option } from '../infinite-select/InfiniteSelect';
-import './FormDeposito.css';
+import './FormConta.css';
 
 const FormDeposito: React.FC = () => {
   const navigate = useNavigate();
@@ -66,7 +66,7 @@ const FormDeposito: React.FC = () => {
 
   return (
     <div>
-      <form className="form-deposito" onSubmit={handleSubmit}>
+      <form className="form-conta" onSubmit={handleSubmit}>
         <InfiniteSelect
           label="Cliente"
           required

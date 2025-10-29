@@ -6,7 +6,7 @@ import type { Saque } from '../../models/Saque';
 import { pagesClientes } from '../../services/ClienteService';
 import { listContas, saqueConta } from '../../services/ContaService';
 import InfiniteSelect, { type Option } from '../infinite-select/InfiniteSelect';
-import './FormSaque.css';
+import './FormConta.css';
 
 const FormSaque: React.FC = () => {
   const navigate = useNavigate();
@@ -63,7 +63,7 @@ const FormSaque: React.FC = () => {
 
   return (
     <div>
-      <form className="form-saque" onSubmit={handleSubmit}>
+      <form className="form-conta" onSubmit={handleSubmit}>
         <InfiniteSelect
           label="Cliente"
           required
