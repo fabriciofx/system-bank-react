@@ -9,7 +9,7 @@ const NovaConta: React.FC = () => {
       <div className="box-com-titulo">
         <div className="box-conta">
           <h1>Nova conta</h1>
-          <FormConta />
+          <FormConta submitText="Criar" />
         </div>
       </div>
     </div>

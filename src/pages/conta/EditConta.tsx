@@ -9,7 +9,7 @@ const EditConta: React.FC = () => {
       <div className="box-com-titulo">
         <div className="box-conta">
           <h1>Alterando dados da conta</h1>
-          <FormConta />
+          <FormConta submitText="Atualizar" />
         </div>
       </div>
     </div>

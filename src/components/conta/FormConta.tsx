@@ -12,7 +12,11 @@ import {
 import InfiniteSelect, { type Option } from '../infinite-select/InfiniteSelect';
 import './FormConta.css';
 
-const FormConta: React.FC = () => {
+type FormContaProps = {
+  submitText: string;
+};
+
+const FormConta: React.FC<FormContaProps> = ({ submitText }) => {
   const navigate = useNavigate();
   const { id } = useParams();
   const [conta, setConta] = useState<Conta>({
@@ -127,7 +131,7 @@ const FormConta: React.FC = () => {
           variant="filled"
         />
         <Button type="submit" variant="contained">
-          Criar
+          {submitText}
         </Button>
       </form>
     </div>
