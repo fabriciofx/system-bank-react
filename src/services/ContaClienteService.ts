@@ -8,9 +8,11 @@ export async function pagesContasClientes(
   num: number,
   size: number
 ): Promise<PageResult<ContaCliente>> {
-  const all = await listContas();
-  const contas = await pagesContas(num, size);
-  const clientes = await listClientes();
+  const [all, contas, clientes] = await Promise.all([
+    listContas(),
+    pagesContas(num, size),
+    listClientes()
+  ]);
   const map = new Map(clientes.map((cliente) => [cliente.id, cliente]));
   const contasClientes = contas.items.map((conta) => {
     const contaCliente: ContaCliente = {
