@@ -46,20 +46,20 @@ const FormCliente: React.FC = () => {
     try {
       if (cliente.id) {
         await updateCliente(cliente.id, cliente);
-        new SuccessMessage(
+        await new SuccessMessage(
           'Sucesso!',
           'Cliente atualizado com sucesso!'
         ).show();
       } else {
         await createCliente(cliente);
-        new SuccessMessage(
+        await new SuccessMessage(
           'Sucesso!',
           'Cliente cadastrado com sucesso!'
         ).show();
       }
       await navigate('/clientes');
     } catch (error) {
-      new ErrorMessage(
+      await new ErrorMessage(
         'Oops...',
         `Erro ao cadastrar/atualizar o cliente: ${error}`
       ).show();

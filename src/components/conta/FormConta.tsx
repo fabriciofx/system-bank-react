@@ -46,14 +46,20 @@ const FormConta: React.FC = () => {
     try {
       if (conta.id) {
         await updateConta(conta.id, conta);
-        new SuccessMessage('Sucesso!', 'Conta atualizada com sucesso!').show();
+        await new SuccessMessage(
+          'Sucesso!',
+          'Conta atualizada com sucesso!'
+        ).show();
       } else {
         await createConta(conta);
-        new SuccessMessage('Sucesso!', 'Conta cadastrada com sucesso!').show();
+        await new SuccessMessage(
+          'Sucesso!',
+          'Conta cadastrada com sucesso!'
+        ).show();
       }
       await navigate('/contas');
     } catch (error) {
-      new ErrorMessage(
+      await new ErrorMessage(
         'Oops...',
         `Erro ao cadastrar/atualizar a conta: ${error}`
       ).show();
