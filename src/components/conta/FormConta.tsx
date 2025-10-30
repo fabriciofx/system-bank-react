@@ -1,4 +1,4 @@
-import { Button, TextField } from '@mui/material';
+import { Button, MenuItem, Select, TextField } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { ErrorMessage, SuccessMessage } from '../../components/message/Message';
@@ -11,6 +11,7 @@ import {
 } from '../../services/ContaService';
 import InfiniteSelect, { type Option } from '../infinite-select/InfiniteSelect';
 import './FormConta.css';
+import type { Cliente } from '../../models/Cliente';
 
 type FormContaProps = {
   submitText: string;
@@ -26,12 +27,23 @@ const FormConta: React.FC<FormContaProps> = ({ submitText }) => {
     agencia: '',
     saldo: ''
   });
+  const [cliente, setCliente] = useState<Cliente>({
+    id: 0,
+    nome: '',
+    cpf: '',
+    email: '',
+    senha: '',
+    ativo: false,
+    observacoes: ''
+  });
 
   useEffect(() => {
     if (id) {
       (async () => {
         const contaEdit = await contaById(Number(id));
+        const result = await clienteById(contaEdit.cliente);
         setConta(contaEdit);
+        setCliente(result[0]);
       })();
     }
   }, [id]);
@@ -83,29 +95,31 @@ const FormConta: React.FC<FormContaProps> = ({ submitText }) => {
     }
   }
 
-  async function optionByClienteId(_page: number): Promise<Option[]> {
-    try {
-      const cliente = await clienteById(conta.cliente);
-      const opts = {
-        label: `${cliente.nome} (${cliente.cpf})`,
-        value: String(cliente.id)
-      };
-      return [opts];
-    } catch {
-      return [];
-    }
-  }
-
   return (
     <div>
       <form className="form-conta" onSubmit={handleSubmit}>
-        <InfiniteSelect
-          label="Cliente"
-          required
-          options={conta.cliente ? optionByClienteId : clientes}
-          value={conta.cliente ? String(conta.cliente) : ''}
-          onChange={(val) => setConta({ ...conta, cliente: Number(val) })}
-        />
+        {cliente.id ? (
+          <Select
+            id="select"
+            variant="filled"
+            label="Cliente"
+            required
+            value={cliente.id}
+            onChange={(val) => setConta({ ...conta, cliente: Number(val) })}
+          >
+            <MenuItem
+              value={cliente.id}
+            >{`${cliente.nome} (${cliente.cpf})`}</MenuItem>
+          </Select>
+        ) : (
+          <InfiniteSelect
+            label="Cliente"
+            required
+            options={clientes}
+            value={conta.cliente ? String(conta.cliente) : ''}
+            onChange={(val) => setConta({ ...conta, cliente: Number(val) })}
+          />
+        )}
         <TextField
           label="Número"
           name="numero"
