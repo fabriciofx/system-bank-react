@@ -63,7 +63,7 @@ export async function updateConta(
 }
 
 // Função para deletar uma conta
-export async function deleteConta(id: number) {
+export async function deleteConta(id: number): Promise<void> {
   try {
     await api.delete<Conta>(`/contas/${id}`);
   } catch (error) {
@@ -73,7 +73,7 @@ export async function deleteConta(id: number) {
 }
 
 // Função para sacar um valor de uma conta
-export async function saqueConta(saque: Saque) {
+export async function saqueConta(saque: Saque): Promise<void> {
   try {
     console.log('saque: ', saque);
     await api.post<Saque>(`/contas/${saque.conta}/saque/`, saque);
@@ -84,7 +84,7 @@ export async function saqueConta(saque: Saque) {
 }
 
 // Função para depositar um valor de uma conta
-export async function depositoConta(deposito: Deposito) {
+export async function depositoConta(deposito: Deposito): Promise<void> {
   try {
     await api.post<Deposito>(`/contas/${deposito.conta}/deposito/`, deposito);
   } catch (error) {
@@ -94,7 +94,9 @@ export async function depositoConta(deposito: Deposito) {
 }
 
 // Função para transferir um valor de uma conta para outra conta
-export async function transferenciaEntreContas(transferencia: Transferencia) {
+export async function transferenciaEntreContas(
+  transferencia: Transferencia
+): Promise<void> {
   try {
     await api.post<Transferencia>(
       `/contas/${transferencia.conta_origem}/transferencia/`,

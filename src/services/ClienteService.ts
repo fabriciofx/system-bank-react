@@ -63,7 +63,7 @@ export async function updateCliente(
 }
 
 // Função para deletar um cliente
-export async function deleteCliente(id: number) {
+export async function deleteCliente(id: number): Promise<void> {
   try {
     await api.delete<Cliente>(`/clientes/${id}`);
   } catch (error) {
