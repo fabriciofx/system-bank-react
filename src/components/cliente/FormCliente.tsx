@@ -31,7 +31,9 @@ const FormCliente: React.FC<FormClienteProps> = ({ submitText }) => {
     if (id) {
       (async () => {
         const clienteEdit = await clienteById(Number(id));
-        setCliente(clienteEdit);
+        if (clienteEdit.length > 0) {
+          setCliente(clienteEdit[0]);
+        }
       })();
     }
   }, [id]);
