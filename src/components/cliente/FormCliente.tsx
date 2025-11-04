@@ -3,18 +3,21 @@ import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { ErrorMessage, SuccessMessage } from '../../components/message/Message';
 import type { Cliente } from '../../models/Cliente';
-import {
-  clienteById,
-  createCliente,
-  updateCliente
-} from '../../services/ClienteService';
 import './FormCliente.css';
 
 type FormClienteProps = {
-  submitText: string;
+  create: (cliente: Cliente) => Promise<Cliente>;
+  update: (id: number, clienteAtualizado: Cliente) => Promise<Cliente>;
+  findById: (id: number) => Promise<Cliente[]>;
+  buttonText: string;
 };
 
-const FormCliente: React.FC<FormClienteProps> = ({ submitText }) => {
+const FormCliente: React.FC<FormClienteProps> = ({
+  create,
+  update,
+  findById,
+  buttonText
+}) => {
   const navigate = useNavigate();
   const { id } = useParams();
   const [cliente, setCliente] = useState<Cliente>({
@@ -30,13 +33,13 @@ const FormCliente: React.FC<FormClienteProps> = ({ submitText }) => {
   useEffect(() => {
     if (id) {
       (async () => {
-        const clienteEdit = await clienteById(Number(id));
+        const clienteEdit = await findById(Number(id));
         if (clienteEdit.length > 0) {
           setCliente(clienteEdit[0]);
         }
       })();
     }
-  }, [id]);
+  }, [findById, id]);
 
   function handleChange(
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -51,13 +54,13 @@ const FormCliente: React.FC<FormClienteProps> = ({ submitText }) => {
     event.preventDefault();
     try {
       if (cliente.id) {
-        await updateCliente(cliente.id, cliente);
+        await update(cliente.id, cliente);
         await new SuccessMessage(
           'Sucesso!',
           'Cliente atualizado com sucesso!'
         ).show();
       } else {
-        await createCliente(cliente);
+        await create(cliente);
         await new SuccessMessage(
           'Sucesso!',
           'Cliente cadastrado com sucesso!'
@@ -123,7 +126,7 @@ const FormCliente: React.FC<FormClienteProps> = ({ submitText }) => {
           label={cliente.ativo ? 'Ativo' : 'Inativo'}
         />
         <Button type="submit" variant="contained">
-          {submitText}
+          {buttonText}
         </Button>
       </form>
     </div>
