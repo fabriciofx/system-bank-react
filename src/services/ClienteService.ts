@@ -75,9 +75,11 @@ export async function deleteCliente(id: number): Promise<void> {
 // Função para buscar um cliente pelo id
 export async function clienteById(id: number): Promise<Cliente[]> {
   try {
-    const clientes = await listClientes();
-    const result = clientes.filter((cliente) => cliente.id === id);
-    return result;
+    const response = await api.get<Cliente>(`/clientes/${id}/`);
+    if (response.data) {
+      return [response.data];
+    }
+    return [];
   } catch (error) {
     console.error('Erro ao buscar cliente pelo id: ', error);
     throw error;
