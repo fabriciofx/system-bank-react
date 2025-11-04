@@ -122,7 +122,7 @@ const FormCliente: React.FC<FormClienteProps> = ({ submitText }) => {
           }
           label={cliente.ativo ? 'Ativo' : 'Inativo'}
         />
-        <Button type="submit" variant="contained">
+        <Button data-testid="submit-button" type="submit" variant="contained">
           {submitText}
         </Button>
       </form>
