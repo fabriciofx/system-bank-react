@@ -65,7 +65,7 @@ export async function updateCliente(
 // Função para deletar um cliente
 export async function deleteCliente(id: number): Promise<void> {
   try {
-    await api.delete<Cliente>(`/clientes/${id}`);
+    await api.delete<void>(`/clientes/${id}`);
   } catch (error) {
     console.error('Erro ao deletar cliente:', error);
     throw error;
