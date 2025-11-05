@@ -3,21 +3,28 @@ import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { ErrorMessage, SuccessMessage } from '../../components/message/Message';
 import type { Conta } from '../../models/Conta';
-import { clienteById, pagesClientes } from '../../services/ClienteService';
-import {
-  contaById,
-  createConta,
-  updateConta
-} from '../../services/ContaService';
 import InfiniteSelect, { type Option } from '../infinite-select/InfiniteSelect';
 import './FormConta.css';
+import type { PageResult } from '../../core/PageResult';
 import type { Cliente } from '../../models/Cliente';
 
 type FormContaProps = {
-  submitText: string;
+  create: (conta: Conta) => Promise<Conta>;
+  update: (id: number, contaAtualizada: Conta) => Promise<Conta>;
+  findById: (id: number) => Promise<Conta>;
+  pages: (num: number, size: number) => Promise<PageResult<Cliente>>;
+  clienteById: (id: number) => Promise<Cliente[]>;
+  buttonText: string;
 };
 
-const FormConta: React.FC<FormContaProps> = ({ submitText }) => {
+const FormConta: React.FC<FormContaProps> = ({
+  create,
+  update,
+  findById,
+  pages,
+  clienteById,
+  buttonText
+}) => {
   const navigate = useNavigate();
   const { id } = useParams();
   const [conta, setConta] = useState<Conta>({
@@ -40,13 +47,13 @@ const FormConta: React.FC<FormContaProps> = ({ submitText }) => {
   useEffect(() => {
     if (id) {
       (async () => {
-        const contaEdit = await contaById(Number(id));
+        const contaEdit = await findById(Number(id));
         const result = await clienteById(contaEdit.cliente);
         setConta(contaEdit);
         setCliente(result[0]);
       })();
     }
-  }, [id]);
+  }, [findById, clienteById, id]);
 
   function handleChange(
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -61,13 +68,13 @@ const FormConta: React.FC<FormContaProps> = ({ submitText }) => {
     event.preventDefault();
     try {
       if (conta.id) {
-        await updateConta(conta.id, conta);
+        await update(conta.id, conta);
         await new SuccessMessage(
           'Sucesso!',
           'Conta atualizada com sucesso!'
         ).show();
       } else {
-        await createConta(conta);
+        await create(conta);
         await new SuccessMessage(
           'Sucesso!',
           'Conta cadastrada com sucesso!'
@@ -84,7 +91,7 @@ const FormConta: React.FC<FormContaProps> = ({ submitText }) => {
 
   async function clientes(page: number): Promise<Option[]> {
     try {
-      const result = await pagesClientes(page, 5);
+      const result = await pages(page, 5);
       const opts = result.items.map((client) => ({
         label: `${client.nome} (${client.cpf})`,
         value: String(client.id)
@@ -145,7 +152,7 @@ const FormConta: React.FC<FormContaProps> = ({ submitText }) => {
           variant="filled"
         />
         <Button type="submit" variant="contained">
-          {submitText}
+          {buttonText}
         </Button>
       </form>
     </div>
