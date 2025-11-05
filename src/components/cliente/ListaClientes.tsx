@@ -16,10 +16,14 @@ import { useNavigate } from 'react-router-dom';
 import { Spinner } from '../../components/spinner/Spinner';
 import type { PageResult } from '../../core/PageResult';
 import type { Cliente } from '../../models/Cliente';
-import { deleteCliente, pagesClientes } from '../../services/ClienteService';
 import { SuccessMessage } from '../message/Message';
 
-const ListaClientes: React.FC = () => {
+type ListaClientesProps = {
+  pages: (num: number, size: number) => Promise<PageResult<Cliente>>;
+  remove: (id: number) => Promise<void>;
+};
+
+const ListaClientes: React.FC<ListaClientesProps> = ({ pages, remove }) => {
   const navigate = useNavigate();
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
@@ -35,7 +39,7 @@ const ListaClientes: React.FC = () => {
     async function fetchClientes() {
       try {
         setLoading(true);
-        const result = await pagesClientes(page + 1, rowsPerPage);
+        const result = await pages(page + 1, rowsPerPage);
         setPageResult(result);
       } catch (error) {
         console.error('Erro ao carregar clientes: ', error);
@@ -44,7 +48,7 @@ const ListaClientes: React.FC = () => {
       }
     }
     fetchClientes();
-  }, [page, rowsPerPage]);
+  }, [pages, page, rowsPerPage]);
 
   function handleEdit(cliente: Cliente): void {
     navigate(`/clientes/${cliente.id}`);
@@ -53,7 +57,7 @@ const ListaClientes: React.FC = () => {
   async function handleDelete(id: number) {
     try {
       setLoading(true);
-      await deleteCliente(id);
+      await remove(id);
       const result: PageResult<Cliente> = {
         items: pageResult.items.filter((cliente: Cliente) => cliente.id !== id),
         page: pageResult.page,

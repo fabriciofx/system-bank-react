@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import ListaClientes from '../../components/cliente/ListaClientes';
 import Navbar from '../../components/navbar/Navbar';
 import './Clientes.css';
+import { deleteCliente, pagesClientes } from '../../services/ClienteService';
 
 const Clientes: React.FC = () => {
   return (
@@ -19,7 +20,7 @@ const Clientes: React.FC = () => {
           Novo cliente
         </Button>
       </div>
-      <ListaClientes />
+      <ListaClientes pages={pagesClientes} remove={deleteCliente} />
     </div>
   );
 };
