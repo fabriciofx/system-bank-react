@@ -64,3 +64,61 @@ export const pagesClientesFake = async (
     total: num * size
   };
 };
+
+export const pagesClientesFakeFixed = async (
+  num: number,
+  size: number
+): Promise<PageResult<Cliente>> => ({
+  items: [
+    {
+      id: 1,
+      nome: 'Ana Souza',
+      cpf: '12345678912',
+      email: 'ana@hotmail.com',
+      senha: '',
+      observacoes: 'Cliente de teste',
+      ativo: true
+    },
+    {
+      id: 2,
+      nome: 'Bruno Lima',
+      cpf: '73542740987',
+      email: 'bruno@gmail.com',
+      senha: '',
+      observacoes: 'Cliente de teste',
+      ativo: true
+    },
+    {
+      id: 3,
+      nome: 'Carlos Cardoso',
+      cpf: '97632457651',
+      email: 'carlos@outlook.com',
+      senha: '',
+      observacoes: 'Cliente de teste',
+      ativo: true
+    },
+    {
+      id: 4,
+      nome: 'Daniela Mercury',
+      cpf: '85123412314',
+      email: 'daniela@gmail.com',
+      senha: '',
+      observacoes: 'Cliente de teste',
+      ativo: true
+    },
+    {
+      id: 5,
+      nome: 'Evandro Mesquita',
+      cpf: '98642357898',
+      email: 'evandro@hotmail.com',
+      senha: '',
+      observacoes: 'Cliente de teste',
+      ativo: true
+    }
+  ],
+  page: num,
+  pageSize: size,
+  total: 6
+});
+
+export const deleteClienteFake = async (_id: number): Promise<void> => {};
