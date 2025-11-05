@@ -1,43 +1,12 @@
 import { MemoryRouter } from 'react-router-dom';
 import { describe, expect, it } from 'vitest';
 import { render } from 'vitest-browser-react';
-import type { Cliente } from '../../models/Cliente';
+import {
+  clienteByIdFake,
+  createClienteFake,
+  updateClienteFake
+} from '../../services/ClienteServiceFake';
 import FormCliente from './FormCliente';
-
-const createClienteFake = async (cliente: Cliente): Promise<Cliente> => ({
-  id: Math.floor(Math.random() * (100 - 1 + 1)) + 1,
-  nome: cliente.nome,
-  cpf: cliente.cpf,
-  email: cliente.email,
-  senha: cliente.senha,
-  observacoes: cliente.observacoes,
-  ativo: cliente.ativo
-});
-
-const updateClienteFake = async (
-  id: number,
-  cliente: Cliente
-): Promise<Cliente> => ({
-  id: id,
-  nome: cliente.nome,
-  cpf: cliente.cpf,
-  email: cliente.email,
-  senha: cliente.senha,
-  observacoes: cliente.observacoes,
-  ativo: cliente.ativo
-});
-
-const clienteByIdFake = async (id: number): Promise<Cliente[]> => [
-  {
-    id: id,
-    nome: 'Fabrício Cabral',
-    cpf: '12345678900',
-    email: 'fabricio@email.com',
-    senha: '',
-    observacoes: 'Cliente de teste',
-    ativo: true
-  }
-];
 
 describe('Componente FormCliente', () => {
   it('verifica o nome do botão de submit', async () => {
