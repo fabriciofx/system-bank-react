@@ -1,10 +1,16 @@
 import type { PageResult } from '../core/PageResult';
+import {
+  randomCpf,
+  randomEmail,
+  randomInt,
+  randomNome
+} from '../fixtures/Fixture';
 import type { Cliente } from '../models/Cliente';
 
 export const createClienteFake = async (
   cliente: Cliente
 ): Promise<Cliente> => ({
-  id: Math.floor(Math.random() * (100 - 1 + 1)) + 1,
+  id: randomInt(1, 100),
   nome: cliente.nome,
   cpf: cliente.cpf,
   email: cliente.email,
@@ -29,9 +35,9 @@ export const updateClienteFake = async (
 export const clienteByIdFake = async (id: number): Promise<Cliente[]> => [
   {
     id: id,
-    nome: 'José da Silva',
-    cpf: '12345678900',
-    email: 'jose@email.com',
+    nome: randomNome(),
+    cpf: randomCpf(),
+    email: randomEmail(),
     senha: '',
     observacoes: 'Cliente de teste',
     ativo: true
@@ -41,28 +47,20 @@ export const clienteByIdFake = async (id: number): Promise<Cliente[]> => [
 export const pagesClientesFake = async (
   num: number,
   size: number
-): Promise<PageResult<Cliente>> => ({
-  items: [
-    {
-      id: 1,
-      nome: 'José da Silva',
-      cpf: '12345678900',
-      email: 'jose@email.com',
-      senha: '',
-      observacoes: 'Cliente de teste',
-      ativo: true
-    },
-    {
-      id: 2,
-      nome: 'Maria Madalena',
-      cpf: '12345678912',
-      email: 'maria@email.com',
-      senha: '',
-      observacoes: 'Cliente de teste',
-      ativo: true
-    }
-  ],
-  page: num,
-  pageSize: size,
-  total: 2
-});
+): Promise<PageResult<Cliente>> => {
+  const clientes = Array.from({ length: size }, (_, idx) => ({
+    id: idx + 1,
+    nome: randomNome(),
+    cpf: randomCpf(),
+    email: randomEmail(),
+    senha: '',
+    observacoes: 'Cliente de teste',
+    ativo: true
+  }));
+  return {
+    items: clientes,
+    page: num,
+    pageSize: size,
+    total: num * size
+  };
+};
