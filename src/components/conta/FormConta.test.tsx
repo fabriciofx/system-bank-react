@@ -12,8 +12,8 @@ import {
 } from '../../services/ContaServiceFake';
 import FormConta from './FormConta';
 
-describe('Componente FormConta', () => {
-  it('verifica o nome do botão de submit', async () => {
+describe('FormConta', () => {
+  it('deve aparecer o nome Criar no botão do formulário', async () => {
     const { getByRole } = await render(
       <MemoryRouter>
         <FormConta
@@ -29,7 +29,7 @@ describe('Componente FormConta', () => {
     await expect.element(getByRole('button')).toHaveTextContent('Criar');
   });
 
-  it('preenche e envia o formulário com sucesso', async () => {
+  it('deve preencher e enviar o formulário com sucesso', async () => {
     const { getByRole, getByLabelText } = await render(
       <MemoryRouter>
         <FormConta
