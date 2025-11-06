@@ -37,5 +37,11 @@ describe('Componente ListaClientes', () => {
     );
     const rows = screen.container.querySelectorAll('tr');
     expect(rows.length).toBeGreaterThan(5);
+    expect(rows[1].textContent).toContain(
+      '1Ana Souza12345678912ana@hotmail.comSim'
+    );
+    expect(rows[5].textContent).toContain(
+      '5Evandro Mesquita98642357898evandro@hotmail.comSim'
+    );
   });
 });
