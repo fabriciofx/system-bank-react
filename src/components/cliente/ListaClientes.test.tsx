@@ -7,7 +7,7 @@ import {
 } from '../../services/ClienteServiceFake';
 import ListaClientes from './ListaClientes';
 
-describe('Componente ListaClientes', () => {
+describe('ListaClientes', () => {
   // Silencia o aviso do React sobre act()
   const consoleError = console.error;
   beforeAll(() => {
@@ -26,7 +26,7 @@ describe('Componente ListaClientes', () => {
     console.error = consoleError;
   });
 
-  it('mostra a listagem de clientes', async () => {
+  it('deve mostrar a listagem de clientes', async () => {
     const screen = await render(
       <MemoryRouter>
         <ListaClientes

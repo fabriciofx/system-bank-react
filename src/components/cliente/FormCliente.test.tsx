@@ -8,8 +8,8 @@ import {
 } from '../../services/ClienteServiceFake';
 import FormCliente from './FormCliente';
 
-describe('Componente FormCliente', () => {
-  it('verifica o nome do botão de submit', async () => {
+describe('FormCliente', () => {
+  it('deve aparecer o nome Cadastar no botão do formulário', async () => {
     const { getByRole } = await render(
       <MemoryRouter>
         <FormCliente
@@ -23,7 +23,7 @@ describe('Componente FormCliente', () => {
     await expect.element(getByRole('button')).toHaveTextContent('Cadastrar');
   });
 
-  it('preenche e envia o formulário com sucesso', async () => {
+  it('deve preencher e enviar o formulário com sucesso', async () => {
     const { getByRole, getByLabelText } = await render(
       <MemoryRouter>
         <FormCliente
