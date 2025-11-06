@@ -10,7 +10,7 @@ import FormCliente from './FormCliente';
 
 describe('FormCliente', () => {
   it('deve aparecer o nome Cadastar no botão do formulário', async () => {
-    const { getByRole } = await render(
+    const screen = await render(
       <MemoryRouter>
         <FormCliente
           create={createClienteFake}
@@ -20,11 +20,13 @@ describe('FormCliente', () => {
         />
       </MemoryRouter>
     );
-    await expect.element(getByRole('button')).toHaveTextContent('Cadastrar');
+    await expect
+      .element(screen.getByRole('button'))
+      .toHaveTextContent('Cadastrar');
   });
 
   it('deve preencher e enviar o formulário com sucesso', async () => {
-    const { getByRole, getByLabelText } = await render(
+    const screen = await render(
       <MemoryRouter>
         <FormCliente
           create={createClienteFake}
@@ -34,11 +36,11 @@ describe('FormCliente', () => {
         />
       </MemoryRouter>
     );
-    await getByLabelText(/nome/i).fill('Fabrício Cabral');
-    await getByLabelText(/cpf/i).fill('12345678900');
-    await getByLabelText(/e-mail/i).fill('fabricio@email.com');
-    await getByLabelText(/observações/i).fill('Cliente de teste');
-    await getByRole('button').click();
+    await screen.getByLabelText(/nome/i).fill('Fabrício Cabral');
+    await screen.getByLabelText(/cpf/i).fill('12345678900');
+    await screen.getByLabelText(/e-mail/i).fill('fabricio@email.com');
+    await screen.getByLabelText(/observações/i).fill('Cliente de teste');
+    await screen.getByRole('button').click();
     const title = document.getElementsByClassName('swal2-title')[0];
     expect(title.textContent).toEqual('Sucesso!');
   });
