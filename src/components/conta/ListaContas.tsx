@@ -16,11 +16,14 @@ import { useNavigate } from 'react-router-dom';
 import { Spinner } from '../../components/spinner/Spinner';
 import type { PageResult } from '../../core/PageResult';
 import type { ContaCliente } from '../../models/ContaCliente';
-import { pagesContasClientes } from '../../services/ContaClienteService';
-import { deleteConta } from '../../services/ContaService';
 import { SuccessMessage } from '../message/Message';
 
-const ListaContas: React.FC = () => {
+type ListaContasProp = {
+  pages: (num: number, size: number) => Promise<PageResult<ContaCliente>>;
+  remove: (id: number) => Promise<void>;
+};
+
+const ListaContas: React.FC<ListaContasProp> = ({ pages, remove }) => {
   const navigate = useNavigate();
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
@@ -36,7 +39,7 @@ const ListaContas: React.FC = () => {
     async function fetchContas() {
       try {
         setLoading(true);
-        const result = await pagesContasClientes(page + 1, rowsPerPage);
+        const result = await pages(page + 1, rowsPerPage);
         setPageResult(result);
       } catch (error) {
         console.error('Erro ao carregar as contas: ', error);
@@ -45,7 +48,7 @@ const ListaContas: React.FC = () => {
       }
     }
     fetchContas();
-  }, [page, rowsPerPage]);
+  }, [pages, page, rowsPerPage]);
 
   function handleEdit(contaCliente: ContaCliente): void {
     navigate(`/contas/${contaCliente.id}`);
@@ -54,7 +57,7 @@ const ListaContas: React.FC = () => {
   async function handleDelete(id: number) {
     try {
       setLoading(true);
-      await deleteConta(id);
+      await remove(id);
       const result: PageResult<ContaCliente> = {
         items: pageResult.items.filter(
           (conta: ContaCliente) => conta.id !== id
