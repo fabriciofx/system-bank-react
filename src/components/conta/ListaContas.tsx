@@ -14,7 +14,7 @@ import {
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Spinner } from '../../components/spinner/Spinner';
-import { PAGE_RESULT_VAZIO, type PageResult } from '../../core/PageResult';
+import { EMPTY_PAGE_RESULT, type PageResult } from '../../core/PageResult';
 import type { ContaCliente } from '../../models/ContaCliente';
 import { SuccessMessage } from '../message/Message';
 
@@ -28,7 +28,7 @@ const ListaContas: React.FC<ListaContasProp> = ({ pages, remove }) => {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [pageResult, setPageResult] = useState<PageResult<ContaCliente>>(
-    PAGE_RESULT_VAZIO<ContaCliente>()
+    EMPTY_PAGE_RESULT<ContaCliente>()
   );
   const [loading, setLoading] = useState(true);
 

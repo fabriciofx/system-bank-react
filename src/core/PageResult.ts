@@ -5,7 +5,7 @@ export interface PageResult<T> {
   total: number;
 }
 
-export function PAGE_RESULT_VAZIO<T>(): PageResult<T> {
+export function EMPTY_PAGE_RESULT<T>(): PageResult<T> {
   return {
     items: [],
     page: 1,

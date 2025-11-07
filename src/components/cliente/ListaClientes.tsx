@@ -14,7 +14,7 @@ import {
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Spinner } from '../../components/spinner/Spinner';
-import { PAGE_RESULT_VAZIO, type PageResult } from '../../core/PageResult';
+import { EMPTY_PAGE_RESULT, type PageResult } from '../../core/PageResult';
 import type { Cliente } from '../../models/Cliente';
 import { SuccessMessage } from '../message/Message';
 
@@ -28,7 +28,7 @@ const ListaClientes: React.FC<ListaClientesProps> = ({ pages, remove }) => {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [pageResult, setPageResult] = useState<PageResult<Cliente>>(
-    PAGE_RESULT_VAZIO<Cliente>()
+    EMPTY_PAGE_RESULT<Cliente>()
   );
   const [loading, setLoading] = useState(true);
 
