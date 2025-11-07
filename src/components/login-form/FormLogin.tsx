@@ -1,8 +1,7 @@
 import { Button, styled, TextField } from '@mui/material';
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import type { NavigateFunction } from 'react-router-dom';
 import type { Credentials } from '../../models/Credentials';
-import { login } from '../../services/AuthService';
 import './FormLogin.css';
 
 const FormBox = styled('form')(({ theme }) => ({
@@ -11,8 +10,12 @@ const FormBox = styled('form')(({ theme }) => ({
   gap: theme.spacing(2)
 }));
 
-const FormLogin: React.FC = () => {
-  const navigate = useNavigate();
+type FormLoginProps = {
+  login: (credentials: Credentials) => Promise<boolean>;
+  navigate: NavigateFunction;
+};
+
+const FormLogin: React.FC<FormLoginProps> = ({ login, navigate }) => {
   const [credentials, setCredentials] = useState<Credentials>({
     username: '',
     password: ''
