@@ -30,10 +30,13 @@ const FormDeposito: React.FC = () => {
     event.preventDefault();
     try {
       await depositoConta(deposito);
-      new SuccessMessage('Sucesso!', 'Depósito realizado com sucesso!').show();
+      await new SuccessMessage(
+        'Sucesso!',
+        'Depósito realizado com sucesso!'
+      ).show();
       await navigate('/contas');
     } catch (error) {
-      new ErrorMessage(
+      await new ErrorMessage(
         'Oops...',
         `Erro ao depositar na conta: ${error}`
       ).show();

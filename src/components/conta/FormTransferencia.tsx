@@ -38,13 +38,13 @@ const FormTransferencia: React.FC = () => {
     event.preventDefault();
     try {
       await transferenciaEntreContas(transferencia);
-      new SuccessMessage(
+      await new SuccessMessage(
         'Sucesso!',
         'Transferência realizada com sucesso!'
       ).show();
       await navigate('/contas');
     } catch (error) {
-      new ErrorMessage(
+      await new ErrorMessage(
         'Oops...',
         `Erro ao transferir entre contas: ${error}`
       ).show();

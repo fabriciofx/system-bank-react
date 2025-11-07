@@ -30,10 +30,16 @@ const FormSaque: React.FC = () => {
     event.preventDefault();
     try {
       await saqueConta(saque);
-      new SuccessMessage('Sucesso!', 'Saque realizado com sucesso!').show();
+      await new SuccessMessage(
+        'Sucesso!',
+        'Saque realizado com sucesso!'
+      ).show();
       await navigate('/contas');
     } catch (error) {
-      new ErrorMessage('Oops...', `Erro ao sacar da conta: ${error}`).show();
+      await new ErrorMessage(
+        'Oops...',
+        `Erro ao sacar da conta: ${error}`
+      ).show();
     }
   }
 
