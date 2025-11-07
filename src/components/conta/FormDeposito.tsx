@@ -2,7 +2,7 @@ import { Button, TextField } from '@mui/material';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ErrorMessage, SuccessMessage } from '../../components/message/Message';
-import type { Deposito } from '../../models/Deposito';
+import { DEPOSITO_INVALIDO, type Deposito } from '../../models/Deposito';
 import { pagesClientes } from '../../services/ClienteService';
 import { depositoConta, listContas } from '../../services/ContaService';
 import InfiniteSelect, { type Option } from '../infinite-select/InfiniteSelect';
@@ -11,7 +11,7 @@ import './FormConta.css';
 const FormDeposito: React.FC = () => {
   const navigate = useNavigate();
   const [cliente, setCliente] = useState<string>('');
-  const [deposito, setDeposito] = useState<Deposito>({ conta: 0, valor: 0 });
+  const [deposito, setDeposito] = useState<Deposito>(DEPOSITO_INVALIDO);
 
   function handleChange(
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>

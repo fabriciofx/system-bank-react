@@ -2,7 +2,7 @@ import { Button, FormControlLabel, Switch, TextField } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { ErrorMessage, SuccessMessage } from '../../components/message/Message';
-import type { Cliente } from '../../models/Cliente';
+import { CLIENTE_INVALIDO, type Cliente } from '../../models/Cliente';
 import './FormCliente.css';
 
 type FormClienteProps = {
@@ -20,15 +20,7 @@ const FormCliente: React.FC<FormClienteProps> = ({
 }) => {
   const navigate = useNavigate();
   const { id } = useParams();
-  const [cliente, setCliente] = useState<Cliente>({
-    id: 0,
-    nome: '',
-    cpf: '',
-    email: '',
-    senha: '',
-    observacoes: '',
-    ativo: true
-  });
+  const [cliente, setCliente] = useState<Cliente>(CLIENTE_INVALIDO);
 
   useEffect(() => {
     if (id) {

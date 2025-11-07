@@ -2,7 +2,7 @@ import { Button, TextField } from '@mui/material';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ErrorMessage, SuccessMessage } from '../../components/message/Message';
-import type { Saque } from '../../models/Saque';
+import { SAQUE_INVALIDO, type Saque } from '../../models/Saque';
 import { pagesClientes } from '../../services/ClienteService';
 import { listContas, saqueConta } from '../../services/ContaService';
 import InfiniteSelect, { type Option } from '../infinite-select/InfiniteSelect';
@@ -11,7 +11,7 @@ import './FormConta.css';
 const FormSaque: React.FC = () => {
   const navigate = useNavigate();
   const [cliente, setCliente] = useState<string>('');
-  const [saque, setSaque] = useState<Saque>({ conta: 0, valor: 0 });
+  const [saque, setSaque] = useState<Saque>(SAQUE_INVALIDO);
 
   function handleChange(
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>

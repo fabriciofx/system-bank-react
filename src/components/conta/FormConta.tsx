@@ -2,11 +2,11 @@ import { Button, MenuItem, Select, TextField } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { ErrorMessage, SuccessMessage } from '../../components/message/Message';
-import type { Conta } from '../../models/Conta';
+import { CONTA_INVALIDA, type Conta } from '../../models/Conta';
 import InfiniteSelect, { type Option } from '../infinite-select/InfiniteSelect';
 import './FormConta.css';
 import type { PageResult } from '../../core/PageResult';
-import type { Cliente } from '../../models/Cliente';
+import { CLIENTE_INVALIDO, type Cliente } from '../../models/Cliente';
 
 type FormContaProps = {
   create: (conta: Conta) => Promise<Conta>;
@@ -27,22 +27,8 @@ const FormConta: React.FC<FormContaProps> = ({
 }) => {
   const navigate = useNavigate();
   const { id } = useParams();
-  const [conta, setConta] = useState<Conta>({
-    id: 0,
-    cliente: 0,
-    numero: '',
-    agencia: '',
-    saldo: ''
-  });
-  const [cliente, setCliente] = useState<Cliente>({
-    id: 0,
-    nome: '',
-    cpf: '',
-    email: '',
-    senha: '',
-    ativo: false,
-    observacoes: ''
-  });
+  const [conta, setConta] = useState<Conta>(CONTA_INVALIDA);
+  const [cliente, setCliente] = useState<Cliente>(CLIENTE_INVALIDO);
 
   useEffect(() => {
     if (id) {

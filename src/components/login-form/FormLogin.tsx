@@ -1,7 +1,10 @@
 import { Button, styled, TextField } from '@mui/material';
 import { useState } from 'react';
 import type { NavigateFunction } from 'react-router-dom';
-import type { Credentials } from '../../models/Credentials';
+import {
+  CREDENTIALS_INVALIDO,
+  type Credentials
+} from '../../models/Credentials';
 import './FormLogin.css';
 
 const FormBox = styled('form')(({ theme }) => ({
@@ -16,10 +19,8 @@ type FormLoginProps = {
 };
 
 const FormLogin: React.FC<FormLoginProps> = ({ login, navigate }) => {
-  const [credentials, setCredentials] = useState<Credentials>({
-    username: '',
-    password: ''
-  });
+  const [credentials, setCredentials] =
+    useState<Credentials>(CREDENTIALS_INVALIDO);
 
   function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
     const { name, value } = event.target;
