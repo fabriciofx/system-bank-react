@@ -74,7 +74,10 @@ const FormConta: React.FC<FormContaProps> = ({
           'Conta atualizada com sucesso!'
         ).show();
       } else {
-        await create(conta);
+        const novaConta = await create(conta);
+        if (novaConta.id === 0) {
+          throw new Error('o identificador da conta não retornou');
+        }
         await new SuccessMessage(
           'Sucesso!',
           'Conta cadastrada com sucesso!'
