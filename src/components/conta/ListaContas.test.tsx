@@ -35,5 +35,7 @@ describe('ListaContas', () => {
     );
     const rows = screen.container.querySelectorAll('tr');
     expect(rows.length).toBeGreaterThan(5);
+    expect(rows[1].textContent).toContain('1Ana Souza111112121000');
+    expect(rows[5].textContent).toContain('5Evandro Mesquita555516165000');
   });
 });
