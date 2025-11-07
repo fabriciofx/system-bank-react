@@ -61,14 +61,13 @@ const FormCliente: React.FC<FormClienteProps> = ({
         ).show();
       } else {
         const novoCliente = await create(cliente);
-        if (novoCliente.id !== 0) {
-          await new SuccessMessage(
-            'Sucesso!',
-            'Cliente cadastrado com sucesso!'
-          ).show();
-        } else {
+        if (novoCliente.id === 0) {
           throw new Error('o identificador do cliente não retornou');
         }
+        await new SuccessMessage(
+          'Sucesso!',
+          'Cliente cadastrado com sucesso!'
+        ).show();
       }
       await navigate('/clientes');
     } catch (error) {
