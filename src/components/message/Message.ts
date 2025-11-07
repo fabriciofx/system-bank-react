@@ -30,12 +30,15 @@ export class SuccessMessage implements Message<void> {
   }
 
   async show(): Promise<void> {
-    await Swal.fire<void>({
-      icon: 'success',
-      title: this.title,
-      text: this.message,
-      showConfirmButton: false,
-      timer: 2000
+    return await new Promise((resolve) => {
+      Swal.fire({
+        icon: 'success',
+        title: this.title,
+        text: this.message,
+        showConfirmButton: false,
+        timer: 2000,
+        didClose: () => resolve()
+      });
     });
   }
 }
