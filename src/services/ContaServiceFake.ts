@@ -27,3 +27,5 @@ export const contaByIdFake = async (id: number): Promise<Conta> => ({
   agencia: String(randomInt(1000, 9999)),
   saldo: String(randomInt(10, 10000))
 });
+
+export const deleteContaFake = async (_id: number): Promise<void> => {};
