@@ -2,9 +2,9 @@ import { MemoryRouter } from 'react-router-dom';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 import { render } from 'vitest-browser-react';
 import {
-  deleteClienteFake,
-  pagesClientesFakeFixed
-} from '../../services/ClienteServiceFake';
+  fakeDeleteCliente,
+  fakeFixedPagesClientes
+} from '../../services/FakeClienteService';
 import ListaClientes from './ListaClientes';
 
 describe('ListaClientes', () => {
@@ -30,8 +30,8 @@ describe('ListaClientes', () => {
     const screen = await render(
       <MemoryRouter>
         <ListaClientes
-          pages={pagesClientesFakeFixed}
-          remove={deleteClienteFake}
+          pages={fakeFixedPagesClientes}
+          remove={fakeDeleteCliente}
         />
       </MemoryRouter>
     );

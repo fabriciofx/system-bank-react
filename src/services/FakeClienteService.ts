@@ -7,7 +7,7 @@ import {
 } from '../fixtures/Fixture';
 import type { Cliente } from '../models/Cliente';
 
-export const createClienteFake = async (
+export const fakeCreateCliente = async (
   cliente: Cliente
 ): Promise<Cliente> => ({
   id: randomInt(1, 100),
@@ -19,7 +19,7 @@ export const createClienteFake = async (
   ativo: cliente.ativo
 });
 
-export const updateClienteFake = async (
+export const fakeUpdateCliente = async (
   id: number,
   cliente: Cliente
 ): Promise<Cliente> => ({
@@ -32,7 +32,7 @@ export const updateClienteFake = async (
   ativo: cliente.ativo
 });
 
-export const clienteByIdFake = async (id: number): Promise<Cliente[]> => [
+export const fakeClienteById = async (id: number): Promise<Cliente[]> => [
   {
     id: id,
     nome: randomNome(),
@@ -44,7 +44,7 @@ export const clienteByIdFake = async (id: number): Promise<Cliente[]> => [
   }
 ];
 
-export const pagesClientesFake = async (
+export const fakePagesClientes = async (
   num: number,
   size: number
 ): Promise<PageResult<Cliente>> => {
@@ -65,7 +65,7 @@ export const pagesClientesFake = async (
   };
 };
 
-export const pagesClientesFakeFixed = async (
+export const fakeFixedPagesClientes = async (
   num: number,
   size: number
 ): Promise<PageResult<Cliente>> => ({
@@ -121,4 +121,4 @@ export const pagesClientesFakeFixed = async (
   total: 6
 });
 
-export const deleteClienteFake = async (_id: number): Promise<void> => {};
+export const fakeDeleteCliente = async (_id: number): Promise<void> => {};

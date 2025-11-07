@@ -2,14 +2,14 @@ import { MemoryRouter } from 'react-router-dom';
 import { describe, expect, it } from 'vitest';
 import { render } from 'vitest-browser-react';
 import {
-  clienteByIdFake,
-  pagesClientesFake
-} from '../../services/ClienteServiceFake';
+  fakeClienteById,
+  fakePagesClientes
+} from '../../services/FakeClienteService';
 import {
-  contaByIdFake,
-  createContaFake,
-  updateContaFake
-} from '../../services/ContaServiceFake';
+  fakeContaById,
+  fakeCreateConta,
+  fakeUpdateConta
+} from '../../services/FakeContaService';
 import FormConta from './FormConta';
 
 describe('FormConta', () => {
@@ -17,11 +17,11 @@ describe('FormConta', () => {
     const screen = await render(
       <MemoryRouter>
         <FormConta
-          create={createContaFake}
-          update={updateContaFake}
-          findById={contaByIdFake}
-          pages={pagesClientesFake}
-          clienteById={clienteByIdFake}
+          create={fakeCreateConta}
+          update={fakeUpdateConta}
+          findById={fakeContaById}
+          pages={fakePagesClientes}
+          clienteById={fakeClienteById}
           buttonText="Criar"
         />
       </MemoryRouter>
@@ -33,11 +33,11 @@ describe('FormConta', () => {
     const screen = await render(
       <MemoryRouter>
         <FormConta
-          create={createContaFake}
-          update={updateContaFake}
-          findById={contaByIdFake}
-          pages={pagesClientesFake}
-          clienteById={clienteByIdFake}
+          create={fakeCreateConta}
+          update={fakeUpdateConta}
+          findById={fakeContaById}
+          pages={fakePagesClientes}
+          clienteById={fakeClienteById}
           buttonText="Cadastrar"
         />
       </MemoryRouter>

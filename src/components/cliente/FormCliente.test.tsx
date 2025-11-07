@@ -2,10 +2,10 @@ import { MemoryRouter } from 'react-router-dom';
 import { describe, expect, it } from 'vitest';
 import { render } from 'vitest-browser-react';
 import {
-  clienteByIdFake,
-  createClienteFake,
-  updateClienteFake
-} from '../../services/ClienteServiceFake';
+  fakeClienteById,
+  fakeCreateCliente,
+  fakeUpdateCliente
+} from '../../services/FakeClienteService';
 import FormCliente from './FormCliente';
 
 describe('FormCliente', () => {
@@ -13,9 +13,9 @@ describe('FormCliente', () => {
     const screen = await render(
       <MemoryRouter>
         <FormCliente
-          create={createClienteFake}
-          update={updateClienteFake}
-          findById={clienteByIdFake}
+          create={fakeCreateCliente}
+          update={fakeUpdateCliente}
+          findById={fakeClienteById}
           buttonText="Cadastrar"
         />
       </MemoryRouter>
@@ -29,9 +29,9 @@ describe('FormCliente', () => {
     const screen = await render(
       <MemoryRouter>
         <FormCliente
-          create={createClienteFake}
-          update={updateClienteFake}
-          findById={clienteByIdFake}
+          create={fakeCreateCliente}
+          update={fakeUpdateCliente}
+          findById={fakeClienteById}
           buttonText="Cadastrar"
         />
       </MemoryRouter>

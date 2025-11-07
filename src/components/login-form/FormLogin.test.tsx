@@ -1,7 +1,7 @@
 import { MemoryRouter, type NavigateFunction } from 'react-router-dom';
 import { describe, expect, it, vi } from 'vitest';
 import { render } from 'vitest-browser-react';
-import { loginFake } from '../../services/AuthServiceFake';
+import { fakeLogin } from '../../services/FakeAuthService';
 import FormLogin from './FormLogin';
 
 describe('FormLogin', () => {
@@ -9,7 +9,7 @@ describe('FormLogin', () => {
     const fakeNavigate = vi.fn() as unknown as NavigateFunction;
     const screen = await render(
       <MemoryRouter>
-        <FormLogin login={loginFake} navigate={fakeNavigate} />
+        <FormLogin login={fakeLogin} navigate={fakeNavigate} />
       </MemoryRouter>
     );
     await screen.getByLabelText(/e-mail ou nome de usuário/i).fill('teste');

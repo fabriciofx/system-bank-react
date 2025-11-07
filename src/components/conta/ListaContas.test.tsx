@@ -1,8 +1,8 @@
 import { MemoryRouter } from 'react-router-dom';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 import { render } from 'vitest-browser-react';
-import { pagesContasClientesFakeFixed } from '../../services/ContaClienteServiceFake';
-import { deleteContaFake } from '../../services/ContaServiceFake';
+import { fakeFixedPagesContasClientes } from '../../services/FakeContaClienteService';
+import { fakeDeleteConta } from '../../services/FakeContaService';
 import ListaContas from './ListaContas';
 
 describe('ListaContas', () => {
@@ -28,8 +28,8 @@ describe('ListaContas', () => {
     const screen = await render(
       <MemoryRouter>
         <ListaContas
-          pages={pagesContasClientesFakeFixed}
-          remove={deleteContaFake}
+          pages={fakeFixedPagesContasClientes}
+          remove={fakeDeleteConta}
         />
       </MemoryRouter>
     );

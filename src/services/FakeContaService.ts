@@ -1,7 +1,7 @@
 import { randomInt } from '../fixtures/Fixture';
 import type { Conta } from '../models/Conta';
 
-export const createContaFake = async (conta: Conta): Promise<Conta> => ({
+export const fakeCreateConta = async (conta: Conta): Promise<Conta> => ({
   id: randomInt(1, 100),
   cliente: conta.cliente,
   numero: conta.numero,
@@ -9,7 +9,7 @@ export const createContaFake = async (conta: Conta): Promise<Conta> => ({
   saldo: conta.saldo
 });
 
-export const updateContaFake = async (
+export const fakeUpdateConta = async (
   id: number,
   conta: Conta
 ): Promise<Conta> => ({
@@ -20,7 +20,7 @@ export const updateContaFake = async (
   saldo: conta.saldo
 });
 
-export const contaByIdFake = async (id: number): Promise<Conta> => ({
+export const fakeContaById = async (id: number): Promise<Conta> => ({
   id: id,
   cliente: randomInt(1, 100),
   numero: String(randomInt(10000, 99999)),
@@ -28,4 +28,4 @@ export const contaByIdFake = async (id: number): Promise<Conta> => ({
   saldo: String(randomInt(10, 10000))
 });
 
-export const deleteContaFake = async (_id: number): Promise<void> => {};
+export const fakeDeleteConta = async (_id: number): Promise<void> => {};

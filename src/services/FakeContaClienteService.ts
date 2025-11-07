@@ -1,7 +1,7 @@
 import type { PageResult } from '../core/PageResult';
 import type { ContaCliente } from '../models/ContaCliente';
 
-export const pagesContasClientesFakeFixed = async (
+export const fakeFixedPagesContasClientes = async (
   num: number,
   size: number
 ): Promise<PageResult<ContaCliente>> => ({
