@@ -11,7 +11,7 @@ const FormBox = styled('form')(({ theme }) => ({
   gap: theme.spacing(2)
 }));
 
-export default function FormLogin() {
+const FormLogin: React.FC = () => {
   const navigate = useNavigate();
   const [credentials, setCredentials] = useState<Credentials>({
     username: '',
@@ -79,4 +79,6 @@ export default function FormLogin() {
       </div>
     </div>
   );
-}
+};
+
+export default FormLogin;
