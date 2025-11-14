@@ -2,7 +2,7 @@ import { Button, styled, TextField } from '@mui/material';
 import { useState } from 'react';
 import type { NavigateFunction } from 'react-router-dom';
 import {
-  CREDENTIALS_INVALIDO,
+  CREDENTIALS_INVALIDAS,
   type Credentials
 } from '../../models/Credentials';
 import './FormLogin.css';
@@ -19,8 +19,9 @@ type FormLoginProps = {
 };
 
 export default function FormLogin({ login, navigate }: FormLoginProps) {
-  const [credentials, setCredentials] =
-    useState<Credentials>(CREDENTIALS_INVALIDO);
+  const [credentials, setCredentials] = useState<Credentials>(
+    CREDENTIALS_INVALIDAS
+  );
 
   function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
     const { name, value } = event.target;

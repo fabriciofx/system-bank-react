@@ -3,7 +3,7 @@ export type Credentials = {
   password: string;
 };
 
-export const CREDENTIALS_INVALIDO: Credentials = {
+export const CREDENTIALS_INVALIDAS: Credentials = {
   username: '',
   password: ''
 };
