@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { YesNoMessage } from '../../components/message/Message';
 import { STORAGE } from '../../services/AuthService';
 
-const Logout: React.FC = () => {
+export default function Logout() {
   const navigate = useNavigate();
   useEffect(() => {
     let ativo = true;
@@ -28,6 +28,4 @@ const Logout: React.FC = () => {
     };
   }, [navigate]);
   return null;
-};
-
-export default Logout;
+}

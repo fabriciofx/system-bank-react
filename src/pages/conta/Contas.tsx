@@ -8,7 +8,7 @@ import {
   usePagesContasClientes
 } from '../../hooks/useContasClientes';
 
-const Contas: React.FC = () => {
+export default function Contas() {
   return (
     <div>
       <Navbar />
@@ -50,6 +50,4 @@ const Contas: React.FC = () => {
       <ListaContas pages={usePagesContasClientes} remove={useDeleteConta} />
     </div>
   );
-};
-
-export default Contas;
+}

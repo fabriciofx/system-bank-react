@@ -12,12 +12,12 @@ type FormClienteProps = {
   buttonText: string;
 };
 
-const FormCliente: React.FC<FormClienteProps> = ({
+export default function FormCliente({
   create,
   update,
   findById,
   buttonText
-}) => {
+}: FormClienteProps) {
   const navigate = useNavigate();
   const { id } = useParams();
   const [cliente, setCliente] = useState<Cliente>(CLIENTE_INVALIDO);
@@ -126,6 +126,4 @@ const FormCliente: React.FC<FormClienteProps> = ({
       </form>
     </div>
   );
-};
-
-export default FormCliente;
+}

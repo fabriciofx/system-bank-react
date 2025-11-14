@@ -14,7 +14,7 @@ import {
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
-const Navbar: React.FC = () => {
+export default function Navbar() {
   const [drawerOpen, setDrawerOpen] = useState(false);
 
   const toggleDrawer = (open: boolean) => () => {
@@ -67,6 +67,4 @@ const Navbar: React.FC = () => {
       </Drawer>
     </div>
   );
-};
-
-export default Navbar;
+}

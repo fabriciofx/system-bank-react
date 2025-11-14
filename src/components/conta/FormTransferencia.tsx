@@ -14,7 +14,7 @@ import {
 import InfiniteSelect, { type Option } from '../infinite-select/InfiniteSelect';
 import './FormConta.css';
 
-const FormTransferencia: React.FC = () => {
+export default function FormTransferencia() {
   const navigate = useNavigate();
   const [cliente, setCliente] = useState<string>('');
   const [transferencia, setTransferencia] = useState<Transferencia>(
@@ -115,6 +115,4 @@ const FormTransferencia: React.FC = () => {
       </form>
     </div>
   );
-};
-
-export default FormTransferencia;
+}

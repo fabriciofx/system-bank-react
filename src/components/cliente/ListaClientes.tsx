@@ -31,7 +31,7 @@ type ListaClientesProps = {
   }) => UseMutationResult<void, Error, Id, unknown>;
 };
 
-const ListaClientes: React.FC<ListaClientesProps> = ({ pages, remove }) => {
+export default function ListaClientes({ pages, remove }: ListaClientesProps) {
   const navigate = useNavigate();
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
@@ -133,6 +133,4 @@ const ListaClientes: React.FC<ListaClientesProps> = ({ pages, remove }) => {
       </TableContainer>
     </div>
   );
-};
-
-export default ListaClientes;
+}

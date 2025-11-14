@@ -8,7 +8,7 @@ import {
 } from '../../services/ContaService';
 import './BoxConta.css';
 
-const EditConta: React.FC = () => {
+export default function EditConta() {
   return (
     <div>
       <Navbar />
@@ -27,6 +27,4 @@ const EditConta: React.FC = () => {
       </div>
     </div>
   );
-};
-
-export default EditConta;
+}

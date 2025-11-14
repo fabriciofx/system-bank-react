@@ -20,13 +20,13 @@ type InfiniteSelectProps = {
   value?: string;
 };
 
-const InfiniteSelect: React.FC<InfiniteSelectProps> = ({
+export default function InfiniteSelect({
   label,
   onChange,
   options,
   required,
   value
-}) => {
+}: InfiniteSelectProps) {
   const [opts, setOpts] = useState<Option[]>([{ label: '', value: '' }]);
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
@@ -93,6 +93,4 @@ const InfiniteSelect: React.FC<InfiniteSelectProps> = ({
       </Select>
     </FormControl>
   );
-};
-
-export default InfiniteSelect;
+}

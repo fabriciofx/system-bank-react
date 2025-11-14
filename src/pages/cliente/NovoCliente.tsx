@@ -7,7 +7,7 @@ import {
 } from '../../services/ClienteService';
 import './NovoCliente.css';
 
-const NovoCliente: React.FC = () => {
+export default function NovoCliente() {
   return (
     <div>
       <Navbar />
@@ -24,6 +24,4 @@ const NovoCliente: React.FC = () => {
       </div>
     </div>
   );
-};
-
-export default NovoCliente;
+}

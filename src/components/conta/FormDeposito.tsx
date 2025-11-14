@@ -8,7 +8,7 @@ import { depositoConta, listContas } from '../../services/ContaService';
 import InfiniteSelect, { type Option } from '../infinite-select/InfiniteSelect';
 import './FormConta.css';
 
-const FormDeposito: React.FC = () => {
+export default function FormDeposito() {
   const navigate = useNavigate();
   const [cliente, setCliente] = useState<string>('');
   const [deposito, setDeposito] = useState<Deposito>(DEPOSITO_INVALIDO);
@@ -96,6 +96,4 @@ const FormDeposito: React.FC = () => {
       </form>
     </div>
   );
-};
-
-export default FormDeposito;
+}

@@ -7,7 +7,7 @@ import {
 } from '../../services/ClienteService';
 import './NovoCliente.css';
 
-const EditCliente: React.FC = () => {
+export default function EditCliente() {
   return (
     <div>
       <Navbar />
@@ -24,6 +24,4 @@ const EditCliente: React.FC = () => {
       </div>
     </div>
   );
-};
-
-export default EditCliente;
+}

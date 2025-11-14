@@ -8,7 +8,7 @@ import { listContas, saqueConta } from '../../services/ContaService';
 import InfiniteSelect, { type Option } from '../infinite-select/InfiniteSelect';
 import './FormConta.css';
 
-const FormSaque: React.FC = () => {
+export default function FormSaque() {
   const navigate = useNavigate();
   const [cliente, setCliente] = useState<string>('');
   const [saque, setSaque] = useState<Saque>(SAQUE_INVALIDO);
@@ -96,6 +96,4 @@ const FormSaque: React.FC = () => {
       </form>
     </div>
   );
-};
-
-export default FormSaque;
+}

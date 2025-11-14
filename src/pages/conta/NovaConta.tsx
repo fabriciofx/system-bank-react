@@ -8,7 +8,7 @@ import {
 } from '../../services/ContaService';
 import './BoxConta.css';
 
-const NovaConta: React.FC = () => {
+export default function NovaConta() {
   return (
     <div>
       <Navbar />
@@ -27,6 +27,4 @@ const NovaConta: React.FC = () => {
       </div>
     </div>
   );
-};
-
-export default NovaConta;
+}

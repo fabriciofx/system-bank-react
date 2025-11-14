@@ -18,7 +18,7 @@ type FormLoginProps = {
   navigate: NavigateFunction;
 };
 
-const FormLogin: React.FC<FormLoginProps> = ({ login, navigate }) => {
+export default function FormLogin({ login, navigate }: FormLoginProps) {
   const [credentials, setCredentials] =
     useState<Credentials>(CREDENTIALS_INVALIDO);
 
@@ -83,6 +83,4 @@ const FormLogin: React.FC<FormLoginProps> = ({ login, navigate }) => {
       </div>
     </div>
   );
-};
-
-export default FormLogin;
+}

@@ -17,14 +17,14 @@ type FormContaProps = {
   buttonText: string;
 };
 
-const FormConta: React.FC<FormContaProps> = ({
+export default function FormConta({
   create,
   update,
   findById,
   pages,
   clienteById,
   buttonText
-}) => {
+}: FormContaProps) {
   const navigate = useNavigate();
   const { id } = useParams();
   const [conta, setConta] = useState<Conta>(CONTA_INVALIDA);
@@ -146,6 +146,4 @@ const FormConta: React.FC<FormContaProps> = ({
       </form>
     </div>
   );
-};
-
-export default FormConta;
+}

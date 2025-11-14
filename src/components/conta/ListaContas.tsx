@@ -20,7 +20,7 @@ import type { ContaCliente } from '../../models/ContaCliente';
 import type { Id } from '../../models/Id';
 import { ErrorMessage, SuccessMessage } from '../message/Message';
 
-type ListaContasProp = {
+type ListaContasProps = {
   pages: (
     num: number,
     size: number
@@ -31,7 +31,7 @@ type ListaContasProp = {
   }) => UseMutationResult<void, Error, Id, unknown>;
 };
 
-const ListaContas: React.FC<ListaContasProp> = ({ pages, remove }) => {
+export default function ListaContas({ pages, remove }: ListaContasProps) {
   const navigate = useNavigate();
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
@@ -127,6 +127,4 @@ const ListaContas: React.FC<ListaContasProp> = ({ pages, remove }) => {
       </TableContainer>
     </div>
   );
-};
-
-export default ListaContas;
+}

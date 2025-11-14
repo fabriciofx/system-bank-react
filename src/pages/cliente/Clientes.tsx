@@ -5,7 +5,7 @@ import Navbar from '../../components/navbar/Navbar';
 import './Clientes.css';
 import { useDeleteCliente, usePagesClientes } from '../../hooks/useClientes';
 
-const Clientes: React.FC = () => {
+export default function Clientes() {
   return (
     <div>
       <Navbar />
@@ -23,6 +23,4 @@ const Clientes: React.FC = () => {
       <ListaClientes pages={usePagesClientes} remove={useDeleteCliente} />
     </div>
   );
-};
-
-export default Clientes;
+}

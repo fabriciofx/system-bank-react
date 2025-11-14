@@ -3,7 +3,7 @@ import FormLogin from '../../components/login-form/FormLogin';
 import { login } from '../../services/AuthService';
 import './LoginTemplate.css';
 
-const LoginTemplate: React.FC = () => {
+export default function LoginTemplate() {
   return (
     <div className="container">
       <div className="form">
@@ -17,6 +17,4 @@ const LoginTemplate: React.FC = () => {
       </div>
     </div>
   );
-};
-
-export default LoginTemplate;
+}
