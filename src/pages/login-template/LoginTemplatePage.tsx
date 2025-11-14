@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import FormLogin from '../../components/login-form/FormLogin';
+import FormLogin from '../../components/login/FormLogin';
 import { login } from '../../services/AuthService';
 import './Page.css';
 
