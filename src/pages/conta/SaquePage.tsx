@@ -1,6 +1,6 @@
 import FormSaque from '../../components/conta/FormSaque';
 import Navbar from '../../components/navbar/Navbar';
-import './BoxConta.css';
+import './Page.css';
 
 export default function SaquePage() {
   return (

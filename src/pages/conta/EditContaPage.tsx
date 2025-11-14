@@ -6,7 +6,7 @@ import {
   createConta,
   updateConta
 } from '../../services/ContaService';
-import './BoxConta.css';
+import './Page.css';
 
 export default function EditContaPage() {
   return (

@@ -2,7 +2,7 @@ import { Button } from '@mui/material';
 import { Link } from 'react-router-dom';
 import ListaContas from '../../components/conta/ListaContas';
 import Navbar from '../../components/navbar/Navbar';
-import './ContasPage.css';
+import './Page.css';
 import {
   useDeleteConta,
   usePagesContasClientes

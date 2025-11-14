@@ -1,6 +1,6 @@
 import FormDeposito from '../../components/conta/FormDeposito';
 import Navbar from '../../components/navbar/Navbar';
-import './BoxConta.css';
+import './Page.css';
 
 export default function DepositoPage() {
   return (
