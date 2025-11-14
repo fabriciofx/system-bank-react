@@ -1,16 +1,12 @@
 import { create } from 'zustand';
-
-type State = {
-  access: string;
-  refresh: string;
-};
+import type { AuthTokens } from '../models/Auth';
 
 type Actions = {
   setAccess: (token: string) => void;
   setRefresh: (token: string) => void;
 };
 
-type AuthStore = State & Actions;
+type AuthStore = AuthTokens & Actions;
 
 export const useAuthStore = create<AuthStore>((set) => ({
   access: '',
