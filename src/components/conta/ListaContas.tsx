@@ -14,7 +14,7 @@ import {
 import type { UseMutationResult, UseQueryResult } from '@tanstack/react-query';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Spinner } from '../../components/spinner/Spinner';
+import Spinner from '../../components/spinner/Spinner';
 import type { PageResult } from '../../core/PageResult';
 import type { ContaCliente } from '../../models/ContaCliente';
 import type { Id } from '../../models/Id';
