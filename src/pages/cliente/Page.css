@@ -1,4 +1,12 @@
-.box-novo-cliente {
+.buttons-clientes {
+  display: flex;
+  justify-content: flex-start;
+  align-items: left;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.box-cliente {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;

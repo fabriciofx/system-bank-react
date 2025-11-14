@@ -5,14 +5,14 @@ import {
   createCliente,
   updateCliente
 } from '../../services/ClienteService';
-import './NovoClientePage.css';
+import './Page.css';
 
 export default function NovoClientePage() {
   return (
     <div>
       <Navbar />
       <div className="box-com-titulo">
-        <div className="box-novo-cliente">
+        <div className="box-cliente">
           <h1>Novo cliente</h1>
           <FormCliente
             create={createCliente}
