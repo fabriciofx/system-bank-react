@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { YesNoMessage } from '../../components/message/Message';
-import { STORAGE } from '../../services/AuthService';
+import { logout } from '../../services/AuthService';
 
 export default function LogoutPage() {
   const navigate = useNavigate();
@@ -16,8 +16,7 @@ export default function LogoutPage() {
         return;
       }
       if (answer.yes()) {
-        STORAGE.remove('access_token');
-        STORAGE.remove('refresh_token');
+        logout();
         navigate('/auth');
       } else {
         navigate(-1);

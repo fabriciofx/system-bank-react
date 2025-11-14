@@ -1,5 +1,5 @@
 import axios, { type AxiosRequestConfig } from 'axios';
-import { STORAGE } from './AuthService';
+import { useAuthStore } from '../store/authStore';
 
 const api = axios.create({
   baseURL: 'https://aula-angular.bcorp.tec.br/api',
@@ -9,9 +9,9 @@ const api = axios.create({
 });
 
 api.interceptors.request.use((config) => {
-  const accessToken = STORAGE.value('access_token')[0] ?? '';
-  if (accessToken) {
-    config.headers.Authorization = `Bearer ${accessToken}`;
+  const access = useAuthStore.getState().access;
+  if (access) {
+    config.headers.Authorization = `Bearer ${access}`;
   }
   return config;
 });
@@ -19,15 +19,16 @@ api.interceptors.request.use((config) => {
 api.interceptors.response.use(
   (response) => response,
   async (error) => {
+    const setAccess = useAuthStore.getState().setAccess;
+    const refresh = useAuthStore.getState().refresh;
     const config = error.config as AxiosRequestConfig & { _retry?: boolean };
     if (error.response?.status === 401 && !config._retry) {
       config._retry = true;
       try {
-        const refreshToken = STORAGE.value('refresh_token')[0] ?? '';
         const refreshResponse = await api.post('/token/refresh/', {
-          refresh: refreshToken
+          refresh: refresh
         });
-        STORAGE.store('access_token', refreshResponse.data.access);
+        setAccess(refreshResponse.data.access);
         if (config.headers) {
           config.headers.Authorization = `Bearer ${refreshResponse.data.access}`;
         }
