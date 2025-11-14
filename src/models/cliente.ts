@@ -1,5 +1,6 @@
-export interface Cliente {
-  id: number;
+import type { Id } from './Id';
+
+export interface Cliente extends Id {
   nome: string;
   cpf: string;
   email: string;

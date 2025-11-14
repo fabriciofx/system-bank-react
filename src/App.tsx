@@ -1,3 +1,4 @@
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import {
   Navigate,
   Route,
@@ -16,24 +17,28 @@ import Transferencia from './pages/conta/Transferencia';
 import LoginTemplate from './pages/login-template/LoginTemplate';
 import Logout from './pages/logout/Logout';
 
+const queryClient = new QueryClient();
+
 function App() {
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<Navigate to="/auth" replace />} />
-        <Route path="/auth" element={<LoginTemplate />} />
-        <Route path="/logout" element={<Logout />} />
-        <Route path="/clientes" element={<Clientes />} />
-        <Route path="/clientes/novo" element={<NovoCliente />} />
-        <Route path="/clientes/:id" element={<EditCliente />} />
-        <Route path="/contas" element={<Contas />} />
-        <Route path="/contas/:id" element={<EditConta />} />
-        <Route path="/contas/nova" element={<NovaConta />} />
-        <Route path="/contas/saque" element={<Saque />} />
-        <Route path="/contas/deposito" element={<Deposito />} />
-        <Route path="/contas/transferencia" element={<Transferencia />} />
-      </Routes>
-    </Router>
+    <QueryClientProvider client={queryClient}>
+      <Router>
+        <Routes>
+          <Route path="/" element={<Navigate to="/auth" replace />} />
+          <Route path="/auth" element={<LoginTemplate />} />
+          <Route path="/logout" element={<Logout />} />
+          <Route path="/clientes" element={<Clientes />} />
+          <Route path="/clientes/novo" element={<NovoCliente />} />
+          <Route path="/clientes/:id" element={<EditCliente />} />
+          <Route path="/contas" element={<Contas />} />
+          <Route path="/contas/:id" element={<EditConta />} />
+          <Route path="/contas/nova" element={<NovaConta />} />
+          <Route path="/contas/saque" element={<Saque />} />
+          <Route path="/contas/deposito" element={<Deposito />} />
+          <Route path="/contas/transferencia" element={<Transferencia />} />
+        </Routes>
+      </Router>
+    </QueryClientProvider>
   );
 }
 
