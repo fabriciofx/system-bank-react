@@ -3,7 +3,7 @@ import FormLogin from '../../components/login/FormLogin';
 import { login } from '../../services/AuthService';
 import './Page.css';
 
-export default function LoginTemplatePage() {
+export default function LoginPage() {
   return (
     <div className="container">
       <div className="form">

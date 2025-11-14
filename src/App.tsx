@@ -14,7 +14,7 @@ import EditContaPage from './pages/conta/EditContaPage';
 import NovaContaPage from './pages/conta/NovaContaPage';
 import SaquePage from './pages/conta/SaquePage';
 import TransferenciaPage from './pages/conta/TransferenciaPage';
-import LoginTemplatePage from './pages/login-template/LoginTemplatePage';
+import LoginPage from './pages/login/LoginPage';
 import LogoutPage from './pages/logout/LogoutPage';
 
 const queryClient = new QueryClient();
@@ -25,7 +25,7 @@ function App() {
       <Router>
         <Routes>
           <Route path="/" element={<Navigate to="/auth" replace />} />
-          <Route path="/auth" element={<LoginTemplatePage />} />
+          <Route path="/auth" element={<LoginPage />} />
           <Route path="/logout" element={<LogoutPage />} />
           <Route path="/clientes" element={<ClientesPage />} />
           <Route path="/clientes/novo" element={<NovoClientePage />} />
