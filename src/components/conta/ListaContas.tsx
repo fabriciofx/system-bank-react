@@ -11,68 +11,53 @@ import {
   TablePagination,
   TableRow
 } from '@mui/material';
-import { useEffect, useState } from 'react';
+import type { UseMutationResult, UseQueryResult } from '@tanstack/react-query';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Spinner } from '../../components/spinner/Spinner';
-import { EMPTY_PAGE_RESULT, type PageResult } from '../../core/PageResult';
+import type { PageResult } from '../../core/PageResult';
 import type { ContaCliente } from '../../models/ContaCliente';
-import { SuccessMessage } from '../message/Message';
+import type { Id } from '../../models/Id';
+import { ErrorMessage, SuccessMessage } from '../message/Message';
 
 type ListaContasProp = {
-  pages: (num: number, size: number) => Promise<PageResult<ContaCliente>>;
-  remove: (id: number) => Promise<void>;
+  pages: (
+    num: number,
+    size: number
+  ) => UseQueryResult<PageResult<ContaCliente>, Error>;
+  remove: (options: {
+    onSuccess: () => void;
+    onError: () => void;
+  }) => UseMutationResult<void, Error, Id, unknown>;
 };
 
 const ListaContas: React.FC<ListaContasProp> = ({ pages, remove }) => {
   const navigate = useNavigate();
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
-  const [pageResult, setPageResult] = useState<PageResult<ContaCliente>>(
-    EMPTY_PAGE_RESULT<ContaCliente>()
+  const { data, isPending, isFetching, isError, error } = pages(
+    page + 1,
+    rowsPerPage
   );
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    async function fetchContas() {
-      try {
-        setLoading(true);
-        const result = await pages(page + 1, rowsPerPage);
-        setPageResult(result);
-      } catch (error) {
-        console.error('Erro ao carregar as contas: ', error);
-      } finally {
-        setLoading(false);
-      }
-    }
-    fetchContas();
-  }, [pages, page, rowsPerPage]);
+  const { mutate } = remove({
+    onSuccess: async () =>
+      await new SuccessMessage('Sucesso!', 'Conta apagada com sucesso!').show(),
+    onError: async () =>
+      await new ErrorMessage('Oops!', 'Erro ao deletar a conta!').show()
+  });
 
   function handleEdit(contaCliente: ContaCliente): void {
     navigate(`/contas/${contaCliente.id}`);
   }
 
   async function handleDelete(id: number) {
-    try {
-      setLoading(true);
-      await remove(id);
-      const result: PageResult<ContaCliente> = {
-        items: pageResult.items.filter(
-          (conta: ContaCliente) => conta.id !== id
-        ),
-        page: pageResult.page,
-        pageSize: pageResult.pageSize,
-        total: pageResult.total - 1
-      };
-      setPageResult(result);
-      setLoading(false);
-      await new SuccessMessage('Sucesso!', 'Conta apagada com sucesso!').show();
-    } catch (error) {
-      console.error('Erro ao deletar a conta:', error);
-    }
+    mutate({ id: id });
   }
 
   function handleChangePage(_event: unknown, newPage: number) {
-    const max = Math.ceil(pageResult.total / pageResult.pageSize);
+    const total = data?.total || 0;
+    const size = data?.pageSize || 1;
+    const max = Math.ceil(total / size);
     const num = Math.max(0, Math.min(newPage, max));
     setPage(num);
   }
@@ -82,9 +67,16 @@ const ListaContas: React.FC<ListaContasProp> = ({ pages, remove }) => {
     setPage(0);
   }
 
+  if (isPending || isFetching) {
+    return <Spinner />;
+  }
+
+  if (isError) {
+    return <p>Erro: {error.message}</p>;
+  }
+
   return (
     <div>
-      {loading && <Spinner />}
       <TableContainer component={Paper}>
         <Table>
           <TableHead>
@@ -98,7 +90,7 @@ const ListaContas: React.FC<ListaContasProp> = ({ pages, remove }) => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {pageResult.items.map((contaCliente: ContaCliente) => (
+            {data?.items.map((contaCliente: ContaCliente) => (
               <TableRow key={contaCliente.id}>
                 <TableCell>{contaCliente.id}</TableCell>
                 <TableCell>{contaCliente.cliente.nome}</TableCell>
@@ -125,7 +117,7 @@ const ListaContas: React.FC<ListaContasProp> = ({ pages, remove }) => {
         </Table>
         <TablePagination
           component="div"
-          count={pageResult.total}
+          count={data?.total || 0}
           page={page}
           onPageChange={handleChangePage}
           rowsPerPage={rowsPerPage}

@@ -3,8 +3,10 @@ import { Link } from 'react-router-dom';
 import ListaContas from '../../components/conta/ListaContas';
 import Navbar from '../../components/navbar/Navbar';
 import './Contas.css';
-import { pagesContasClientes } from '../../services/ContaClienteService';
-import { deleteConta } from '../../services/ContaService';
+import {
+  useDeleteConta,
+  usePagesContasClientes
+} from '../../hooks/useContasClientes';
 
 const Contas: React.FC = () => {
   return (
@@ -45,7 +47,7 @@ const Contas: React.FC = () => {
           Transferência
         </Button>
       </div>
-      <ListaContas pages={pagesContasClientes} remove={deleteConta} />
+      <ListaContas pages={usePagesContasClientes} remove={useDeleteConta} />
     </div>
   );
 };

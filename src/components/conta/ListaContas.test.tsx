@@ -1,21 +1,27 @@
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { MemoryRouter } from 'react-router-dom';
 import { describe, expect, it, vi } from 'vitest';
 import { render } from 'vitest-browser-react';
-import { fakeFixedPagesContasClientes } from '../../services/FakeContaClienteService';
-import { fakeDeleteConta } from '../../services/FakeContaService';
+import {
+  fakeUseDeleteConta,
+  fakeUsePagesContasClientes
+} from '../../hooks/fakeUseContasClientes';
 import ListaContas from './ListaContas';
 
 describe('ListaContas', () => {
   it('deve mostrar a listagem de clientes', async () => {
+    const queryClient = new QueryClient();
     const screen = await render(
-      <MemoryRouter>
-        <ListaContas
-          pages={fakeFixedPagesContasClientes}
-          remove={fakeDeleteConta}
-        />
-      </MemoryRouter>
+      <QueryClientProvider client={queryClient}>
+        <MemoryRouter>
+          <ListaContas
+            pages={fakeUsePagesContasClientes}
+            remove={fakeUseDeleteConta}
+          />
+        </MemoryRouter>
+      </QueryClientProvider>
     );
-    await vi.waitFor(() => {
+    await vi.waitFor(async () => {
       const rows = screen.container.querySelectorAll('tr');
       expect(rows.length).toBeGreaterThan(5);
       expect(rows[1].textContent).toContain('1Ana Souza111112121000');

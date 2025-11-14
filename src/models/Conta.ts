@@ -1,5 +1,6 @@
-export interface Conta {
-  id: number;
+import type { Id } from './Id';
+
+export interface Conta extends Id {
   cliente: number;
   numero: string;
   agencia: string;
