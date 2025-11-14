@@ -12,9 +12,11 @@ describe('FormLogin', () => {
         <FormLogin login={fakeLogin} navigate={fakeNavigate} />
       </MemoryRouter>
     );
-    await screen.getByLabelText(/e-mail ou nome de usuário/i).fill('teste');
-    await screen.getByLabelText(/senha/i).fill('12345678');
-    await screen.getByRole('button').click();
-    expect(fakeNavigate).toHaveBeenCalledWith('/clientes');
+    await vi.waitFor(async () => {
+      await screen.getByLabelText(/e-mail ou nome de usuário/i).fill('teste');
+      await screen.getByLabelText(/senha/i).fill('12345678');
+      await screen.getByRole('button').click();
+      expect(fakeNavigate).toHaveBeenCalledWith('/clientes');
+    });
   });
 });

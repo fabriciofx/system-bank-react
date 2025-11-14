@@ -1,6 +1,6 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { MemoryRouter } from 'react-router-dom';
-import { afterAll, beforeAll, describe, expect, it, vi } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 import { render } from 'vitest-browser-react';
 import {
   fakeUseDeleteCliente,
@@ -9,24 +9,6 @@ import {
 import ListaClientes from './ListaClientes';
 
 describe('ListaClientes', () => {
-  // Silencia o aviso do React sobre act()
-  const consoleError = console.error;
-  beforeAll(() => {
-    console.error = (...args) => {
-      if (
-        typeof args[0] === 'string' &&
-        args[0].includes('not wrapped in act')
-      ) {
-        return;
-      }
-      consoleError(...args);
-    };
-  });
-
-  afterAll(() => {
-    console.error = consoleError;
-  });
-
   it('deve mostrar a listagem de clientes', async () => {
     const queryClient = new QueryClient();
     const screen = await render(
