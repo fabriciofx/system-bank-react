@@ -2,7 +2,7 @@ import FormTransferencia from '../../components/conta/FormTransferencia';
 import Navbar from '../../components/navbar/Navbar';
 import './BoxConta.css';
 
-export default function Transferencia() {
+export default function TransferenciaPage() {
   return (
     <div>
       <Navbar />

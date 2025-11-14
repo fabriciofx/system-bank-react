@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { YesNoMessage } from '../../components/message/Message';
 import { STORAGE } from '../../services/AuthService';
 
-export default function Logout() {
+export default function LogoutPage() {
   const navigate = useNavigate();
   useEffect(() => {
     let ativo = true;

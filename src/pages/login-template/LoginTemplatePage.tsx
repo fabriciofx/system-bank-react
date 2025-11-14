@@ -1,9 +1,9 @@
 import { useNavigate } from 'react-router-dom';
 import FormLogin from '../../components/login-form/FormLogin';
 import { login } from '../../services/AuthService';
-import './LoginTemplate.css';
+import './LoginTemplatePage.css';
 
-export default function LoginTemplate() {
+export default function LoginTemplatePage() {
   return (
     <div className="container">
       <div className="form">

@@ -8,7 +8,7 @@ import {
 } from '../../services/ContaService';
 import './BoxConta.css';
 
-export default function EditConta() {
+export default function EditContaPage() {
   return (
     <div>
       <Navbar />

@@ -2,7 +2,7 @@ import FormDeposito from '../../components/conta/FormDeposito';
 import Navbar from '../../components/navbar/Navbar';
 import './BoxConta.css';
 
-export default function Deposito() {
+export default function DepositoPage() {
   return (
     <div>
       <Navbar />

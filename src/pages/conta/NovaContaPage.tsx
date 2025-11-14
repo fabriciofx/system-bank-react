@@ -8,7 +8,7 @@ import {
 } from '../../services/ContaService';
 import './BoxConta.css';
 
-export default function NovaConta() {
+export default function NovaContaPage() {
   return (
     <div>
       <Navbar />

@@ -2,13 +2,13 @@ import { Button } from '@mui/material';
 import { Link } from 'react-router-dom';
 import ListaContas from '../../components/conta/ListaContas';
 import Navbar from '../../components/navbar/Navbar';
-import './Contas.css';
+import './ContasPage.css';
 import {
   useDeleteConta,
   usePagesContasClientes
 } from '../../hooks/useContasClientes';
 
-export default function Contas() {
+export default function ContasPage() {
   return (
     <div>
       <Navbar />
