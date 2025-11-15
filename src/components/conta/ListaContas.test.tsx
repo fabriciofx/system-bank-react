@@ -17,6 +17,7 @@ describe('ListaContas', () => {
           <ListaContas
             pages={fakeUsePagesContasClientes}
             remove={fakeUseDeleteConta}
+            rowsPage={5}
           />
         </MemoryRouter>
       </QueryClientProvider>

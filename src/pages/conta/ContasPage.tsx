@@ -47,7 +47,11 @@ export default function ContasPage() {
           Transferência
         </Button>
       </div>
-      <ListaContas pages={usePagesContasClientes} remove={useDeleteConta} />
+      <ListaContas
+        pages={usePagesContasClientes}
+        remove={useDeleteConta}
+        rowsPage={10}
+      />
     </div>
   );
 }
