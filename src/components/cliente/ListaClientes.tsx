@@ -84,7 +84,10 @@ export default function ListaClientes({
   }
 
   if (isError) {
-    return <p>Erro: {error.message}</p>;
+    new ErrorMessage(
+      'Oops...',
+      `Erro ao carregar os clientes: ${error.message}`
+    ).show();
   }
 
   return (

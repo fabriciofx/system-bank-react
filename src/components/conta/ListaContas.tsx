@@ -81,7 +81,10 @@ export default function ListaContas({
   }
 
   if (isError) {
-    return <p>Erro: {error.message}</p>;
+    new ErrorMessage(
+      'Oops...',
+      `Erro ao carregar as contas: ${error.message}`
+    ).show();
   }
 
   return (
