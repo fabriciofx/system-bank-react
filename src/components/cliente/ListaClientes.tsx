@@ -29,12 +29,17 @@ type ListaClientesProps = {
     onSuccess: () => void;
     onError: () => void;
   }) => UseMutationResult<void, Error, Id, unknown>;
+  rowsPage: number;
 };
 
-export default function ListaClientes({ pages, remove }: ListaClientesProps) {
+export default function ListaClientes({
+  pages,
+  remove,
+  rowsPage
+}: ListaClientesProps) {
   const navigate = useNavigate();
   const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(5);
+  const [rowsPerPage, setRowsPerPage] = useState(rowsPage);
   const { data, isPending, isFetching, isError, error } = pages(
     page + 1,
     rowsPerPage

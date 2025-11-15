@@ -20,7 +20,11 @@ export default function ClientesPage() {
           Novo cliente
         </Button>
       </div>
-      <ListaClientes pages={usePagesClientes} remove={useDeleteCliente} />
+      <ListaClientes
+        pages={usePagesClientes}
+        remove={useDeleteCliente}
+        rowsPage={10}
+      />
     </div>
   );
 }
