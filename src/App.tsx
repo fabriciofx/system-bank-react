@@ -19,7 +19,7 @@ import LogoutPage from './pages/logout/LogoutPage';
 
 const queryClient = new QueryClient();
 
-function App() {
+export default function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <Router>
@@ -41,5 +41,3 @@ function App() {
     </QueryClientProvider>
   );
 }
-
-export default App;
