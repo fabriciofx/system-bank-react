@@ -59,7 +59,11 @@ export default function ListaContas({
     mutate({ id: id });
   }
 
-  function handleChangePage(_event: unknown, newPage: number) {
+  function handleChangePage(
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent> | null,
+    newPage: number
+  ) {
+    event?.preventDefault();
     const total = data?.total || 0;
     const size = data?.pageSize || 1;
     const max = Math.ceil(total / size);
