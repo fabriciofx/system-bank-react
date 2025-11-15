@@ -1,0 +1,14 @@
+.logo-container {
+    display: flex;
+    align-items: center;
+    flex-grow: 1;
+}
+
+.drawer-box {
+    width: 250;
+}
+
+img {
+    height: 30;
+    margin-left: 6;
+}

@@ -13,6 +13,7 @@ import {
 } from '@mui/material';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import './Navbar.css';
 
 export default function Navbar() {
   const [drawerOpen, setDrawerOpen] = useState(false);
@@ -35,21 +36,17 @@ export default function Navbar() {
           <IconButton color="inherit" edge="start" onClick={toggleDrawer(true)}>
             <MenuIcon />
           </IconButton>
-          <Box sx={{ display: 'flex', alignItems: 'center', flexGrow: 1 }}>
+          <Box className="logo-container">
             <Typography variant="h5" noWrap>
               SystemBank
             </Typography>
-            <img
-              src="/assets/logo-icon.png"
-              alt="SystemBank logo"
-              style={{ height: 30, marginLeft: 6 }}
-            />
+            <img src="/assets/logo-icon.png" alt="SystemBank logo" />
           </Box>
         </Toolbar>
       </AppBar>
       <Drawer anchor="left" open={drawerOpen} onClose={toggleDrawer(false)}>
         <Box
-          sx={{ width: 250 }}
+          className="drawer-box"
           role="presentation"
           onClick={toggleDrawer(false)}
           onKeyDown={toggleDrawer(false)}
