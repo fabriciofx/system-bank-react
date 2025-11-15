@@ -1,4 +1,4 @@
-import { Button, styled, TextField } from '@mui/material';
+import { Button, TextField } from '@mui/material';
 import { useState } from 'react';
 import type { NavigateFunction } from 'react-router-dom';
 import {
@@ -6,12 +6,6 @@ import {
   type Credentials
 } from '../../models/Credentials';
 import './FormLogin.css';
-
-const FormBox = styled('form')(({ theme }) => ({
-  display: 'flex',
-  flexDirection: 'column',
-  gap: theme.spacing(2)
-}));
 
 type FormLoginProps = {
   login: (credentials: Credentials) => Promise<boolean>;
@@ -40,7 +34,7 @@ export default function FormLogin({ login, navigate }: FormLoginProps) {
 
   return (
     <div>
-      <div style={{ marginBottom: '52px' }}>
+      <div className="title">
         <h1>Login</h1>
         <p className="subtitle">
           Faça login na área administrativa do sistema. Solicite um acesso à
@@ -48,8 +42,8 @@ export default function FormLogin({ login, navigate }: FormLoginProps) {
         </p>
       </div>
       <div>
-        <FormBox onSubmit={handleSubmit}>
-          <div className="form-login" style={{ marginBottom: '40px' }}>
+        <form className="form-login" onSubmit={handleSubmit}>
+          <div className="form-input">
             <label htmlFor="username">E-mail ou Nome de Usuário</label>
             <TextField
               id="username"
@@ -60,7 +54,7 @@ export default function FormLogin({ login, navigate }: FormLoginProps) {
               required
             />
           </div>
-          <div className="form-login">
+          <div className="form-input">
             <label htmlFor="password">Senha</label>
             <TextField
               type="password"
@@ -72,15 +66,11 @@ export default function FormLogin({ login, navigate }: FormLoginProps) {
               required
             />
           </div>
-          <p className="reset_password">Esqueci minha senha</p>
-          <Button
-            type="submit"
-            variant="contained"
-            sx={{ alignSelf: 'flex-start' }}
-          >
+          <p className="reset-password">Esqueci minha senha</p>
+          <Button type="submit" variant="contained">
             Entrar
           </Button>
-        </FormBox>
+        </form>
       </div>
     </div>
   );

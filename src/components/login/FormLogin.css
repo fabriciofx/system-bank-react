@@ -6,6 +6,10 @@ h1 {
   margin-bottom: 12px;
 }
 
+.title {
+  margin-bottom: 52px;
+}
+
 .subtitle {
   font-family: "Source Sans Pro", sans-serif;
   font-weight: 400;
@@ -21,7 +25,7 @@ label {
   color: #0b0c0d;
 }
 
-.reset_password {
+.reset-password {
   font-family: "Source Sans Pro", sans-serif;
   font-weight: 600;
   font-size: 14px;
@@ -46,6 +50,12 @@ input {
 .form-login {
   display: flex;
   flex-direction: column;
+}
+
+.form-input {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 40px;
 }
 
 button {
