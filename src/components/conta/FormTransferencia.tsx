@@ -16,7 +16,7 @@ type FormTransferenciaProps = {
   transfer: (options: {
     onSuccess: () => void;
     onError: (error: Error) => void;
-  }) => UseMutationResult<Transferencia, Error, Transferencia, unknown>;
+  }) => UseMutationResult<void, Error, Transferencia, unknown>;
 };
 
 export default function FormTransferencia({

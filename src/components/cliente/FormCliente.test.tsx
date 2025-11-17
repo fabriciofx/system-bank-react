@@ -1,23 +1,27 @@
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { MemoryRouter } from 'react-router-dom';
 import { describe, expect, it, vi } from 'vitest';
 import { render } from 'vitest-browser-react';
 import {
-  fakeClienteById,
-  fakeCreateCliente,
-  fakeUpdateCliente
-} from '../../services/FakeClienteService';
+  fakeUseCreateCliente,
+  fakeUseUpdateCliente
+} from '../../hooks/fakeUseClientes';
+import { fakeClienteById } from '../../services/FakeClienteService';
 import FormCliente from './FormCliente';
 
 describe('FormCliente', () => {
   it('deve aparecer o nome Cadastar no botão do formulário', async () => {
+    const queryClient = new QueryClient();
     const screen = await render(
       <MemoryRouter>
-        <FormCliente
-          create={fakeCreateCliente}
-          update={fakeUpdateCliente}
-          findById={fakeClienteById}
-          buttonText="Cadastrar"
-        />
+        <QueryClientProvider client={queryClient}>
+          <FormCliente
+            create={fakeUseCreateCliente}
+            update={fakeUseUpdateCliente}
+            findById={fakeClienteById}
+            buttonText="Cadastrar"
+          />
+        </QueryClientProvider>
       </MemoryRouter>
     );
     await vi.waitFor(async () => {
@@ -28,14 +32,17 @@ describe('FormCliente', () => {
   });
 
   it('deve preencher e enviar o formulário com sucesso', async () => {
+    const queryClient = new QueryClient();
     const screen = await render(
       <MemoryRouter>
-        <FormCliente
-          create={fakeCreateCliente}
-          update={fakeUpdateCliente}
-          findById={fakeClienteById}
-          buttonText="Cadastrar"
-        />
+        <QueryClientProvider client={queryClient}>
+          <FormCliente
+            create={fakeUseCreateCliente}
+            update={fakeUseUpdateCliente}
+            findById={fakeClienteById}
+            buttonText="Cadastrar"
+          />
+        </QueryClientProvider>
       </MemoryRouter>
     );
     await vi.waitFor(async () => {

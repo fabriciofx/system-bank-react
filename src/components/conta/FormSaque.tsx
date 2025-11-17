@@ -13,7 +13,7 @@ type FormSaqueProps = {
   withdrawal: (options: {
     onSuccess: () => void;
     onError: (error: Error) => void;
-  }) => UseMutationResult<Saque, Error, Saque, unknown>;
+  }) => UseMutationResult<void, Error, Saque, unknown>;
 };
 
 export default function FormSaque({ withdrawal }: FormSaqueProps) {

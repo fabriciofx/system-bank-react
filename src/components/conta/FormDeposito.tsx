@@ -13,7 +13,7 @@ type FormDepositoProps = {
   deposit: (options: {
     onSuccess: () => void;
     onError: (error: Error) => void;
-  }) => UseMutationResult<Deposito, Error, Deposito, unknown>;
+  }) => UseMutationResult<void, Error, Deposito, unknown>;
 };
 
 export default function FormDeposito({ deposit }: FormDepositoProps) {

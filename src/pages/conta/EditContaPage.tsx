@@ -1,11 +1,8 @@
 import FormConta from '../../components/conta/FormConta';
 import Navbar from '../../components/navbar/Navbar';
+import { useCreateConta, useUpdateConta } from '../../hooks/useConta';
 import { clienteById, pagesClientes } from '../../services/ClienteService';
-import {
-  contaById,
-  createConta,
-  updateConta
-} from '../../services/ContaService';
+import { contaById } from '../../services/ContaService';
 import './Page.css';
 
 export default function EditContaPage() {
@@ -16,8 +13,8 @@ export default function EditContaPage() {
         <div className="box-conta">
           <h1>Alterando dados da conta</h1>
           <FormConta
-            create={createConta}
-            update={updateConta}
+            create={useCreateConta}
+            update={useUpdateConta}
             findById={contaById}
             pages={pagesClientes}
             clienteById={clienteById}

@@ -1,5 +1,6 @@
 import FormSaque from '../../components/conta/FormSaque';
 import Navbar from '../../components/navbar/Navbar';
+import { useSaque } from '../../hooks/useSaque';
 import './Page.css';
 
 export default function SaquePage() {
@@ -9,7 +10,7 @@ export default function SaquePage() {
       <div className="box-com-titulo">
         <div className="box-conta">
           <h1>Saque</h1>
-          <FormSaque />
+          <FormSaque withdrawal={useSaque} />
         </div>
       </div>
     </div>

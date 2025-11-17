@@ -1,29 +1,33 @@
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { MemoryRouter } from 'react-router-dom';
 import { describe, expect, it, vi } from 'vitest';
 import { render } from 'vitest-browser-react';
 import {
+  fakeUseCreateConta,
+  fakeUseUpdateConta
+} from '../../hooks/fakeUseConta';
+import {
   fakeClienteById,
   fakePagesClientes
 } from '../../services/FakeClienteService';
-import {
-  fakeContaById,
-  fakeCreateConta,
-  fakeUpdateConta
-} from '../../services/FakeContaService';
+import { fakeContaById } from '../../services/FakeContaService';
 import FormConta from './FormConta';
 
 describe('FormConta', () => {
   it('deve aparecer o nome Criar no botão do formulário', async () => {
+    const queryClient = new QueryClient();
     const screen = await render(
       <MemoryRouter>
-        <FormConta
-          create={fakeCreateConta}
-          update={fakeUpdateConta}
-          findById={fakeContaById}
-          pages={fakePagesClientes}
-          clienteById={fakeClienteById}
-          buttonText="Criar"
-        />
+        <QueryClientProvider client={queryClient}>
+          <FormConta
+            create={fakeUseCreateConta}
+            update={fakeUseUpdateConta}
+            findById={fakeContaById}
+            pages={fakePagesClientes}
+            clienteById={fakeClienteById}
+            buttonText="Criar"
+          />
+        </QueryClientProvider>
       </MemoryRouter>
     );
     await vi.waitFor(async () => {
@@ -34,16 +38,19 @@ describe('FormConta', () => {
   });
 
   it('deve preencher e enviar o formulário com sucesso', async () => {
+    const queryClient = new QueryClient();
     const screen = await render(
       <MemoryRouter>
-        <FormConta
-          create={fakeCreateConta}
-          update={fakeUpdateConta}
-          findById={fakeContaById}
-          pages={fakePagesClientes}
-          clienteById={fakeClienteById}
-          buttonText="Cadastrar"
-        />
+        <QueryClientProvider client={queryClient}>
+          <FormConta
+            create={fakeUseCreateConta}
+            update={fakeUseUpdateConta}
+            findById={fakeContaById}
+            pages={fakePagesClientes}
+            clienteById={fakeClienteById}
+            buttonText="Cadastrar"
+          />
+        </QueryClientProvider>
       </MemoryRouter>
     );
     await vi.waitFor(async () => {
