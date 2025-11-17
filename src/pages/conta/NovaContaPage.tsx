@@ -3,7 +3,7 @@ import Navbar from '../../components/navbar/Navbar';
 import { useCreateConta, useUpdateConta } from '../../hooks/useConta';
 import { clienteById, pagesClientes } from '../../services/ClienteService';
 import { contaById } from '../../services/ContaService';
-import './Page.css';
+import './conta.css';
 
 export default function NovaContaPage() {
   return (

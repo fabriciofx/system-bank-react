@@ -9,7 +9,7 @@ import {
 import { pagesClientes } from '../../services/ClienteService';
 import { listContas } from '../../services/ContaService';
 import InfiniteSelect, { type Option } from '../infinite-select/InfiniteSelect';
-import './FormConta.css';
+import './FormTransferencia.css';
 import type { UseMutationResult } from '@tanstack/react-query';
 
 type FormTransferenciaProps = {

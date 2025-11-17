@@ -2,7 +2,7 @@ import { Button } from '@mui/material';
 import { Link } from 'react-router-dom';
 import ListaClientes from '../../components/cliente/ListaClientes';
 import Navbar from '../../components/navbar/Navbar';
-import './Page.css';
+import './cliente.css';
 import { useDeleteCliente, usePagesClientes } from '../../hooks/useClientes';
 
 export default function ClientesPage() {

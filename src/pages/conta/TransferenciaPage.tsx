@@ -1,7 +1,7 @@
 import FormTransferencia from '../../components/conta/FormTransferencia';
 import Navbar from '../../components/navbar/Navbar';
 import { useTransferencia } from '../../hooks/useTransferencia';
-import './Page.css';
+import './conta.css';
 
 export default function TransferenciaPage() {
   return (

@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import FormLogin from '../../components/login/FormLogin';
 import { login } from '../../services/AuthService';
-import './Page.css';
+import './login.css';
 
 export default function LoginPage() {
   return (

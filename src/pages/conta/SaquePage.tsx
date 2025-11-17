@@ -1,7 +1,7 @@
 import FormSaque from '../../components/conta/FormSaque';
 import Navbar from '../../components/navbar/Navbar';
 import { useSaque } from '../../hooks/useSaque';
-import './Page.css';
+import './conta.css';
 
 export default function SaquePage() {
   return (

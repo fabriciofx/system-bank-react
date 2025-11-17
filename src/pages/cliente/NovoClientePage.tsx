@@ -2,7 +2,7 @@ import FormCliente from '../../components/cliente/FormCliente';
 import Navbar from '../../components/navbar/Navbar';
 import { useCreateCliente, useUpdateCliente } from '../../hooks/useClientes';
 import { clienteById } from '../../services/ClienteService';
-import './Page.css';
+import './cliente.css';
 
 export default function NovoClientePage() {
   return (

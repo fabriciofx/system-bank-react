@@ -1,7 +1,7 @@
 import FormDeposito from '../../components/conta/FormDeposito';
 import Navbar from '../../components/navbar/Navbar';
 import { useDeposito } from '../../hooks/useDeposito';
-import './Page.css';
+import './conta.css';
 
 export default function DepositoPage() {
   return (
