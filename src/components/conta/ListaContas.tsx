@@ -40,10 +40,7 @@ export default function ListaContas({
   const navigate = useNavigate();
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(rowsPage);
-  const { data, isPending, isFetching, isError, error } = pages(
-    page + 1,
-    rowsPerPage
-  );
+  const paginated = pages(page + 1, rowsPerPage);
   const deleta = remove({
     onSuccess: async () =>
       await new SuccessMessage('Sucesso!', 'Conta apagada com sucesso!').show(),
@@ -64,8 +61,8 @@ export default function ListaContas({
     newPage: number
   ) {
     event?.preventDefault();
-    const total = data?.total || 0;
-    const size = data?.pageSize || 1;
+    const total = paginated.data?.total || 0;
+    const size = paginated.data?.pageSize || 1;
     const max = Math.ceil(total / size);
     const num = Math.max(0, Math.min(newPage, max));
     setPage(num);
@@ -76,14 +73,14 @@ export default function ListaContas({
     setPage(0);
   }
 
-  if (isPending || isFetching) {
+  if (paginated.isPending || paginated.isFetching) {
     return <Spinner />;
   }
 
-  if (isError) {
+  if (paginated.isError) {
     new ErrorMessage(
       'Oops...',
-      `Erro ao carregar as contas: ${error.message}`
+      `Erro ao carregar as contas: ${paginated.error.message}`
     ).show();
   }
 
@@ -102,7 +99,7 @@ export default function ListaContas({
             </TableRow>
           </TableHead>
           <TableBody>
-            {data?.items.map((contaCliente: ContaCliente) => (
+            {paginated.data?.items.map((contaCliente: ContaCliente) => (
               <TableRow key={contaCliente.id}>
                 <TableCell>{contaCliente.id}</TableCell>
                 <TableCell>{contaCliente.cliente.nome}</TableCell>
@@ -129,7 +126,7 @@ export default function ListaContas({
         </Table>
         <TablePagination
           component="div"
-          count={data?.total || 0}
+          count={paginated.data?.total || 0}
           page={page}
           onPageChange={handleChangePage}
           rowsPerPage={rowsPerPage}
