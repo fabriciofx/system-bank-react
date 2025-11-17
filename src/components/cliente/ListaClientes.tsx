@@ -40,10 +40,7 @@ export default function ListaClientes({
   const navigate = useNavigate();
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(rowsPage);
-  const { data, isPending, isFetching, isError, error } = pages(
-    page + 1,
-    rowsPerPage
-  );
+  const paginated = pages(page + 1, rowsPerPage);
   const deleta = remove({
     onSuccess: async () =>
       await new SuccessMessage(
@@ -67,8 +64,8 @@ export default function ListaClientes({
     newPage: number
   ) {
     event?.preventDefault();
-    const total = data?.total || 0;
-    const size = data?.pageSize || 1;
+    const total = paginated.data?.total || 0;
+    const size = paginated.data?.pageSize || 1;
     const max = Math.ceil(total / size);
     const num = Math.max(0, Math.min(newPage, max));
     setPage(num);
@@ -79,14 +76,14 @@ export default function ListaClientes({
     setPage(0);
   }
 
-  if (isPending || isFetching) {
+  if (paginated.isPending || paginated.isFetching) {
     return <Spinner />;
   }
 
-  if (isError) {
+  if (paginated.isError) {
     new ErrorMessage(
       'Oops...',
-      `Erro ao carregar os clientes: ${error.message}`
+      `Erro ao carregar os clientes: ${paginated.error.message}`
     ).show();
   }
 
@@ -105,7 +102,7 @@ export default function ListaClientes({
             </TableRow>
           </TableHead>
           <TableBody>
-            {data?.items.map((cliente: Cliente) => (
+            {paginated.data?.items.map((cliente: Cliente) => (
               <TableRow key={cliente.id}>
                 <TableCell>{cliente.id}</TableCell>
                 <TableCell>{cliente.nome}</TableCell>
@@ -132,7 +129,7 @@ export default function ListaClientes({
         </Table>
         <TablePagination
           component="div"
-          count={data?.total || 0}
+          count={paginated.data?.total || 0}
           page={page}
           onPageChange={handleChangePage}
           rowsPerPage={rowsPerPage}
