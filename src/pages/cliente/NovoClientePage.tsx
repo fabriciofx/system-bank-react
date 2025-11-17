@@ -1,10 +1,7 @@
 import FormCliente from '../../components/cliente/FormCliente';
 import Navbar from '../../components/navbar/Navbar';
-import {
-  clienteById,
-  createCliente,
-  updateCliente
-} from '../../services/ClienteService';
+import { useCreateCliente, useUpdateCliente } from '../../hooks/useClientes';
+import { clienteById } from '../../services/ClienteService';
 import './Page.css';
 
 export default function NovoClientePage() {
@@ -15,8 +12,8 @@ export default function NovoClientePage() {
         <div className="box-cliente">
           <h1>Novo cliente</h1>
           <FormCliente
-            create={createCliente}
-            update={updateCliente}
+            create={useCreateCliente}
+            update={useUpdateCliente}
             findById={clienteById}
             buttonText="Cadastrar"
           />

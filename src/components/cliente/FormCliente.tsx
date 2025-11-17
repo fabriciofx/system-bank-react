@@ -4,10 +4,17 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { ErrorMessage, SuccessMessage } from '../../components/message/Message';
 import { CLIENTE_INVALIDO, type Cliente } from '../../models/Cliente';
 import './FormCliente.css';
+import type { UseMutationResult } from '@tanstack/react-query';
 
 type FormClienteProps = {
-  create: (cliente: Cliente) => Promise<Cliente>;
-  update: (id: number, clienteAtualizado: Cliente) => Promise<Cliente>;
+  create: (options: {
+    onSuccess: () => void;
+    onError: (error: Error) => void;
+  }) => UseMutationResult<Cliente, Error, Cliente, unknown>;
+  update: (options: {
+    onSuccess: () => void;
+    onError: (error: Error) => void;
+  }) => UseMutationResult<Cliente, Error, Cliente, unknown>;
   findById: (id: number) => Promise<Cliente[]>;
   buttonText: string;
 };
@@ -21,6 +28,30 @@ export default function FormCliente({
   const navigate = useNavigate();
   const { id } = useParams();
   const [cliente, setCliente] = useState<Cliente>(CLIENTE_INVALIDO);
+  const cadastra = create({
+    onSuccess: async () =>
+      await new SuccessMessage(
+        'Sucesso!',
+        'Cliente cadastrado com sucesso!'
+      ).show(),
+    onError: async (error: Error) =>
+      await new ErrorMessage(
+        'Oops...',
+        `Erro ao cadastrar o cliente: ${error.message}`
+      ).show()
+  });
+  const atualiza = update({
+    onSuccess: async () =>
+      await new SuccessMessage(
+        'Sucesso!',
+        'Cliente atualizado com sucesso!'
+      ).show(),
+    onError: async (error: Error) =>
+      await new ErrorMessage(
+        'Oops...',
+        `Erro ao atualizar o cliente: ${error.message}`
+      ).show()
+  });
 
   useEffect(() => {
     if (id) {
@@ -44,30 +75,12 @@ export default function FormCliente({
     event: React.FormEvent<HTMLFormElement>
   ): Promise<void> {
     event.preventDefault();
-    try {
-      if (cliente.id) {
-        await update(cliente.id, cliente);
-        await new SuccessMessage(
-          'Sucesso!',
-          'Cliente atualizado com sucesso!'
-        ).show();
-      } else {
-        const novoCliente = await create(cliente);
-        if (novoCliente.id === 0) {
-          throw new Error('o identificador do cliente não retornou');
-        }
-        await new SuccessMessage(
-          'Sucesso!',
-          'Cliente cadastrado com sucesso!'
-        ).show();
-      }
-      await navigate('/clientes');
-    } catch (error) {
-      await new ErrorMessage(
-        'Oops...',
-        `Erro ao cadastrar/atualizar o cliente: ${error}`
-      ).show();
+    if (cliente.id) {
+      atualiza.mutate(cliente);
+    } else {
+      cadastra.mutate(cliente);
     }
+    await navigate('/clientes');
   }
 
   return (
