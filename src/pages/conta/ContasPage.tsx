@@ -3,10 +3,8 @@ import { Link } from 'react-router-dom';
 import ListaContas from '../../components/conta/ListaContas';
 import Navbar from '../../components/navbar/Navbar';
 import './Page.css';
-import {
-  useDeleteConta,
-  usePagesContasClientes
-} from '../../hooks/useContasClientes';
+import { useDeleteConta } from '../../hooks/useConta';
+import { usePagesContasClientes } from '../../hooks/useContasClientes';
 
 export default function ContasPage() {
   return (
