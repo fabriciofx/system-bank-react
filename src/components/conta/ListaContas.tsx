@@ -44,7 +44,7 @@ export default function ListaContas({
     page + 1,
     rowsPerPage
   );
-  const { mutate } = remove({
+  const deleta = remove({
     onSuccess: async () =>
       await new SuccessMessage('Sucesso!', 'Conta apagada com sucesso!').show(),
     onError: async () =>
@@ -56,7 +56,7 @@ export default function ListaContas({
   }
 
   async function handleDelete(id: number) {
-    mutate({ id: id });
+    deleta.mutate({ id: id });
   }
 
   function handleChangePage(
