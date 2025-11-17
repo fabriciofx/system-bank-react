@@ -7,19 +7,38 @@ import {
   type Transferencia
 } from '../../models/Transferencia';
 import { pagesClientes } from '../../services/ClienteService';
-import {
-  listContas,
-  transferenciaEntreContas
-} from '../../services/ContaService';
+import { listContas } from '../../services/ContaService';
 import InfiniteSelect, { type Option } from '../infinite-select/InfiniteSelect';
 import './FormConta.css';
+import type { UseMutationResult } from '@tanstack/react-query';
 
-export default function FormTransferencia() {
+type FormTransferenciaProps = {
+  transfer: (options: {
+    onSuccess: () => void;
+    onError: (error: Error) => void;
+  }) => UseMutationResult<Transferencia, Error, Transferencia, unknown>;
+};
+
+export default function FormTransferencia({
+  transfer
+}: FormTransferenciaProps) {
   const navigate = useNavigate();
   const [cliente, setCliente] = useState<string>('');
   const [transferencia, setTransferencia] = useState<Transferencia>(
     TRANSFERENCIA_INVALIDA
   );
+  const trans = transfer({
+    onSuccess: async () =>
+      await new SuccessMessage(
+        'Sucesso!',
+        'Transferência realizada com sucesso!'
+      ).show(),
+    onError: async (error: Error) =>
+      await new ErrorMessage(
+        'Oops...',
+        `Erro ao transferir entre contas: ${error.message}`
+      ).show()
+  });
 
   function handleChange(
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -36,19 +55,8 @@ export default function FormTransferencia() {
     event: React.FormEvent<HTMLFormElement>
   ): Promise<void> {
     event.preventDefault();
-    try {
-      await transferenciaEntreContas(transferencia);
-      await new SuccessMessage(
-        'Sucesso!',
-        'Transferência realizada com sucesso!'
-      ).show();
-      await navigate('/contas');
-    } catch (error) {
-      await new ErrorMessage(
-        'Oops...',
-        `Erro ao transferir entre contas: ${error}`
-      ).show();
-    }
+    trans.mutate(transferencia);
+    await navigate('/contas');
   }
 
   async function clientes(page: number): Promise<Option[]> {

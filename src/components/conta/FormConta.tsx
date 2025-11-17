@@ -5,12 +5,19 @@ import { ErrorMessage, SuccessMessage } from '../../components/message/Message';
 import { CONTA_INVALIDA, type Conta } from '../../models/Conta';
 import InfiniteSelect, { type Option } from '../infinite-select/InfiniteSelect';
 import './FormConta.css';
+import type { UseMutationResult } from '@tanstack/react-query';
 import type { PageResult } from '../../core/PageResult';
 import { CLIENTE_INVALIDO, type Cliente } from '../../models/Cliente';
 
 type FormContaProps = {
-  create: (conta: Conta) => Promise<Conta>;
-  update: (id: number, contaAtualizada: Conta) => Promise<Conta>;
+  create: (options: {
+    onSuccess: () => void;
+    onError: (error: Error) => void;
+  }) => UseMutationResult<Conta, Error, Conta, unknown>;
+  update: (options: {
+    onSuccess: () => void;
+    onError: (error: Error) => void;
+  }) => UseMutationResult<Conta, Error, Conta, unknown>;
   findById: (id: number) => Promise<Conta>;
   pages: (num: number, size: number) => Promise<PageResult<Cliente>>;
   clienteById: (id: number) => Promise<Cliente[]>;
@@ -29,6 +36,30 @@ export default function FormConta({
   const { id } = useParams();
   const [conta, setConta] = useState<Conta>(CONTA_INVALIDA);
   const [cliente, setCliente] = useState<Cliente>(CLIENTE_INVALIDO);
+  const cadastra = create({
+    onSuccess: async () =>
+      await new SuccessMessage(
+        'Sucesso!',
+        'Conta cadastrada com sucesso!'
+      ).show(),
+    onError: async (error: Error) =>
+      await new ErrorMessage(
+        'Oops...',
+        `Erro ao cadastrar a conta: ${error.message}`
+      ).show()
+  });
+  const atualiza = update({
+    onSuccess: async () =>
+      await new SuccessMessage(
+        'Sucesso!',
+        'Conta atualizada com sucesso!'
+      ).show(),
+    onError: async (error: Error) =>
+      await new ErrorMessage(
+        'Oops...',
+        `Erro ao atualizar a conta: ${error.message}`
+      ).show()
+  });
 
   useEffect(() => {
     if (id) {
@@ -52,30 +83,12 @@ export default function FormConta({
     event: React.FormEvent<HTMLFormElement>
   ): Promise<void> {
     event.preventDefault();
-    try {
-      if (conta.id) {
-        await update(conta.id, conta);
-        await new SuccessMessage(
-          'Sucesso!',
-          'Conta atualizada com sucesso!'
-        ).show();
-      } else {
-        const novaConta = await create(conta);
-        if (novaConta.id === 0) {
-          throw new Error('o identificador da conta não retornou');
-        }
-        await new SuccessMessage(
-          'Sucesso!',
-          'Conta cadastrada com sucesso!'
-        ).show();
-      }
-      await navigate('/contas');
-    } catch (error) {
-      await new ErrorMessage(
-        'Oops...',
-        `Erro ao cadastrar/atualizar a conta: ${error}`
-      ).show();
+    if (conta.id) {
+      atualiza.mutate(conta);
+    } else {
+      cadastra.mutate(conta);
     }
+    await navigate('/contas');
   }
 
   async function clientes(page: number): Promise<Option[]> {

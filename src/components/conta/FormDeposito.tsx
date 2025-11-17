@@ -4,14 +4,34 @@ import { useNavigate } from 'react-router-dom';
 import { ErrorMessage, SuccessMessage } from '../../components/message/Message';
 import { DEPOSITO_INVALIDO, type Deposito } from '../../models/Deposito';
 import { pagesClientes } from '../../services/ClienteService';
-import { depositoConta, listContas } from '../../services/ContaService';
+import { listContas } from '../../services/ContaService';
 import InfiniteSelect, { type Option } from '../infinite-select/InfiniteSelect';
 import './FormConta.css';
+import type { UseMutationResult } from '@tanstack/react-query';
 
-export default function FormDeposito() {
+type FormDepositoProps = {
+  deposit: (options: {
+    onSuccess: () => void;
+    onError: (error: Error) => void;
+  }) => UseMutationResult<Deposito, Error, Deposito, unknown>;
+};
+
+export default function FormDeposito({ deposit }: FormDepositoProps) {
   const navigate = useNavigate();
   const [cliente, setCliente] = useState<string>('');
   const [deposito, setDeposito] = useState<Deposito>(DEPOSITO_INVALIDO);
+  const deposita = deposit({
+    onSuccess: async () =>
+      await new SuccessMessage(
+        'Sucesso!',
+        'Depósito realizado com sucesso!'
+      ).show(),
+    onError: async (error: Error) =>
+      await new ErrorMessage(
+        'Oops...',
+        `Erro ao depositar na conta: ${error.message}`
+      ).show()
+  });
 
   function handleChange(
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -28,19 +48,8 @@ export default function FormDeposito() {
     event: React.FormEvent<HTMLFormElement>
   ): Promise<void> {
     event.preventDefault();
-    try {
-      await depositoConta(deposito);
-      await new SuccessMessage(
-        'Sucesso!',
-        'Depósito realizado com sucesso!'
-      ).show();
-      await navigate('/contas');
-    } catch (error) {
-      await new ErrorMessage(
-        'Oops...',
-        `Erro ao depositar na conta: ${error}`
-      ).show();
-    }
+    deposita.mutate(deposito);
+    await navigate('/contas');
   }
 
   async function clientes(page: number): Promise<Option[]> {

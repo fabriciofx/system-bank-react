@@ -4,14 +4,34 @@ import { useNavigate } from 'react-router-dom';
 import { ErrorMessage, SuccessMessage } from '../../components/message/Message';
 import { SAQUE_INVALIDO, type Saque } from '../../models/Saque';
 import { pagesClientes } from '../../services/ClienteService';
-import { listContas, saqueConta } from '../../services/ContaService';
+import { listContas } from '../../services/ContaService';
 import InfiniteSelect, { type Option } from '../infinite-select/InfiniteSelect';
 import './FormConta.css';
+import type { UseMutationResult } from '@tanstack/react-query';
 
-export default function FormSaque() {
+type FormSaqueProps = {
+  withdrawal: (options: {
+    onSuccess: () => void;
+    onError: (error: Error) => void;
+  }) => UseMutationResult<Saque, Error, Saque, unknown>;
+};
+
+export default function FormSaque({ withdrawal }: FormSaqueProps) {
   const navigate = useNavigate();
   const [cliente, setCliente] = useState<string>('');
   const [saque, setSaque] = useState<Saque>(SAQUE_INVALIDO);
+  const saq = withdrawal({
+    onSuccess: async () =>
+      await new SuccessMessage(
+        'Sucesso!',
+        'Saque realizado com sucesso!'
+      ).show(),
+    onError: async (error: Error) =>
+      await new ErrorMessage(
+        'Oops...',
+        `Erro ao sacar na conta: ${error.message}`
+      ).show()
+  });
 
   function handleChange(
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -28,19 +48,8 @@ export default function FormSaque() {
     event: React.FormEvent<HTMLFormElement>
   ): Promise<void> {
     event.preventDefault();
-    try {
-      await saqueConta(saque);
-      await new SuccessMessage(
-        'Sucesso!',
-        'Saque realizado com sucesso!'
-      ).show();
-      await navigate('/contas');
-    } catch (error) {
-      await new ErrorMessage(
-        'Oops...',
-        `Erro ao sacar da conta: ${error}`
-      ).show();
-    }
+    saq.mutate(saque);
+    await navigate('/contas');
   }
 
   async function clientes(page: number): Promise<Option[]> {
