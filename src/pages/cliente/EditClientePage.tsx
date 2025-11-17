@@ -1,10 +1,7 @@
 import FormCliente from '../../components/cliente/FormCliente';
 import Navbar from '../../components/navbar/Navbar';
-import {
-  clienteById,
-  createCliente,
-  updateCliente
-} from '../../services/ClienteService';
+import { useCreateCliente, useUpdateCliente } from '../../hooks/useClientes';
+import { clienteById } from '../../services/ClienteService';
 import './Page.css';
 
 export default function EditClientePage() {
@@ -15,8 +12,8 @@ export default function EditClientePage() {
         <div className="box-cliente">
           <h1>Alterando dados do cliente</h1>
           <FormCliente
-            create={createCliente}
-            update={updateCliente}
+            create={useCreateCliente}
+            update={useUpdateCliente}
             findById={clienteById}
             buttonText="Atualizar"
           />
