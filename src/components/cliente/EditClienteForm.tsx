@@ -34,12 +34,13 @@ export default function EditClienteForm({
   });
   useEffect(() => {
     if (params.id) {
-      (async () => {
+      const load = async () => {
         const clienteEdit = await findById(Number(params.id));
         if (clienteEdit.length > 0) {
           setCliente(clienteEdit[0]);
         }
-      })();
+      };
+      load();
     }
   }, [findById, params.id]);
 
