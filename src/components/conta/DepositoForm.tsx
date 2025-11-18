@@ -37,10 +37,6 @@ export default function DepositoForm({ deposit }: DepositoFormProps) {
     setDeposito({ ...deposito, [name]: value });
   }
 
-  function handleCliente(value: React.SetStateAction<string>): void {
-    setCliente(value.toString());
-  }
-
   async function handleSubmit(
     event: React.FormEvent<HTMLFormElement>
   ): Promise<void> {
@@ -80,7 +76,7 @@ export default function DepositoForm({ deposit }: DepositoFormProps) {
           label="Cliente"
           required
           options={clientes}
-          onChange={(val) => handleCliente(val)}
+          onChange={(val) => setCliente(val)}
         />
         <InfiniteSelect
           label="Conta"
