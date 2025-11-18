@@ -1,10 +1,6 @@
 import { Button, TextField } from '@mui/material';
-import { useState } from 'react';
 import type { NavigateFunction } from 'react-router-dom';
-import {
-  CREDENTIALS_INVALIDAS,
-  type Credentials
-} from '../../models/Credentials';
+import type { Credentials } from '../../models/Credentials';
 import './LoginForm.css';
 
 type LoginFormProps = {
@@ -13,19 +9,15 @@ type LoginFormProps = {
 };
 
 export default function LoginForm({ login, navigate }: LoginFormProps) {
-  const [credentials, setCredentials] = useState<Credentials>(
-    CREDENTIALS_INVALIDAS
-  );
-
-  function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
-    const { name, value } = event.target;
-    setCredentials({ ...credentials, [name]: value });
-  }
-
   async function handleSubmit(
     event: React.FormEvent<HTMLFormElement>
   ): Promise<void> {
     event.preventDefault();
+    const form = new FormData(event.currentTarget);
+    const credentials: Credentials = {
+      username: form.get('username')?.toString() ?? '',
+      password: form.get('password')?.toString() ?? ''
+    };
     const response = await login(credentials);
     if (response) {
       navigate('/clientes');
@@ -48,8 +40,6 @@ export default function LoginForm({ login, navigate }: LoginFormProps) {
             <TextField
               id="username"
               name="username"
-              value={credentials.username}
-              onChange={handleChange}
               variant="outlined"
               required
             />
@@ -60,8 +50,6 @@ export default function LoginForm({ login, navigate }: LoginFormProps) {
               type="password"
               id="password"
               name="password"
-              value={credentials.password}
-              onChange={handleChange}
               variant="outlined"
               required
             />
