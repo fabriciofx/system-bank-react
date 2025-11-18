@@ -1,8 +1,8 @@
-import ContaForm from '../../components/conta/ContaForm';
+import { useNavigate } from 'react-router-dom';
+import NovaContaForm from '../../components/conta/NovaContaForm';
 import Navbar from '../../components/navbar/Navbar';
-import { useCreateConta, useUpdateConta } from '../../hooks/useConta';
-import { clienteById, pagesClientes } from '../../services/ClienteService';
-import { contaById } from '../../services/ContaService';
+import { useCreateConta } from '../../hooks/useConta';
+import { pagesClientes } from '../../services/ClienteService';
 import './conta.css';
 
 export default function NovaContaPage() {
@@ -12,13 +12,10 @@ export default function NovaContaPage() {
       <div className="box-com-titulo">
         <div className="box-conta">
           <h1>Nova conta</h1>
-          <ContaForm
+          <NovaContaForm
             create={useCreateConta}
-            update={useUpdateConta}
-            findById={contaById}
-            pages={pagesClientes}
-            clienteById={clienteById}
-            buttonText="Criar"
+            clientes={pagesClientes}
+            navigate={useNavigate()}
           />
         </div>
       </div>
