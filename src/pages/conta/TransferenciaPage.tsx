@@ -1,4 +1,4 @@
-import FormTransferencia from '../../components/conta/FormTransferencia';
+import FormTransferencia from '../../components/conta/TransferenciaForm';
 import Navbar from '../../components/navbar/Navbar';
 import { useTransferencia } from '../../hooks/useTransferencia';
 import './conta.css';

@@ -1,15 +1,15 @@
 import { Button, MenuItem, Select, TextField } from '@mui/material';
+import type { UseMutationResult } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { ErrorMessage, SuccessMessage } from '../../components/message/Message';
-import { CONTA_INVALIDA, type Conta } from '../../models/Conta';
-import InfiniteSelect, { type Option } from '../infinite-select/InfiniteSelect';
-import './FormConta.css';
-import type { UseMutationResult } from '@tanstack/react-query';
 import type { PageResult } from '../../core/PageResult';
 import { CLIENTE_INVALIDO, type Cliente } from '../../models/Cliente';
+import { CONTA_INVALIDA, type Conta } from '../../models/Conta';
+import InfiniteSelect, { type Option } from '../infinite-select/InfiniteSelect';
+import { ErrorMessage, SuccessMessage } from '../message/Message';
+import './ContaForm.css';
 
-type FormContaProps = {
+type ContaFormProps = {
   create: (options: {
     onSuccess: () => void;
     onError: (error: Error) => void;
@@ -24,14 +24,14 @@ type FormContaProps = {
   buttonText: string;
 };
 
-export default function FormConta({
+export default function ContaForm({
   create,
   update,
   findById,
   pages,
   clienteById,
   buttonText
-}: FormContaProps) {
+}: ContaFormProps) {
   const navigate = useNavigate();
   const { id } = useParams();
   const [conta, setConta] = useState<Conta>(CONTA_INVALIDA);

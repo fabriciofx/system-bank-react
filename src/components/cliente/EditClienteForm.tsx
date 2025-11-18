@@ -2,11 +2,11 @@ import { Button, FormControlLabel, Switch, TextField } from '@mui/material';
 import type { UseMutationResult } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
 import { type NavigateFunction, useParams } from 'react-router-dom';
-import { ErrorMessage, SuccessMessage } from '../../components/message/Message';
 import { CLIENTE_INVALIDO, type Cliente } from '../../models/Cliente';
-import './FormEditCliente.css';
+import { ErrorMessage, SuccessMessage } from '../message/Message';
+import './EditClienteForm.css';
 
-type FormClienteProps = {
+type EditClienteFormProps = {
   update: (options: {
     onSuccess: () => void;
     onError: (error: Error) => void;
@@ -15,11 +15,11 @@ type FormClienteProps = {
   navigate: NavigateFunction;
 };
 
-export default function FormEditCliente({
+export default function EditClienteForm({
   update,
   findById,
   navigate
-}: FormClienteProps) {
+}: EditClienteFormProps) {
   const { id } = useParams();
   const [cliente, setCliente] = useState<Cliente>(CLIENTE_INVALIDO);
   const atualiza = update({

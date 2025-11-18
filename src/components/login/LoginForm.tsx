@@ -5,14 +5,14 @@ import {
   CREDENTIALS_INVALIDAS,
   type Credentials
 } from '../../models/Credentials';
-import './FormLogin.css';
+import './LoginForm.css';
 
-type FormLoginProps = {
+type LoginFormProps = {
   login: (credentials: Credentials) => Promise<boolean>;
   navigate: NavigateFunction;
 };
 
-export default function FormLogin({ login, navigate }: FormLoginProps) {
+export default function LoginForm({ login, navigate }: LoginFormProps) {
   const [credentials, setCredentials] = useState<Credentials>(
     CREDENTIALS_INVALIDAS
   );

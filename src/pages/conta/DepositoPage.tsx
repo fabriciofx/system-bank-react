@@ -1,4 +1,4 @@
-import FormDeposito from '../../components/conta/FormDeposito';
+import DepositoForm from '../../components/conta/DepositoForm';
 import Navbar from '../../components/navbar/Navbar';
 import { useDeposito } from '../../hooks/useDeposito';
 import './conta.css';
@@ -10,7 +10,7 @@ export default function DepositoPage() {
       <div className="box-com-titulo">
         <div className="box-conta">
           <h1>Depósito</h1>
-          <FormDeposito deposit={useDeposito} />
+          <DepositoForm deposit={useDeposito} />
         </div>
       </div>
     </div>

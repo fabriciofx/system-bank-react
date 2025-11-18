@@ -11,15 +11,15 @@ import {
   fakePagesClientes
 } from '../../services/FakeClienteService';
 import { fakeContaById } from '../../services/FakeContaService';
-import FormConta from './FormConta';
+import ContaForm from './ContaForm';
 
-describe('FormConta', () => {
+describe('ContaForm', () => {
   it('deve aparecer o nome Criar no botão do formulário', async () => {
     const queryClient = new QueryClient();
     const screen = await render(
       <MemoryRouter>
         <QueryClientProvider client={queryClient}>
-          <FormConta
+          <ContaForm
             create={fakeUseCreateConta}
             update={fakeUseUpdateConta}
             findById={fakeContaById}
@@ -42,7 +42,7 @@ describe('FormConta', () => {
     const screen = await render(
       <MemoryRouter>
         <QueryClientProvider client={queryClient}>
-          <FormConta
+          <ContaForm
             create={fakeUseCreateConta}
             update={fakeUseUpdateConta}
             findById={fakeContaById}

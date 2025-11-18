@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import FormLogin from '../../components/login/FormLogin';
+import LoginForm from '../../components/login/LoginForm';
 import { login } from '../../services/AuthService';
 import './login.css';
 
@@ -12,7 +12,7 @@ export default function LoginPage() {
           <img src="assets/logo.png" width="150px" alt="SystemBank logo" />
         </div>
         <div className="login-form">
-          <FormLogin login={login} navigate={useNavigate()}></FormLogin>
+          <LoginForm login={login} navigate={useNavigate()}></LoginForm>
         </div>
       </div>
     </div>

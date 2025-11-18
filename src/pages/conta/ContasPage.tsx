@@ -1,6 +1,6 @@
 import { Button } from '@mui/material';
 import { Link } from 'react-router-dom';
-import ListaContas from '../../components/conta/ListaContas';
+import ContasList from '../../components/conta/ContasList';
 import Navbar from '../../components/navbar/Navbar';
 import './conta.css';
 import { useDeleteConta } from '../../hooks/useConta';
@@ -45,7 +45,7 @@ export default function ContasPage() {
           Transferência
         </Button>
       </div>
-      <ListaContas
+      <ContasList
         pages={usePagesContasClientes}
         remove={useDeleteConta}
         rowsPage={10}

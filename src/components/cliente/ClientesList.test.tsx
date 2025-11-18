@@ -6,15 +6,15 @@ import {
   fakeUseDeleteCliente,
   fakeUsePagesClientes
 } from '../../hooks/fakeUseClientes';
-import ListaClientes from './ListaClientes';
+import ClientesList from './ClientesList';
 
-describe('ListaClientes', () => {
+describe('ClientesList', () => {
   it('deve mostrar a listagem de clientes', async () => {
     const queryClient = new QueryClient();
     const screen = await render(
       <QueryClientProvider client={queryClient}>
         <MemoryRouter>
-          <ListaClientes
+          <ClientesList
             pages={fakeUsePagesClientes}
             remove={fakeUseDeleteCliente}
             rowsPage={5}

@@ -2,11 +2,11 @@ import { Button, FormControlLabel, Switch, TextField } from '@mui/material';
 import type { UseMutationResult } from '@tanstack/react-query';
 import { useState } from 'react';
 import type { NavigateFunction } from 'react-router-dom';
-import { ErrorMessage, SuccessMessage } from '../../components/message/Message';
 import type { Cliente } from '../../models/Cliente';
-import './FormNovoCliente.css';
+import { ErrorMessage, SuccessMessage } from '../message/Message';
+import './NovoClienteForm.css';
 
-type FormClienteProps = {
+type NovoClienteFormProps = {
   create: (options: {
     onSuccess: () => void;
     onError: (error: Error) => void;
@@ -14,10 +14,10 @@ type FormClienteProps = {
   navigate: NavigateFunction;
 };
 
-export default function FormNovoCliente({
+export default function NovoClienteForm({
   create,
   navigate
-}: FormClienteProps) {
+}: NovoClienteFormProps) {
   const [ativo, setAtivo] = useState(true);
   const cadastra = create({
     onSuccess: async () =>

@@ -1,35 +1,35 @@
 import { Button, TextField } from '@mui/material';
+import type { UseMutationResult } from '@tanstack/react-query';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ErrorMessage, SuccessMessage } from '../../components/message/Message';
-import { SAQUE_INVALIDO, type Saque } from '../../models/Saque';
+import { DEPOSITO_INVALIDO, type Deposito } from '../../models/Deposito';
 import { pagesClientes } from '../../services/ClienteService';
 import { listContas } from '../../services/ContaService';
 import InfiniteSelect, { type Option } from '../infinite-select/InfiniteSelect';
-import './FormSaque.css';
-import type { UseMutationResult } from '@tanstack/react-query';
+import { ErrorMessage, SuccessMessage } from '../message/Message';
+import './DepositoForm.css';
 
-type FormSaqueProps = {
-  withdrawal: (options: {
+type DepositoFormProps = {
+  deposit: (options: {
     onSuccess: () => void;
     onError: (error: Error) => void;
-  }) => UseMutationResult<void, Error, Saque, unknown>;
+  }) => UseMutationResult<void, Error, Deposito, unknown>;
 };
 
-export default function FormSaque({ withdrawal }: FormSaqueProps) {
+export default function DepositoForm({ deposit }: DepositoFormProps) {
   const navigate = useNavigate();
   const [cliente, setCliente] = useState<string>('');
-  const [saque, setSaque] = useState<Saque>(SAQUE_INVALIDO);
-  const saq = withdrawal({
+  const [deposito, setDeposito] = useState<Deposito>(DEPOSITO_INVALIDO);
+  const deposita = deposit({
     onSuccess: async () =>
       await new SuccessMessage(
         'Sucesso!',
-        'Saque realizado com sucesso!'
+        'Depósito realizado com sucesso!'
       ).show(),
     onError: async (error: Error) =>
       await new ErrorMessage(
         'Oops...',
-        `Erro ao sacar na conta: ${error.message}`
+        `Erro ao depositar na conta: ${error.message}`
       ).show()
   });
 
@@ -37,7 +37,7 @@ export default function FormSaque({ withdrawal }: FormSaqueProps) {
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ): void {
     const { name, value } = event.target;
-    setSaque({ ...saque, [name]: value });
+    setDeposito({ ...deposito, [name]: value });
   }
 
   function handleCliente(value: React.SetStateAction<string>): void {
@@ -48,7 +48,7 @@ export default function FormSaque({ withdrawal }: FormSaqueProps) {
     event: React.FormEvent<HTMLFormElement>
   ): Promise<void> {
     event.preventDefault();
-    saq.mutate(saque);
+    deposita.mutate(deposito);
     await navigate('/contas');
   }
 
@@ -89,7 +89,7 @@ export default function FormSaque({ withdrawal }: FormSaqueProps) {
           label="Conta"
           required
           options={contas}
-          onChange={(val) => setSaque({ ...saque, conta: Number(val) })}
+          onChange={(val) => setDeposito({ ...deposito, conta: Number(val) })}
           key={cliente}
         />
         <TextField
@@ -100,7 +100,7 @@ export default function FormSaque({ withdrawal }: FormSaqueProps) {
           onChange={handleChange}
         />
         <Button type="submit" variant="contained">
-          Sacar
+          Depositar
         </Button>
       </form>
     </div>

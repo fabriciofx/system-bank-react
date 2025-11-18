@@ -1,7 +1,7 @@
 import { Button, TextField } from '@mui/material';
+import type { UseMutationResult } from '@tanstack/react-query';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ErrorMessage, SuccessMessage } from '../../components/message/Message';
 import {
   TRANSFERENCIA_INVALIDA,
   type Transferencia
@@ -9,8 +9,8 @@ import {
 import { pagesClientes } from '../../services/ClienteService';
 import { listContas } from '../../services/ContaService';
 import InfiniteSelect, { type Option } from '../infinite-select/InfiniteSelect';
-import './FormTransferencia.css';
-import type { UseMutationResult } from '@tanstack/react-query';
+import { ErrorMessage, SuccessMessage } from '../message/Message';
+import './TransferenciaForm.css';
 
 type FormTransferenciaProps = {
   transfer: (options: {

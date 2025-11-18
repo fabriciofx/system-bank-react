@@ -14,17 +14,17 @@ import {
 import type { UseMutationResult, UseQueryResult } from '@tanstack/react-query';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Spinner from '../../components/spinner/Spinner';
 import type { PageResult } from '../../core/PageResult';
-import type { ContaCliente } from '../../models/ContaCliente';
+import type { Cliente } from '../../models/Cliente';
 import type { Id } from '../../models/Id';
 import { ErrorMessage, SuccessMessage } from '../message/Message';
+import Spinner from '../spinner/Spinner';
 
-type ListaContasProps = {
+type ClientesListProps = {
   pages: (
     num: number,
     size: number
-  ) => UseQueryResult<PageResult<ContaCliente>, Error>;
+  ) => UseQueryResult<PageResult<Cliente>, Error>;
   remove: (options: {
     onSuccess: () => void;
     onError: (error: Error) => void;
@@ -32,27 +32,30 @@ type ListaContasProps = {
   rowsPage: number;
 };
 
-export default function ListaContas({
+export default function ClientesList({
   pages,
   remove,
   rowsPage
-}: ListaContasProps) {
+}: ClientesListProps) {
   const navigate = useNavigate();
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(rowsPage);
   const paginated = pages(page + 1, rowsPerPage);
   const deleta = remove({
     onSuccess: async () =>
-      await new SuccessMessage('Sucesso!', 'Conta apagada com sucesso!').show(),
+      await new SuccessMessage(
+        'Sucesso!',
+        'Cliente apagado com sucesso!'
+      ).show(),
     onError: async (error: Error) =>
       await new ErrorMessage(
         'Oops!',
-        `Erro ao deletar a conta: ${error.message}`
+        `Erro ao apagar o cliente: ${error.message}`
       ).show()
   });
 
-  function handleEdit(contaCliente: ContaCliente): void {
-    navigate(`/contas/${contaCliente.id}`);
+  function handleEdit(cliente: Cliente): void {
+    navigate(`/clientes/${cliente.id}`);
   }
 
   async function handleDelete(id: number) {
@@ -83,7 +86,7 @@ export default function ListaContas({
   if (paginated.isError) {
     new ErrorMessage(
       'Oops...',
-      `Erro ao carregar as contas: ${paginated.error.message}`
+      `Erro ao carregar os clientes: ${paginated.error.message}`
     ).show();
   }
 
@@ -94,30 +97,30 @@ export default function ListaContas({
           <TableHead>
             <TableRow>
               <TableCell>No.</TableCell>
-              <TableCell>Cliente</TableCell>
-              <TableCell>Número</TableCell>
-              <TableCell>Agência</TableCell>
-              <TableCell>Saldo</TableCell>
+              <TableCell>Nome</TableCell>
+              <TableCell>CPF</TableCell>
+              <TableCell>Email</TableCell>
+              <TableCell>Ativo</TableCell>
               <TableCell>Ações</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {paginated.data?.items.map((contaCliente: ContaCliente) => (
-              <TableRow key={contaCliente.id}>
-                <TableCell>{contaCliente.id}</TableCell>
-                <TableCell>{contaCliente.cliente.nome}</TableCell>
-                <TableCell>{contaCliente.numero}</TableCell>
-                <TableCell>{contaCliente.agencia}</TableCell>
-                <TableCell>{contaCliente.saldo}</TableCell>
+            {paginated.data?.items.map((cliente: Cliente) => (
+              <TableRow key={cliente.id}>
+                <TableCell>{cliente.id}</TableCell>
+                <TableCell>{cliente.nome}</TableCell>
+                <TableCell>{cliente.cpf}</TableCell>
+                <TableCell>{cliente.email}</TableCell>
+                <TableCell>{cliente.ativo ? 'Sim' : 'Não'}</TableCell>
                 <TableCell>
                   <IconButton
-                    onClick={() => handleEdit(contaCliente)}
+                    onClick={() => handleEdit(cliente)}
                     aria-label="Editar"
                   >
                     <EditIcon />
                   </IconButton>
                   <IconButton
-                    onClick={() => handleDelete(contaCliente.id)}
+                    onClick={() => handleDelete(cliente.id)}
                     aria-label="Excluir"
                   >
                     <DeleteIcon />

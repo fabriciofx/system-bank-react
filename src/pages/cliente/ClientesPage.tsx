@@ -1,6 +1,6 @@
 import { Button } from '@mui/material';
 import { Link } from 'react-router-dom';
-import ListaClientes from '../../components/cliente/ListaClientes';
+import ClientesList from '../../components/cliente/ClientesList';
 import Navbar from '../../components/navbar/Navbar';
 import './cliente.css';
 import { useDeleteCliente, usePagesClientes } from '../../hooks/useClientes';
@@ -20,7 +20,7 @@ export default function ClientesPage() {
           Novo cliente
         </Button>
       </div>
-      <ListaClientes
+      <ClientesList
         pages={usePagesClientes}
         remove={useDeleteCliente}
         rowsPage={10}

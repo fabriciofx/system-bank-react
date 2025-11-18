@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import FormEditCliente from '../../components/cliente/FormEditCliente';
+import EditClienteForm from '../../components/cliente/EditClienteForm';
 import Navbar from '../../components/navbar/Navbar';
 import { useUpdateCliente } from '../../hooks/useClientes';
 import { clienteById } from '../../services/ClienteService';
@@ -12,7 +12,7 @@ export default function EditClientePage() {
       <div className="box-com-titulo">
         <div className="box-cliente">
           <h1>Alterando dados do cliente</h1>
-          <FormEditCliente
+          <EditClienteForm
             update={useUpdateCliente}
             findById={clienteById}
             navigate={useNavigate()}

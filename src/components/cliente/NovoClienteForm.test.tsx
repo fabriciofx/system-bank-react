@@ -2,20 +2,38 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { MemoryRouter, type NavigateFunction } from 'react-router-dom';
 import { describe, expect, it, vi } from 'vitest';
 import { render } from 'vitest-browser-react';
-import { fakeUseUpdateCliente } from '../../hooks/fakeUseClientes';
-import { fakeClienteById } from '../../services/FakeClienteService';
-import FormEditCliente from './FormEditCliente';
+import { fakeUseCreateCliente } from '../../hooks/fakeUseClientes';
+import NovoClienteForm from './NovoClienteForm';
 
-describe('FormEditCliente', () => {
+describe('NovoClienteForm', () => {
+  it('deve aparecer o nome Cadastar no botão do formulário', async () => {
+    const fakeNavigate = vi.fn() as unknown as NavigateFunction;
+    const queryClient = new QueryClient();
+    const screen = await render(
+      <MemoryRouter>
+        <QueryClientProvider client={queryClient}>
+          <NovoClienteForm
+            create={fakeUseCreateCliente}
+            navigate={fakeNavigate}
+          />
+        </QueryClientProvider>
+      </MemoryRouter>
+    );
+    await vi.waitFor(async () => {
+      await expect
+        .element(screen.getByRole('button'))
+        .toHaveTextContent('Cadastrar');
+    });
+  });
+
   it('deve preencher e enviar o formulário com sucesso', async () => {
     const fakeNavigate = vi.fn() as unknown as NavigateFunction;
     const queryClient = new QueryClient();
     const screen = await render(
       <MemoryRouter>
         <QueryClientProvider client={queryClient}>
-          <FormEditCliente
-            update={fakeUseUpdateCliente}
-            findById={fakeClienteById}
+          <NovoClienteForm
+            create={fakeUseCreateCliente}
             navigate={fakeNavigate}
           />
         </QueryClientProvider>

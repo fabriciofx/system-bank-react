@@ -1,4 +1,4 @@
-import FormConta from '../../components/conta/FormConta';
+import ContaForm from '../../components/conta/ContaForm';
 import Navbar from '../../components/navbar/Navbar';
 import { useCreateConta, useUpdateConta } from '../../hooks/useConta';
 import { clienteById, pagesClientes } from '../../services/ClienteService';
@@ -12,7 +12,7 @@ export default function NovaContaPage() {
       <div className="box-com-titulo">
         <div className="box-conta">
           <h1>Nova conta</h1>
-          <FormConta
+          <ContaForm
             create={useCreateConta}
             update={useUpdateConta}
             findById={contaById}
