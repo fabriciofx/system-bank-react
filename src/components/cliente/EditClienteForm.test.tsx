@@ -1,5 +1,9 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { MemoryRouter, type NavigateFunction } from 'react-router-dom';
+import {
+  MemoryRouter,
+  type NavigateFunction,
+  type Params
+} from 'react-router-dom';
 import { describe, expect, it, vi } from 'vitest';
 import { render } from 'vitest-browser-react';
 import { fakeUseUpdateCliente } from '../../hooks/fakeUseClientes';
@@ -7,8 +11,11 @@ import { fakeClienteById } from '../../services/FakeClienteService';
 import EditClienteForm from './EditClienteForm';
 
 describe('EditClienteForm', () => {
-  it('deve preencher e enviar o formulário com sucesso', async () => {
+  it('deve editar e atualizar o formulário com sucesso', async () => {
     const fakeNavigate = vi.fn() as unknown as NavigateFunction;
+    const fakeParams: Readonly<Params<string>> = {
+      id: '1'
+    };
     const queryClient = new QueryClient();
     const screen = await render(
       <MemoryRouter>
@@ -17,6 +24,7 @@ describe('EditClienteForm', () => {
             update={fakeUseUpdateCliente}
             findById={fakeClienteById}
             navigate={fakeNavigate}
+            params={fakeParams}
           />
         </QueryClientProvider>
       </MemoryRouter>

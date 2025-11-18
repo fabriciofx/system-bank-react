@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import EditClienteForm from '../../components/cliente/EditClienteForm';
 import Navbar from '../../components/navbar/Navbar';
 import { useUpdateCliente } from '../../hooks/useClientes';
@@ -16,6 +16,7 @@ export default function EditClientePage() {
             update={useUpdateCliente}
             findById={clienteById}
             navigate={useNavigate()}
+            params={useParams()}
           />
         </div>
       </div>

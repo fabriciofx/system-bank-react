@@ -1,6 +1,6 @@
 import { Button, FormControlLabel, Switch, TextField } from '@mui/material';
 import { useEffect, useState } from 'react';
-import { type NavigateFunction, useParams } from 'react-router-dom';
+import type { NavigateFunction, Params } from 'react-router-dom';
 import type { UpdateHook } from '../../hooks/types';
 import { CLIENTE_INVALIDO, type Cliente } from '../../models/Cliente';
 import { ErrorMessage, SuccessMessage } from '../message/Message';
@@ -10,14 +10,15 @@ type EditClienteFormProps = {
   update: UpdateHook<Cliente>;
   findById: (id: number) => Promise<Cliente[]>;
   navigate: NavigateFunction;
+  params: Readonly<Params<string>>;
 };
 
 export default function EditClienteForm({
   update,
   findById,
-  navigate
+  navigate,
+  params
 }: EditClienteFormProps) {
-  const { id } = useParams();
   const [cliente, setCliente] = useState<Cliente>(CLIENTE_INVALIDO);
   const atualiza = update({
     onSuccess: async () =>
@@ -32,15 +33,15 @@ export default function EditClienteForm({
       ).show()
   });
   useEffect(() => {
-    if (id) {
+    if (params.id) {
       (async () => {
-        const clienteEdit = await findById(Number(id));
+        const clienteEdit = await findById(Number(params.id));
         if (clienteEdit.length > 0) {
           setCliente(clienteEdit[0]);
         }
       })();
     }
-  }, [findById, id]);
+  }, [findById, params.id]);
 
   function handleOnChange(event: React.ChangeEvent<HTMLInputElement>) {
     const { name, value } = event.target;
