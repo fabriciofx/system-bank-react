@@ -1,4 +1,4 @@
-import axios, { type AxiosRequestConfig } from 'axios';
+import axios, { type AxiosError, type AxiosRequestConfig } from 'axios';
 import { useAuthStore } from '../store/authStore';
 
 const api = axios.create({
@@ -18,24 +18,24 @@ api.interceptors.request.use((config) => {
 
 api.interceptors.response.use(
   (response) => response,
-  async (error) => {
-    const setAccess = useAuthStore.getState().setAccess;
-    const refresh = useAuthStore.getState().refresh;
+  async (error: AxiosError) => {
     const config = error.config as AxiosRequestConfig & { _retry?: boolean };
     if (error.response?.status === 401 && !config._retry) {
       config._retry = true;
-      try {
+      const refresh = useAuthStore.getState().refresh;
+      if (refresh) {
         const refreshResponse = await api.post('/token/refresh/', {
           refresh: refresh
         });
+        const setAccess = useAuthStore.getState().setAccess;
         setAccess(refreshResponse.data.access);
         if (config.headers) {
           config.headers.Authorization = `Bearer ${refreshResponse.data.access}`;
         }
-        return api(config);
-      } catch (refreshError) {
-        console.error('Error to refresh access token: ', refreshError);
+      } else {
+        throw new Error('Verifique se o username e password estão corretos');
       }
+      return api(config);
     }
     return Promise.reject(error);
   }

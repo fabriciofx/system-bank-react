@@ -1,6 +1,7 @@
 import { Button, TextField } from '@mui/material';
 import type { NavigateFunction } from 'react-router-dom';
 import type { Credentials } from '../../models/Credentials';
+import { ErrorMessage } from '../message/Message';
 import './LoginForm.css';
 
 type LoginFormProps = {
@@ -18,9 +19,11 @@ export default function LoginForm({ login, navigate }: LoginFormProps) {
       username: form.get('username')?.toString() ?? '',
       password: form.get('password')?.toString() ?? ''
     };
-    const response = await login(credentials);
-    if (response) {
+    try {
+      await login(credentials);
       navigate('/clientes');
+    } catch (error) {
+      await new ErrorMessage('Autenticação inválida', `${error}`).show();
     }
   }
 

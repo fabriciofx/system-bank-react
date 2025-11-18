@@ -13,11 +13,11 @@ export async function login(credentials: Credentials): Promise<boolean> {
       setRefresh(response.data.refresh);
       return true;
     }
+    return false;
   } catch (error) {
-    console.error('Erro ao buscar clientes:', error);
+    console.error(`Erro ao autenticar o usuário: ${error}`);
     throw error;
   }
-  return false;
 }
 
 export async function logout(): Promise<void> {
