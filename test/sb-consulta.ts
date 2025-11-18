@@ -20,6 +20,8 @@ async function authenticate(url: string): Promise<AuthTokens | undefined> {
     });
     if (response.ok) {
       return response.json();
+    } else {
+      console.log(`status: ${response.status} => ${response.statusText}`);
     }
   } catch (error) {
     throw new Error(`Error: ${error}`);
