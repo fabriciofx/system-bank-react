@@ -14,7 +14,7 @@ export function fakeUsePagesContasClientes(num: number, size: number) {
 
 export function fakeUseDeleteConta(options: {
   onSuccess: () => void;
-  onError: () => void;
+  onError: (error: Error) => void;
 }) {
   const queryClient = useQueryClient();
   return useMutation({
@@ -25,8 +25,8 @@ export function fakeUseDeleteConta(options: {
       });
       options.onSuccess();
     },
-    onError: () => {
-      options.onError();
+    onError: (error: Error) => {
+      options.onError(error);
     }
   });
 }
