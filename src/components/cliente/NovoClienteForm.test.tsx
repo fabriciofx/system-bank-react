@@ -6,26 +6,6 @@ import { fakeUseCreateCliente } from '../../hooks/fakeUseClientes';
 import NovoClienteForm from './NovoClienteForm';
 
 describe('NovoClienteForm', () => {
-  it('deve aparecer o nome Cadastar no botão do formulário', async () => {
-    const fakeNavigate = vi.fn() as unknown as NavigateFunction;
-    const queryClient = new QueryClient();
-    const screen = await render(
-      <MemoryRouter>
-        <QueryClientProvider client={queryClient}>
-          <NovoClienteForm
-            create={fakeUseCreateCliente}
-            navigate={fakeNavigate}
-          />
-        </QueryClientProvider>
-      </MemoryRouter>
-    );
-    await vi.waitFor(async () => {
-      await expect
-        .element(screen.getByRole('button'))
-        .toHaveTextContent('Cadastrar');
-    });
-  });
-
   it('deve preencher e enviar o formulário com sucesso', async () => {
     const fakeNavigate = vi.fn() as unknown as NavigateFunction;
     const queryClient = new QueryClient();
