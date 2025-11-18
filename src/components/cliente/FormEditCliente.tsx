@@ -1,45 +1,27 @@
 import { Button, FormControlLabel, Switch, TextField } from '@mui/material';
+import type { UseMutationResult } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { type NavigateFunction, useParams } from 'react-router-dom';
 import { ErrorMessage, SuccessMessage } from '../../components/message/Message';
 import { CLIENTE_INVALIDO, type Cliente } from '../../models/Cliente';
-import './FormCliente.css';
-import type { UseMutationResult } from '@tanstack/react-query';
+import './FormEditCliente.css';
 
 type FormClienteProps = {
-  create: (options: {
-    onSuccess: () => void;
-    onError: (error: Error) => void;
-  }) => UseMutationResult<Cliente, Error, Cliente, unknown>;
   update: (options: {
     onSuccess: () => void;
     onError: (error: Error) => void;
   }) => UseMutationResult<Cliente, Error, Cliente, unknown>;
   findById: (id: number) => Promise<Cliente[]>;
-  buttonText: string;
+  navigate: NavigateFunction;
 };
 
-export default function FormCliente({
-  create,
+export default function FormEditCliente({
   update,
   findById,
-  buttonText
+  navigate
 }: FormClienteProps) {
-  const navigate = useNavigate();
   const { id } = useParams();
   const [cliente, setCliente] = useState<Cliente>(CLIENTE_INVALIDO);
-  const cadastra = create({
-    onSuccess: async () =>
-      await new SuccessMessage(
-        'Sucesso!',
-        'Cliente cadastrado com sucesso!'
-      ).show(),
-    onError: async (error: Error) =>
-      await new ErrorMessage(
-        'Oops...',
-        `Erro ao cadastrar o cliente: ${error.message}`
-      ).show()
-  });
   const atualiza = update({
     onSuccess: async () =>
       await new SuccessMessage(
@@ -52,7 +34,6 @@ export default function FormCliente({
         `Erro ao atualizar o cliente: ${error.message}`
       ).show()
   });
-
   useEffect(() => {
     if (id) {
       (async () => {
@@ -64,22 +45,16 @@ export default function FormCliente({
     }
   }, [findById, id]);
 
-  function handleChange(
-    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ): void {
+  function handleOnChange(event: React.ChangeEvent<HTMLInputElement>) {
     const { name, value } = event.target;
-    setCliente({ ...cliente, [name]: value });
+    setCliente((cliente) => ({ ...cliente, [name]: value }));
   }
 
   async function handleSubmit(
     event: React.FormEvent<HTMLFormElement>
   ): Promise<void> {
     event.preventDefault();
-    if (cliente.id) {
-      atualiza.mutate(cliente);
-    } else {
-      cadastra.mutate(cliente);
-    }
+    atualiza.mutate(cliente);
     await navigate('/clientes');
   }
 
@@ -91,7 +66,7 @@ export default function FormCliente({
           name="nome"
           required
           value={cliente.nome}
-          onChange={handleChange}
+          onChange={handleOnChange}
           variant="filled"
         />
         <TextField
@@ -99,7 +74,7 @@ export default function FormCliente({
           name="cpf"
           required
           value={cliente.cpf}
-          onChange={handleChange}
+          onChange={handleOnChange}
           variant="filled"
         />
         <TextField
@@ -108,7 +83,7 @@ export default function FormCliente({
           name="email"
           required
           value={cliente.email}
-          onChange={handleChange}
+          onChange={handleOnChange}
           variant="filled"
         />
         <TextField
@@ -119,7 +94,7 @@ export default function FormCliente({
           maxRows={6}
           required
           value={cliente.observacoes}
-          onChange={handleChange}
+          onChange={handleOnChange}
           variant="filled"
         />
         <FormControlLabel
@@ -134,7 +109,7 @@ export default function FormCliente({
           label={cliente.ativo ? 'Ativo' : 'Inativo'}
         />
         <Button type="submit" variant="contained">
-          {buttonText}
+          Atualiza
         </Button>
       </form>
     </div>
