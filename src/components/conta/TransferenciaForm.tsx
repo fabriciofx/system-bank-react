@@ -1,22 +1,28 @@
 import { Button, TextField } from '@mui/material';
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import type { NavigateFunction } from 'react-router-dom';
+import type { PageResult } from '../../core/PageResult';
 import type { OperationHook } from '../../hooks/types';
+import type { Cliente } from '../../models/Cliente';
+import type { Conta } from '../../models/Conta';
 import type { Transferencia } from '../../models/Transferencia';
-import { pagesClientes } from '../../services/ClienteService';
-import { listContas } from '../../services/ContaService';
 import InfiniteSelect, { type Option } from '../infinite-select/InfiniteSelect';
 import { ErrorMessage, SuccessMessage } from '../message/Message';
 import './TransferenciaForm.css';
 
 type FormTransferenciaProps = {
   transfer: OperationHook<Transferencia>;
+  clientes: (num: number, size: number) => Promise<PageResult<Cliente>>;
+  contas: () => Promise<Conta[]>;
+  navigate: NavigateFunction;
 };
 
 export default function FormTransferencia({
-  transfer
+  transfer,
+  clientes,
+  contas,
+  navigate
 }: FormTransferenciaProps) {
-  const navigate = useNavigate();
   const [cliente, setCliente] = useState<number>(0);
   const [origem, setOrigem] = useState<number>(0);
   const [destino, setDestino] = useState<number>(0);
@@ -47,9 +53,9 @@ export default function FormTransferencia({
     await navigate('/contas');
   }
 
-  async function clientes(page: number): Promise<Option[]> {
+  async function clientesOptions(page: number): Promise<Option[]> {
     try {
-      const result = await pagesClientes(page, 5);
+      const result = await clientes(page, 5);
       const opts = result.items.map((client) => ({
         label: `${client.nome} (${client.cpf})`,
         value: String(client.id)
@@ -60,9 +66,9 @@ export default function FormTransferencia({
     }
   }
 
-  async function contas(): Promise<Option[]> {
-    const contas = await listContas();
-    const opts = contas
+  async function contasOptions(): Promise<Option[]> {
+    const conts = await contas();
+    const opts = conts
       .filter((conta) => conta.cliente === cliente)
       .map((conta) => ({
         label: `${conta.numero} (${conta.agencia})`,
@@ -77,20 +83,20 @@ export default function FormTransferencia({
         <InfiniteSelect
           label="Cliente"
           required
-          options={clientes}
+          options={clientesOptions}
           onChange={(val) => setCliente(Number(val))}
         />
         <InfiniteSelect
           label="Origem"
           required
-          options={contas}
+          options={contasOptions}
           onChange={(val) => setOrigem(Number(val))}
           key={`origem-${cliente}`}
         />
         <InfiniteSelect
           label="Destino"
           required
-          options={contas}
+          options={contasOptions}
           onChange={(val) => setDestino(Number(val))}
           key={`destino-${cliente}`}
         />
