@@ -20,7 +20,7 @@ export default function FormTransferencia({
   transfer
 }: FormTransferenciaProps) {
   const navigate = useNavigate();
-  const [cliente, setCliente] = useState<string>('');
+  const [cliente, setCliente] = useState<number>(0);
   const [transferencia, setTransferencia] = useState<Transferencia>(
     TRANSFERENCIA_INVALIDA
   );
@@ -42,10 +42,6 @@ export default function FormTransferencia({
   ): void {
     const { name, value } = event.target;
     setTransferencia({ ...transferencia, [name]: value });
-  }
-
-  function handleCliente(value: React.SetStateAction<string>): void {
-    setCliente(value.toString());
   }
 
   async function handleSubmit(
@@ -72,7 +68,7 @@ export default function FormTransferencia({
   async function contas(): Promise<Option[]> {
     const contas = await listContas();
     const opts = contas
-      .filter((conta) => conta.cliente === Number(cliente))
+      .filter((conta) => conta.cliente === cliente)
       .map((conta) => ({
         label: `${conta.numero} (${conta.agencia})`,
         value: String(conta.id)
@@ -87,7 +83,7 @@ export default function FormTransferencia({
           label="Cliente"
           required
           options={clientes}
-          onChange={(val) => handleCliente(val)}
+          onChange={(val) => setCliente(Number(val))}
         />
         <InfiniteSelect
           label="Origem"
