@@ -2,7 +2,7 @@ import { Button, TextField } from '@mui/material';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import type { OperationHook } from '../../hooks/types';
-import { DEPOSITO_INVALIDO, type Deposito } from '../../models/Deposito';
+import type { Deposito } from '../../models/Deposito';
 import { pagesClientes } from '../../services/ClienteService';
 import { listContas } from '../../services/ContaService';
 import InfiniteSelect, { type Option } from '../infinite-select/InfiniteSelect';
@@ -15,8 +15,8 @@ type DepositoFormProps = {
 
 export default function DepositoForm({ deposit }: DepositoFormProps) {
   const navigate = useNavigate();
-  const [cliente, setCliente] = useState<string>('');
-  const [deposito, setDeposito] = useState<Deposito>(DEPOSITO_INVALIDO);
+  const [cliente, setCliente] = useState<number>(0);
+  const [conta, setConta] = useState<number>(0);
   const deposita = deposit({
     onSuccess: async () =>
       await new SuccessMessage(
@@ -30,17 +30,15 @@ export default function DepositoForm({ deposit }: DepositoFormProps) {
       ).show()
   });
 
-  function handleChange(
-    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ): void {
-    const { name, value } = event.target;
-    setDeposito({ ...deposito, [name]: value });
-  }
-
   async function handleSubmit(
     event: React.FormEvent<HTMLFormElement>
   ): Promise<void> {
     event.preventDefault();
+    const form = new FormData(event.currentTarget);
+    const deposito: Deposito = {
+      conta: conta,
+      valor: Number(form.get('valor')?.toString())
+    };
     deposita.mutate(deposito);
     await navigate('/contas');
   }
@@ -61,7 +59,7 @@ export default function DepositoForm({ deposit }: DepositoFormProps) {
   async function contas(): Promise<Option[]> {
     const contas = await listContas();
     const opts = contas
-      .filter((conta) => conta.cliente === Number(cliente))
+      .filter((conta) => conta.cliente === cliente)
       .map((conta) => ({
         label: `${conta.numero} (${conta.agencia})`,
         value: String(conta.id)
@@ -76,22 +74,16 @@ export default function DepositoForm({ deposit }: DepositoFormProps) {
           label="Cliente"
           required
           options={clientes}
-          onChange={(val) => setCliente(val)}
+          onChange={(val) => setCliente(Number(val))}
         />
         <InfiniteSelect
           label="Conta"
           required
           options={contas}
-          onChange={(val) => setDeposito({ ...deposito, conta: Number(val) })}
+          onChange={(val) => setConta(Number(val))}
           key={cliente}
         />
-        <TextField
-          label="Valor"
-          name="valor"
-          variant="filled"
-          required
-          onChange={handleChange}
-        />
+        <TextField label="Valor" name="valor" variant="filled" required />
         <Button type="submit" variant="contained">
           Depositar
         </Button>
