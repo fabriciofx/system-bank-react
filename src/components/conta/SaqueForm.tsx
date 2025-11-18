@@ -2,7 +2,7 @@ import { Button, TextField } from '@mui/material';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import type { OperationHook } from '../../hooks/types';
-import { SAQUE_INVALIDO, type Saque } from '../../models/Saque';
+import type { Saque } from '../../models/Saque';
 import { pagesClientes } from '../../services/ClienteService';
 import { listContas } from '../../services/ContaService';
 import InfiniteSelect, { type Option } from '../infinite-select/InfiniteSelect';
@@ -16,7 +16,7 @@ type SaqueFormProps = {
 export default function SaqueForm({ withdrawal }: SaqueFormProps) {
   const navigate = useNavigate();
   const [cliente, setCliente] = useState<number>(0);
-  const [saque, setSaque] = useState<Saque>(SAQUE_INVALIDO);
+  const [conta, setConta] = useState<number>(0);
   const saq = withdrawal({
     onSuccess: async () =>
       await new SuccessMessage(
@@ -30,17 +30,15 @@ export default function SaqueForm({ withdrawal }: SaqueFormProps) {
       ).show()
   });
 
-  function handleChange(
-    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ): void {
-    const { name, value } = event.target;
-    setSaque({ ...saque, [name]: value });
-  }
-
   async function handleSubmit(
     event: React.FormEvent<HTMLFormElement>
   ): Promise<void> {
     event.preventDefault();
+    const form = new FormData(event.currentTarget);
+    const saque: Saque = {
+      conta: conta,
+      valor: Number(form.get('valor')?.toString())
+    };
     saq.mutate(saque);
     await navigate('/contas');
   }
@@ -82,16 +80,10 @@ export default function SaqueForm({ withdrawal }: SaqueFormProps) {
           label="Conta"
           required
           options={contas}
-          onChange={(val) => setSaque({ ...saque, conta: Number(val) })}
+          onChange={(val) => setConta(Number(val))}
           key={cliente}
         />
-        <TextField
-          label="Valor"
-          name="valor"
-          variant="filled"
-          required
-          onChange={handleChange}
-        />
+        <TextField label="Valor" name="valor" variant="filled" required />
         <Button type="submit" variant="contained">
           Sacar
         </Button>
