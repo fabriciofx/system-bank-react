@@ -1,7 +1,7 @@
 import { Button, TextField } from '@mui/material';
-import type { UseMutationResult } from '@tanstack/react-query';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import type { OperationHook } from '../../hooks/types';
 import {
   TRANSFERENCIA_INVALIDA,
   type Transferencia
@@ -13,10 +13,7 @@ import { ErrorMessage, SuccessMessage } from '../message/Message';
 import './TransferenciaForm.css';
 
 type FormTransferenciaProps = {
-  transfer: (options: {
-    onSuccess: () => void;
-    onError: (error: Error) => void;
-  }) => UseMutationResult<void, Error, Transferencia, unknown>;
+  transfer: OperationHook<Transferencia>;
 };
 
 export default function FormTransferencia({

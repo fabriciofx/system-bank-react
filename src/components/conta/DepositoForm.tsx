@@ -1,7 +1,7 @@
 import { Button, TextField } from '@mui/material';
-import type { UseMutationResult } from '@tanstack/react-query';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import type { OperationHook } from '../../hooks/types';
 import { DEPOSITO_INVALIDO, type Deposito } from '../../models/Deposito';
 import { pagesClientes } from '../../services/ClienteService';
 import { listContas } from '../../services/ContaService';
@@ -10,10 +10,7 @@ import { ErrorMessage, SuccessMessage } from '../message/Message';
 import './DepositoForm.css';
 
 type DepositoFormProps = {
-  deposit: (options: {
-    onSuccess: () => void;
-    onError: (error: Error) => void;
-  }) => UseMutationResult<void, Error, Deposito, unknown>;
+  deposit: OperationHook<Deposito>;
 };
 
 export default function DepositoForm({ deposit }: DepositoFormProps) {

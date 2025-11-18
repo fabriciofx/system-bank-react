@@ -1,8 +1,8 @@
 import { Button, MenuItem, Select, TextField } from '@mui/material';
-import type { UseMutationResult } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import type { PageResult } from '../../core/PageResult';
+import type { CreateHook, UpdateHook } from '../../hooks/types';
 import { CLIENTE_INVALIDO, type Cliente } from '../../models/Cliente';
 import { CONTA_INVALIDA, type Conta } from '../../models/Conta';
 import InfiniteSelect, { type Option } from '../infinite-select/InfiniteSelect';
@@ -10,14 +10,8 @@ import { ErrorMessage, SuccessMessage } from '../message/Message';
 import './ContaForm.css';
 
 type ContaFormProps = {
-  create: (options: {
-    onSuccess: () => void;
-    onError: (error: Error) => void;
-  }) => UseMutationResult<Conta, Error, Conta, unknown>;
-  update: (options: {
-    onSuccess: () => void;
-    onError: (error: Error) => void;
-  }) => UseMutationResult<Conta, Error, Conta, unknown>;
+  create: CreateHook<Conta>;
+  update: UpdateHook<Conta>;
   findById: (id: number) => Promise<Conta>;
   pages: (num: number, size: number) => Promise<PageResult<Cliente>>;
   clienteById: (id: number) => Promise<Cliente[]>;

@@ -1,16 +1,13 @@
 import { Button, FormControlLabel, Switch, TextField } from '@mui/material';
-import type { UseMutationResult } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
 import { type NavigateFunction, useParams } from 'react-router-dom';
+import type { UpdateHook } from '../../hooks/types';
 import { CLIENTE_INVALIDO, type Cliente } from '../../models/Cliente';
 import { ErrorMessage, SuccessMessage } from '../message/Message';
 import './EditClienteForm.css';
 
 type EditClienteFormProps = {
-  update: (options: {
-    onSuccess: () => void;
-    onError: (error: Error) => void;
-  }) => UseMutationResult<Cliente, Error, Cliente, unknown>;
+  update: UpdateHook<Cliente>;
   findById: (id: number) => Promise<Cliente[]>;
   navigate: NavigateFunction;
 };

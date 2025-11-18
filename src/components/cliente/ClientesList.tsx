@@ -11,24 +11,17 @@ import {
   TablePagination,
   TableRow
 } from '@mui/material';
-import type { UseMutationResult, UseQueryResult } from '@tanstack/react-query';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import type { PageResult } from '../../core/PageResult';
+import type { DeleteHook, PagesHook } from '../../hooks/types';
 import type { Cliente } from '../../models/Cliente';
 import type { Id } from '../../models/Id';
 import { ErrorMessage, SuccessMessage } from '../message/Message';
 import Spinner from '../spinner/Spinner';
 
 type ClientesListProps = {
-  pages: (
-    num: number,
-    size: number
-  ) => UseQueryResult<PageResult<Cliente>, Error>;
-  remove: (options: {
-    onSuccess: () => void;
-    onError: (error: Error) => void;
-  }) => UseMutationResult<void, Error, Id, unknown>;
+  pages: PagesHook<Cliente>;
+  remove: DeleteHook<Id>;
   rowsPage: number;
 };
 

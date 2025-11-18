@@ -1,16 +1,13 @@
 import { Button, FormControlLabel, Switch, TextField } from '@mui/material';
-import type { UseMutationResult } from '@tanstack/react-query';
 import { useState } from 'react';
 import type { NavigateFunction } from 'react-router-dom';
+import type { CreateHook } from '../../hooks/types';
 import type { Cliente } from '../../models/Cliente';
 import { ErrorMessage, SuccessMessage } from '../message/Message';
 import './NovoClienteForm.css';
 
 type NovoClienteFormProps = {
-  create: (options: {
-    onSuccess: () => void;
-    onError: (error: Error) => void;
-  }) => UseMutationResult<Cliente, Error, Cliente, unknown>;
+  create: CreateHook<Cliente>;
   navigate: NavigateFunction;
 };
 

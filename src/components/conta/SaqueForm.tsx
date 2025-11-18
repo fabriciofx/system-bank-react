@@ -1,7 +1,7 @@
 import { Button, TextField } from '@mui/material';
-import type { UseMutationResult } from '@tanstack/react-query';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import type { OperationHook } from '../../hooks/types';
 import { SAQUE_INVALIDO, type Saque } from '../../models/Saque';
 import { pagesClientes } from '../../services/ClienteService';
 import { listContas } from '../../services/ContaService';
@@ -10,10 +10,7 @@ import { ErrorMessage, SuccessMessage } from '../message/Message';
 import './SaqueForm.css';
 
 type SaqueFormProps = {
-  withdrawal: (options: {
-    onSuccess: () => void;
-    onError: (error: Error) => void;
-  }) => UseMutationResult<void, Error, Saque, unknown>;
+  withdrawal: OperationHook<Saque>;
 };
 
 export default function SaqueForm({ withdrawal }: SaqueFormProps) {
