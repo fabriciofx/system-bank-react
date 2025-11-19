@@ -108,11 +108,11 @@ export async function transferenciaEntreContas(
   }
 }
 
-export async function contaById(id: number) {
+export async function contaById(id: number): Promise<Conta[]> {
   try {
     const contas = await listContas();
     const result = contas.filter((conta) => conta.id === id);
-    return result[0];
+    return result;
   } catch (error) {
     console.error('Erro ao buscar conta pelo id: ', error);
     throw error;

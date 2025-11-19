@@ -9,7 +9,7 @@ import './EditContaForm.css';
 
 type EditContaFormProps = {
   update: UpdateHook<Conta>;
-  findById: (id: number) => Promise<Conta>;
+  findById: (id: number) => Promise<Conta[]>;
   clienteById: (id: number) => Promise<Cliente[]>;
   navigate: NavigateFunction;
   params: Readonly<Params<string>>;
@@ -41,9 +41,13 @@ export default function EditContaForm({
     if (params.id) {
       const load = async () => {
         const contaEdit = await findById(Number(params.id));
-        const result = await clienteById(contaEdit.cliente);
-        setConta(contaEdit);
-        setCliente(result[0]);
+        if (contaEdit.length > 0) {
+          const clienteEdit = await clienteById(contaEdit[0].cliente);
+          if (clienteEdit.length > 0) {
+            setConta(contaEdit[0]);
+            setCliente(clienteEdit[0]);
+          }
+        }
       };
       load();
     }
