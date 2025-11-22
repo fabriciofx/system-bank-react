@@ -43,7 +43,6 @@ export default function NovoClienteForm({
       ativo: ativo,
       observacoes: form.get('observacoes')?.toString() || ''
     };
-    console.log(cliente);
     cadastra.mutate(cliente);
     await navigate('/clientes');
   }
