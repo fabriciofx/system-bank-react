@@ -9,11 +9,9 @@ export default function LoginPage() {
       <div className="form">
         <div className="logo">
           <span className="title">SystemBank</span>
-          <img src="assets/logo.png" width="150px" alt="SystemBank logo" />
+          <img src="/assets/logo.png" alt="SystemBank logo" />
         </div>
-        <div className="login-form">
-          <LoginForm login={login} navigate={useNavigate()}></LoginForm>
-        </div>
+        <LoginForm login={login} navigate={useNavigate()}></LoginForm>
       </div>
     </div>
   );
