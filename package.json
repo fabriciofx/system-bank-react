@@ -12,7 +12,7 @@
     "preview": "vite preview",
     "test": "vitest",
     "prepare": "husky",
-    "deploy": "scp -r dist/* persephone:/var/www/system-bank-react"
+    "deploy": "npm run build && scp -r dist/* persephone:/var/www/system-bank-react"
   },
   "lint-staged": {
     "*.{ts,tsx,js,html,css}": [
