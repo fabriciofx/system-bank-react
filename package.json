@@ -35,12 +35,12 @@
     "react-hook-form": "^7.71.2",
     "react-input-mask": "^2.0.4",
     "react-router-dom": "^7.13.1",
-    "sweetalert2": "^11.26.21",
+    "sweetalert2": "^11.26.22",
     "zustand": "^5.0.11"
   },
   "devDependencies": {
     "@biomejs/biome": "^2.4.6",
-    "@types/node": "^25.3.5",
+    "@types/node": "^25.4.0",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react": "^5.1.4",
@@ -48,7 +48,7 @@
     "axios-mock-adapter": "^2.1.0",
     "globals": "^17.4.0",
     "husky": "^9.1.7",
-    "lint-staged": "^16.3.2",
+    "lint-staged": "^16.3.3",
     "npm-check-updates": "^19.6.3",
     "playwright": "^1.58.2",
     "rollup-plugin-visualizer": "^7.0.1",
